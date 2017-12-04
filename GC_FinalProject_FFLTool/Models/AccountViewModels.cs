@@ -65,6 +65,14 @@ namespace GC_FinalProject_FFLTool.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { set; get; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { set; get; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
