@@ -21,13 +21,6 @@ FROM tblUsers;
 
 DROP tblTeams;
 
-CREATE TABLE tblTeams (
-	TeamId BIGINT NOT NULL,
-	UserId INT NOT NULL,
-	TeamName VARCHAR(256) NOT NULL,
-	PlayerId INT NOT NULL,
-	CONSTRAINT PK_TeamId PRIMARY KEY (TeamId));
-
 INSERT INTO tblTeams
 VALUES (RAND() * 10000000000, 100000, 'Team 1', 5000),
 	   (RAND() * 10000000000, 100000, 'Team 2', 5001),
@@ -44,3 +37,20 @@ VALUES (RAND() * 10000000000, 100000, 'Team 1', 5000),
 SELECT *
 FROM tblTeams
 ORDER BY UserId, TeamName
+
+SELECT *
+FROM tblUsers;
+
+SELECT *
+FROM tblTeams;
+
+CREATE TABLE tblUserWatchlists (
+	WatchlistId BIGINT NOT NULL,
+	UserId NVARCHAR(128) NOT NULL,
+	CONSTRAINT PK_UserIdWatchlistId PRIMARY KEY (UserId, WatchlistId),
+	FOREIGN KEY (UserId) REFERENCES AspNetUsers(Id));
+
+CREATE TABLE tblWatchlists (
+	WatchlistId NVARCHAR(128) NOT NULL,
+	PlayerId INT,
+	CONSTRAINT PK_WatchlistId PRIMARY KEY (WatchlistId))
