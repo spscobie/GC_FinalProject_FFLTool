@@ -24,7 +24,7 @@ namespace GC_FinalProject_FFLTool.Controllers
         public ActionResult ApiRequest ()
         {
 
-            HttpWebRequest WebReq = WebRequest.CreateHttp("https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/cumulative_player_stats.json?playerstats=G,A,Pts,Sh");
+            HttpWebRequest WebReq = WebRequest.CreateHttp("https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-regular/active_players.json?position=qb,rb,wr,te,k,def");
             WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
             WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
             WebReq.Method = "GET";
@@ -36,8 +36,10 @@ namespace GC_FinalProject_FFLTool.Controllers
 
             JObject apiDataJSON = JObject.Parse(apiData);
 
-            ViewBag.Data = apiDataJSON;
-            return View();
+            //ViewBag.Data = apiDataJSON;
+            ViewBag.Players = apiDataJSON["activeplayers"]["playerentry"];
+
+            return View("AllPlayersView");
         }
 
         public ActionResult Contact()

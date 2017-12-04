@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "AllPlayersView";
+}
+
+<h2>AllPlayersView</h2>
+
+<br />
+<br />
+<table class="table table-hover" style="padding: 3px">
+    <thead class="thead-dark">
+        <tr>
+            <th>Position</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </tr>
+    </thead>
+
+
+
+    @for (int i = 0; i < ViewBag.Players.Count; i++)
+    {
+        <tr>
+            <td>@ViewBag.Players[i]["player"]["Position"]</td>
+            <td>@ViewBag.Players[i]["player"]["FirstName"]</td>
+            <td>@ViewBag.Players[i]["player"]["LastName"]</td>
+
+
+
+
+
+        </tr>
+
+    }
+
+</table>
