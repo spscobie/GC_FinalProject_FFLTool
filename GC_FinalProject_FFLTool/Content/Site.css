@@ -1,6 +1,10 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image: url('../models/images/nfl grass logo.jpg'); 
+    background-position: top right; 
+    background-repeat:no-repeat; 
+    background-size: 700px 600px;
 }
 
 /* Set padding to keep content from hitting the edges */
