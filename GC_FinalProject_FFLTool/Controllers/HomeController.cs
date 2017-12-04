@@ -8,14 +8,12 @@ using System.Net;
 using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace GC_FinalProject_FFLTool.Controllers
 {
     public class HomeController : Controller
     {
-        private string un = "";
-        private string pw = "";
-
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -25,13 +23,10 @@ namespace GC_FinalProject_FFLTool.Controllers
 
         public ActionResult ApiRequest ()
         {
-            var un_UTF8 = Encoding.UTF8.GetBytes(un);
-            var pw_UTF8 = Encoding.UTF8.GetBytes(pw);
 
-            HttpWebRequest WebReq = WebRequest.CreateHttp("https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/cumulative_player_stats.json?playerstats=G");
-            //WebReq.Headers.Add("AUTHORIZATION", "Basic " + Convert.ToBase64String(un_UTF8) + ":" + Convert.ToBase64String(pw_UTF8));
-            WebReq.Headers.Add("AUTHORIZATION", "Basic " + un + ":" + pw);
-            WebReq.UserAgent = ".NET Framework Test Client for Grand Circus Final Proj";
+            HttpWebRequest WebReq = WebRequest.CreateHttp("https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/cumulative_player_stats.json?playerstats=G,A,Pts,Sh");
+            WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
+            WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
             WebReq.Method = "GET";
 
             HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
