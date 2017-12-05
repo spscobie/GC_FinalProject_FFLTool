@@ -1,10 +1,10 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 200px;
     padding-bottom: 20px;
-    background-image: url('../models/images/nfl grass logo.jpg'); 
-    background-position: top right; 
-    background-repeat:no-repeat; 
-    background-size: 700px 600px;
+    background-image: url('images/yfl_logo_nowhite.png');
+    background-position: right top 100px;
+    background-repeat: no-repeat;
+    background-size: 500px 600px;
 }
 
 /* Set padding to keep content from hitting the edges */

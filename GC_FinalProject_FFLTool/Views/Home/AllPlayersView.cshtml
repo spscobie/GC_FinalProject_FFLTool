@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "AllPlayersView";
 }
+<link href="~/Content/StyleSheet1.css" rel="stylesheet" />
 
 <h2>AllPlayersView</h2>
 
@@ -32,9 +33,9 @@
             <td>@ViewBag.Players[i]["player"]["FirstName"]</td>
             <td>@ViewBag.Players[i]["player"]["LastName"]</td>
             <td>@ViewBag.Players[i]["team"]["Abbreviation"]</td>
-            <td>@ViewBag.Players[i]["stats"]["PassYards"]["#text"]</td>
+           @*<td>@ViewBag.Players[i]["stats"]["PassYards"]["#text"]</td>
             <td>@ViewBag.Players[i]["stats"]["RushYards"]["#text"]</td>
-            <td>@ViewBag.Players[i]["stats"]["RecYards"]["#text"]</td>
+            <td>@ViewBag.Players[i]["stats"]["RecYards"]["#text"]</td>*@
         </tr>
     }
 </table>
