@@ -7,6 +7,13 @@
 
 <br />
 <br />
+<div class="btn-group">
+    <button>QB</button>
+    <button>RB</button>
+    <button>WR</button>
+    <button>TE</button>
+    <button>K</button>
+</div>
 <table class="table table-hover" style="padding: 3px">
     <thead class="thead-dark">
         <tr>
@@ -15,22 +22,12 @@
             <th>Last Name</th>
         </tr>
     </thead>
-
-
-
     @for (int i = 0; i < ViewBag.Players.Count; i++)
     {
         <tr>
             <td>@ViewBag.Players[i]["player"]["Position"]</td>
             <td>@ViewBag.Players[i]["player"]["FirstName"]</td>
             <td>@ViewBag.Players[i]["player"]["LastName"]</td>
-
-
-
-
-
         </tr>
-
     }
-
 </table>
