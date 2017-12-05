@@ -54,3 +54,9 @@ CREATE TABLE tblWatchlists (
 	WatchlistId NVARCHAR(128) NOT NULL,
 	PlayerId INT,
 	CONSTRAINT PK_WatchlistId PRIMARY KEY (WatchlistId))
+
+SELECT *
+FROM tblUserWatchlists;
+
+SELECT *
+FROM tblWatchlists;

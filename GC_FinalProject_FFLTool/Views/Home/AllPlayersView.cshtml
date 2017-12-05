@@ -13,6 +13,9 @@
             <th>Position</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Passing Yds</th>
+            <th>Rushing Yds</th>
+            <th>Receiving Yds</th>
         </tr>
     </thead>
 
@@ -24,11 +27,10 @@
             <td>@ViewBag.Players[i]["player"]["Position"]</td>
             <td>@ViewBag.Players[i]["player"]["FirstName"]</td>
             <td>@ViewBag.Players[i]["player"]["LastName"]</td>
-
-
-
-
-
+            <td>@ViewBag.Players[i]["team"]["Abbreviation"]</td>
+            <td>@ViewBag.Players[i]["stats"]["PassYards"]["#text"]</td>
+            <td>@ViewBag.Players[i]["stats"]["RushYards"]["#text"]</td>
+            <td>@ViewBag.Players[i]["stats"]["RecYards"]["#text"]</td>
         </tr>
 
     }
