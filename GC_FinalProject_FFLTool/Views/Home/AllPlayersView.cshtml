@@ -1,19 +1,27 @@
 ﻿
 @{
-    ViewBag.Title = "AllPlayersView";
+    ViewBag.Title = "Player List";
 }
+<link href="~/Content/StyleSheet1.css" rel="stylesheet" />
 
-<h2>AllPlayersView</h2>
+<h2>Player List</h2>
 
 <br />
 <br />
 <div class="btn-group">
-    <button>QB</button>
-    <button>RB</button>
-    <button>WR</button>
-    <button>TE</button>
-    <button>K</button>
+    <a href="/Home/SearchPlayers" class=" btn btn-info btn-lg">All</a>
+    <a href="/Home/SearchPlayers?pos=QB"         class=" btn btn-info btn-lg">QB</a>
+    <a href="/Home/SearchPlayers?pos=RB"         class=" btn btn-info btn-lg">RB</a>
+    <a href="/Home/SearchPlayers?pos=WR"         class=" btn btn-info btn-lg">WR</a>
+    <a href="/Home/SearchPlayers?pos=TE"         class=" btn btn-info btn-lg">TE</a>
+    <a href="/Home/SearchPlayers?pos=K"          class=" btn btn-info btn-lg">K</a>
+    <form action="/Home/SearchPlayers">
+        <input type="text" name="player"/>
+        <input type="hidden" name="pos" value="@ViewBag.Pos"/>
+        <input type="submit" value="Search"/>
+    </form>
 </div>
+<<<<<<< HEAD
 <table class="table table-hover" style="padding: 3px">
     <thead class="thead-dark">
         <tr>
@@ -32,9 +40,68 @@
             <td>@ViewBag.Players[i]["player"]["FirstName"]</td>
             <td>@ViewBag.Players[i]["player"]["LastName"]</td>
             <td>@ViewBag.Players[i]["team"]["Abbreviation"]</td>
-            <td>@ViewBag.Players[i]["stats"]["PassYards"]["#text"]</td>
+           @*<td>@ViewBag.Players[i]["stats"]["PassYards"]["#text"]</td>
             <td>@ViewBag.Players[i]["stats"]["RushYards"]["#text"]</td>
-            <td>@ViewBag.Players[i]["stats"]["RecYards"]["#text"]</td>
+            <td>@ViewBag.Players[i]["stats"]["RecYards"]["#text"]</td>*@
         </tr>
     }
 </table>
+=======
+<br />
+<br />
+<div class="table-responsive ">
+    <table class="table table-hover table-bordered" style="padding: 3px">
+        <thead class="thead-dark" style="background-color: darkgrey">
+            <tr>
+                <th>Position</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Team</th>
+                <th>Pass Att</th>
+                <th>Pass Comp</th>
+                <th>Pass Yds</th>
+                <th>Pass TD</th>
+                <th>Interceptions</th>
+                <th>Rush Att</th>
+                <th>Rush Yds</th>
+                <th>Rush TD</th>
+                <th>Receptions</th>
+                <th>Receiving Yards</th>
+                <th>Receiving TD</th>
+                <th>Fg Att</th>
+                <th>Fg Made</th>
+
+
+
+                
+            </tr>
+        </thead>
+        @for (int i = 0; i < ViewBag.Players.Count; i++)
+        {
+            <tr class="active" style="background-color: whitesmoke">
+                <td style="display:none">@ViewBag.Players[i]["player"]["ID"]</td>
+                <td>@ViewBag.Players[i]["player"]["Position"]</td>
+                <td>@ViewBag.Players[i]["player"]["FirstName"]</td>
+                <td>@ViewBag.Players[i]["player"]["LastName"]</td>
+                <td>@ViewBag.Players[i]["team"]["Abbreviation"]</td>
+                <td>@(ViewBag.Players[i]["stats"]["PassAttempts"] == null || ViewBag.Players[i]["stats"]["PassAttempts"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["PassAttempts"]["#text"])</td>
+                <td>@(ViewBag.Players[i]["stats"]["PassCompletions"] == null || ViewBag.Players[i]["stats"]["PassCompletions"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["PassCompletions"]["#text"])</td>
+                <td>@(ViewBag.Players[i]["stats"]["PassYards"] == null || ViewBag.Players[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["PassYards"]["#text"])</td>
+                <td>@(ViewBag.Players[i]["stats"]["PassTD"] == null || ViewBag.Players[i]["stats"]["PassTD"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["PassTD"]["#text"])</td>
+                <td>@(ViewBag.Players[i]["stats"]["PassInt"] == null || ViewBag.Players[i]["stats"]["PassInt"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["PassInt"]["#text"])</td>
+                <td>@(ViewBag.Players[i]["stats"]["RushAttepmts"] == null || ViewBag.Players[i]["stats"]["RushAttepmts"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["RushAttepmts"]["#text"])</td>
+                <td>@(ViewBag.Players[i]["stats"]["RushYards"] == null || ViewBag.Players[i]["stats"]["RushYards"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["RushYards"]["#text"])</td>
+                <td>@(ViewBag.Players[i]["stats"]["RushTD"] == null || ViewBag.Players[i]["stats"]["RushTD"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["RushTD"]["#text"])</td>
+
+                <td>@(ViewBag.Players[i]["stats"]["Receptions"] == null || ViewBag.Players[i]["stats"]["Receptions"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["Receptions"]["#text"])</td>
+                <td>@(ViewBag.Players[i]["stats"]["RecYards"] == null || ViewBag.Players[i]["stats"]["RecYards"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["RecYards"]["#text"])</td>
+                <td>@(ViewBag.Players[i]["stats"]["RecTD"] == null || ViewBag.Players[i]["stats"]["RecTD"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["RecTD"]["#text"])</td>
+                
+                <td>@(ViewBag.Players[i]["stats"]["FgAtt"] == null || ViewBag.Players[i]["stats"]["FgAtt"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["FgAtt"]["#text"])</td>
+                <td>@(ViewBag.Players[i]["stats"]["FgMade"] == null || ViewBag.Players[i]["stats"]["FgMade"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["FgMade"]["#text"])</td>
+
+            </tr>
+        }
+    </table>
+</div>
+>>>>>>> b7928fa4c6e1e5769f8fc5ead1c3161324528b77

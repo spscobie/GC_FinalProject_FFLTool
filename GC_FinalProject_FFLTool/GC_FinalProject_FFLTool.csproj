@@ -330,6 +330,22 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\map.jpg" />
+    <Content Include="Content\Images\fantasy.jpg" />
+    <Content Include="Content\Images\players.jpg" />
+    <Content Include="Content\Images\YFL_Banner_1.jpg" />
+    <Content Include="Content\Images\YFL_Banner_10.jpg" />
+    <Content Include="Content\Images\YFL_Banner_2.jpg" />
+    <Content Include="Content\Images\YFL_Banner_3.jpg" />
+    <Content Include="Content\Images\YFL_Banner_4.jpg" />
+    <Content Include="Content\Images\YFL_Banner_5.jpg" />
+    <Content Include="Content\Images\YFL_Banner_6.jpg" />
+    <Content Include="Content\Images\YFL_Banner_7.jpg" />
+    <Content Include="Content\Images\YFL_Banner_8.jpg" />
+    <Content Include="Content\Images\YFL_Banner_9.jpg" />
+    <Content Include="Content\Images\YFL_Logo_NoWhite.png" />
+    <Content Include="Content\Images\YFL_OnGrass.png" />
+    <Content Include="Content\StyleSheet1.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -345,6 +361,13 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.CopyComplete" />
+    <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.GenerateResource.Cache" />
+    <Content Include="obj\Debug\GC_FinalProject_FFLTool.csprojResolveAssemblyReference.cache" />
+
     <Content Include="bin\ApplicationInsights.config" />
     <Content Include="bin\GC_FinalProject_FFLTool.dll.config" />
     <Content Include="bin\roslyn\csc.exe.config" />
@@ -356,6 +379,7 @@
     <Content Include="bin\roslyn\vbc.exe.config" />
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.CopyComplete" />
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.CoreCompileInputs.cache" />
@@ -363,6 +387,8 @@
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.csprojResolveAssemblyReference.cache" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Models\Images\nfl grass logo.jpg" />
+    <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.dll" />
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.pdb" />
@@ -410,6 +436,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\ApiRequest.cshtml" />
     <Content Include="Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\AllPlayersView.cshtml" />
     <None Include="Web.Debug.config">
