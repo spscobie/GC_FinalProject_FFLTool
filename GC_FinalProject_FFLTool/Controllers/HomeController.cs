@@ -21,7 +21,6 @@ namespace GC_FinalProject_FFLTool.Controllers
             return View();
         }
 
-
         public JObject ApiRequest(string pos, string player)
         {
             /*** Cumulative Game Stats API Call ***/
@@ -72,11 +71,11 @@ namespace GC_FinalProject_FFLTool.Controllers
             return View();
         }
 
-        public ActionResult ShowAllPlayers ()
+        public ActionResult ShowAllPlayers()
         {
             JObject players = ApiRequest("?position=qb,rb,wr,te,k");
 
-            ViewBag.Players= players["cumulativeplayerstats"]["playerstatsentry"];
+            ViewBag.Players = players["cumulativeplayerstats"]["playerstatsentry"];
 
             return View("AllPlayersView");
         }
@@ -97,7 +96,7 @@ namespace GC_FinalProject_FFLTool.Controllers
                 }
 
             }
-            else if(pos == "WR")
+            else if (pos == "WR")
             {
                 if (player != null)
                 {
@@ -133,7 +132,7 @@ namespace GC_FinalProject_FFLTool.Controllers
                 }
 
             }
-            else if( pos =="K")
+            else if (pos == "K")
             {
                 if (player != null)
                 {
