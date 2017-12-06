@@ -41,6 +41,7 @@ namespace GC_FinalProject_FFLTool.Controllers
         }
 
         public JObject ApiRequest(string pos)
+
         {
             /*** Cumulative Game Stats API Call ***/
             //HttpWebRequest WebReq = WebRequest.CreateHttp("https://api.mysportsfeeds.com/v1.1/pull/nfl/current/cumulative_player_stats.json?position=qb,rb,wr,te,k");
