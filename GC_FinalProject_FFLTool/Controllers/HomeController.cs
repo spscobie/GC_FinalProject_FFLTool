@@ -20,12 +20,9 @@ namespace GC_FinalProject_FFLTool.Controllers
 
             return View();
         }
+        
 
-<<<<<<< HEAD
-        public ActionResult ApiRequest()
-=======
         public JObject ApiRequest(string pos, string lastName)
->>>>>>> b7928fa4c6e1e5769f8fc5ead1c3161324528b77
         {
             /*** Cumulative Game Stats API Call ***/
             //HttpWebRequest WebReq = WebRequest.CreateHttp("https://api.mysportsfeeds.com/v1.1/pull/nfl/current/cumulative_player_stats.json?position=qb,rb,wr,te,k");
@@ -57,7 +54,7 @@ namespace GC_FinalProject_FFLTool.Controllers
 
 
 
-            public JObject ApiRequest (string pos)
+        public JObject ApiRequest(string pos)
         {
             /*** Cumulative Game Stats API Call ***/
             //HttpWebRequest WebReq = WebRequest.CreateHttp("https://api.mysportsfeeds.com/v1.1/pull/nfl/current/cumulative_player_stats.json?position=qb,rb,wr,te,k");
@@ -95,11 +92,11 @@ namespace GC_FinalProject_FFLTool.Controllers
             return View();
         }
 
-        public ActionResult ShowAllPlayers ()
+        public ActionResult ShowAllPlayers()
         {
             JObject players = ApiRequest("position=qb,rb,wr,te,k");
 
-            ViewBag.Players= players["cumulativeplayerstats"]["playerstatsentry"];
+            ViewBag.Players = players["cumulativeplayerstats"]["playerstatsentry"];
 
             return View("AllPlayersView");
         }
@@ -112,7 +109,7 @@ namespace GC_FinalProject_FFLTool.Controllers
                 players = ApiRequest("position=qb", player);
 
             }
-            else if(pos == "WR")
+            else if (pos == "WR")
             {
                 players = ApiRequest("position=wr", player);
 
@@ -127,7 +124,7 @@ namespace GC_FinalProject_FFLTool.Controllers
                 players = ApiRequest("position=te", player);
 
             }
-            else if( pos =="K")
+            else if (pos == "K")
             {
                 players = ApiRequest("position=k", player);
             }
