@@ -6,6 +6,8 @@
 <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
 
 <div class="table-responsive ">
+    <!--document.write('<a href="' + burl + '">Open here</a>');-->
+    <a href="/Home/SavePlayers?PlayerIds=5933,5940,5944," class=" btn btn-success btn-lg">Save</a>
     <table id="tab2" class="table table-hover table-bordered" style="padding: 3px">
         <thead class="thead-dark" style="background-color: darkgrey">
             <tr>
@@ -46,7 +48,6 @@
     <a href="/Home/SearchPlayers?pos=WR" class=" btn btn-info btn-lg">WR</a>
     <a href="/Home/SearchPlayers?pos=TE" class=" btn btn-info btn-lg">TE</a>
     <a href="/Home/SearchPlayers?pos=K" class=" btn btn-info btn-lg">K</a>
-
 </div>
 <br />
 <br />
@@ -114,10 +115,15 @@
 </table>
 
 <script>
+
+    var playerStr = "";
+
     function tab1_To_tab2() {
         var table1 = document.getElementById("tab1"),
             table2 = document.getElementById("tab2"),
             checkboxes = document.getElementsByName("check-tab1");
+
+        
 
         for (var i = 0; i < checkboxes.length; i++)
             if (checkboxes[i].checked) {
@@ -150,6 +156,12 @@
 
 
                 cell1.innerHTML = tab1.rows[i + 1].cells[0].innerHTML;
+<<<<<<< HEAD
+=======
+                console.log(cell1.innerHTML);
+                playerStr = playerStr + cell1.innerHTML + ",";
+                console.log(playerStr);
+>>>>>>> ddae049ba274c8e17c612d2b051d3cd68aee27ac
                 cell2.innerHTML = tab1.rows[i + 1].cells[1].innerHTML;
                 cell3.innerHTML = tab1.rows[i + 1].cells[2].innerHTML;
                 cell4.innerHTML = tab1.rows[i + 1].cells[3].innerHTML;
@@ -216,7 +228,11 @@
 
                 //add values to the cells
 
+<<<<<<< HEAD
 
+=======
+                
+>>>>>>> ddae049ba274c8e17c612d2b051d3cd68aee27ac
                 cell1.innerHTML = tab2.rows[i + 1].cells[1].innerHTML;
                 cell2.innerHTML = tab2.rows[i + 1].cells[2].innerHTML;
                 cell3.innerHTML = tab2.rows[i + 1].cells[3].innerHTML;
@@ -259,9 +275,23 @@
 
 <script>
     $(document).ready(function () {
+<<<<<<< HEAD
         $('#tab1').DataTable();
     });
 </script>
 
+=======
+<<<<<<< HEAD
+        $('#tab1').DataTable({
+        });
+    });
+</script>
+>>>>>>> ddae049ba274c8e17c612d2b051d3cd68aee27ac
 
 
+
+=======
+        $('#tab1').DataTable();
+    });
+</script>
+>>>>>>> f495852cec2950fadb431d1bfbbdbf64d266f036
