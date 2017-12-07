@@ -44,7 +44,6 @@
     <a href="/Home/SearchPlayers?pos=WR" class=" btn btn-info btn-lg">WR</a>
     <a href="/Home/SearchPlayers?pos=TE" class=" btn btn-info btn-lg">TE</a>
     <a href="/Home/SearchPlayers?pos=K" class=" btn btn-info btn-lg">K</a>
-
 </div>
 <br />
 <br />
@@ -253,13 +252,10 @@
 
 <script>
     $(document).ready(function () {
-        $('#tab1').DataTable();
+        $('#tab1').DataTable({
+        });
     });
 </script>
-<script>
-    $(document).ready(function () {
-        $('#tab2').DataTable();
-    });
-</script>
+
 
 
