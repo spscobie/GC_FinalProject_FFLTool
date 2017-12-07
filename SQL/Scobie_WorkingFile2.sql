@@ -38,6 +38,9 @@ SELECT *
 FROM tblTeams
 ORDER BY UserId, TeamName
 
+DROP TABLE tblUserWatchlists;
+DROP TABLE tblWatchlists;
+
 SELECT *
 FROM tblUsers;
 
@@ -45,15 +48,16 @@ SELECT *
 FROM tblTeams;
 
 CREATE TABLE tblUserWatchlists (
-	WatchlistId BIGINT NOT NULL,
+	WatchlistId BIGINT IDENTITY(1000000, 1) NOT NULL,
 	UserId NVARCHAR(128) NOT NULL,
 	CONSTRAINT PK_UserIdWatchlistId PRIMARY KEY (UserId, WatchlistId),
-	FOREIGN KEY (UserId) REFERENCES AspNetUsers(Id));
+	FOREIGN KEY (UserId) REFERENCES AspNetUsers(Id),
+	CONSTRAINT UK_WatchlistId UNIQUE (WatchlistId));
 
 CREATE TABLE tblWatchlists (
-	WatchlistId BIGINT IDENTITY NOT NULL,
-	PlayerId INT,
-	CONSTRAINT PK_WatchlistId PRIMARY KEY (WatchlistId));
+	WatchlistId BIGINT NOT NULL,
+	PlayerId INT NOT NULL,
+	FOREIGN KEY (WatchlistId) REFERENCES tblUserWatchlists(WatchlistId));
 
 SELECT *
 FROM tblUserWatchlists;
