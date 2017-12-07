@@ -51,9 +51,9 @@ CREATE TABLE tblUserWatchlists (
 	FOREIGN KEY (UserId) REFERENCES AspNetUsers(Id));
 
 CREATE TABLE tblWatchlists (
-	WatchlistId NVARCHAR(128) NOT NULL,
+	WatchlistId BIGINT IDENTITY NOT NULL,
 	PlayerId INT,
-	CONSTRAINT PK_WatchlistId PRIMARY KEY (WatchlistId))
+	CONSTRAINT PK_WatchlistId PRIMARY KEY (WatchlistId));
 
 SELECT *
 FROM tblUserWatchlists;
