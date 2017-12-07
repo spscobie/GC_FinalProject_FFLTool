@@ -9,6 +9,8 @@ using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using GC_FinalProject_FFLTool.Models;
+using Microsoft.AspNet.Identity;
 
 namespace GC_FinalProject_FFLTool.Controllers
 {
@@ -161,5 +163,31 @@ namespace GC_FinalProject_FFLTool.Controllers
 
             return View("AllPlayersView");
         }
+
+
+        public ActionResult SavePlayers (string PlayerIds)
+        {
+            FFLToolEntities ORM = new FFLToolEntities();
+
+            string un = User.Identity.GetUserId();
+
+            tblUserWatchlist w = new tblUserWatchlist();
+
+            w.UserId = un;
+            ORM.tblUserWatchlists.Add(w);
+            ORM.SaveChanges();
+
+            tblWatchlist w2 = new tblWatchlist();
+            
+            string[] players = PlayerIds.Split(',');
+
+            for ()
+
+            return View("WatchlistView");
+        }
+
+            
+            
     }
+
 }
