@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.IO;
+using System.IO; 
 using System.Net;
 using Newtonsoft.Json.Linq;
 using System.Text;
@@ -41,6 +41,7 @@ namespace GC_FinalProject_FFLTool.Controllers
         }
 
         public JObject ApiRequest(string pos)
+
         {
             /*** Cumulative Game Stats API Call ***/
             //HttpWebRequest WebReq = WebRequest.CreateHttp("https://api.mysportsfeeds.com/v1.1/pull/nfl/current/cumulative_player_stats.json?position=qb,rb,wr,te,k");

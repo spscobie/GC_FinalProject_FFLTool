@@ -330,6 +330,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\fantasynew.jpg" />
+    <Content Include="Content\Images\footballmap.jpeg" />
     <Content Include="Content\Images\map.jpg" />
     <Content Include="Content\Images\fantasy.jpg" />
     <Content Include="Content\Images\players.jpg" />
@@ -377,6 +379,13 @@
     <Content Include="bin\roslyn\vbc.exe.config" />
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.CopyComplete" />
+    <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.GenerateResource.Cache" />
+    <Content Include="obj\Debug\GC_FinalProject_FFLTool.csprojResolveAssemblyReference.cache" />
+    <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Models\Images\nfl grass logo.jpg" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.dll" />
