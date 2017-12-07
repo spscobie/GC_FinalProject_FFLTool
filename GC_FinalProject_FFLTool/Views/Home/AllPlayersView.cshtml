@@ -2,12 +2,14 @@
 @{
     ViewBag.Title = "Player List";
 }
+
 <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
 
 <div class="table-responsive ">
     <table id="tab2" class="table table-hover table-bordered" style="padding: 3px">
         <thead class="thead-dark" style="background-color: darkgrey">
             <tr>
+                <td>PlayerID</td>
                 <td>Position</td>
                 <td>First Name</td>
                 <td>Last Name</td>
@@ -72,6 +74,8 @@
             <td>Pick</td>
             <td>Add</td>
         </tr>
+
+
     </thead>
 
     @for (int i = 0; i < @ViewBag.Players.Count; i++)
@@ -104,6 +108,7 @@
                 <a onclick="tab1_To_tab2()" class="btn btn-default btn-sm"> Add</a>
             </td>
         </tr>
+
     }
 
 </table>
@@ -118,6 +123,7 @@
             if (checkboxes[i].checked) {
 
                 //Create new row and cells
+
                 var newRow = tab2.insertRow(tab2.length),
                     cell1 = newRow.insertCell(0),
                     cell2 = newRow.insertCell(1),
@@ -137,30 +143,32 @@
                     cell16 = newRow.insertCell(15),
                     cell17 = newRow.insertCell(16),
                     cell18 = newRow.insertCell(17),
-                    cell19 = newRow.insertCell(18);
+                    cell19 = newRow.insertCell(18),
+                    cell20 = newRow.insertCell(19);
 
                 //add values to the cells
 
 
-                cell1.innerHTML = tab1.rows[i + 1].cells[1].innerHTML;
-                cell2.innerHTML = tab1.rows[i + 1].cells[2].innerHTML;
-                cell3.innerHTML = tab1.rows[i + 1].cells[3].innerHTML;
-                cell4.innerHTML = tab1.rows[i + 1].cells[4].innerHTML;
-                cell5.innerHTML = tab1.rows[i + 1].cells[5].innerHTML;
-                cell6.innerHTML = tab1.rows[i + 1].cells[6].innerHTML;
-                cell7.innerHTML = tab1.rows[i + 1].cells[7].innerHTML;
-                cell8.innerHTML = tab1.rows[i + 1].cells[8].innerHTML;
-                cell9.innerHTML = tab1.rows[i + 1].cells[9].innerHTML;
-                cell10.innerHTML = tab1.rows[i + 1].cells[10].innerHTML;
-                cell11.innerHTML = tab1.rows[i + 1].cells[11].innerHTML;
-                cell12.innerHTML = tab1.rows[i + 1].cells[12].innerHTML;
-                cell13.innerHTML = tab1.rows[i + 1].cells[13].innerHTML;
-                cell14.innerHTML = tab1.rows[i + 1].cells[14].innerHTML;
-                cell15.innerHTML = tab1.rows[i + 1].cells[15].innerHTML;
-                cell16.innerHTML = tab1.rows[i + 1].cells[16].innerHTML;
-                cell17.innerHTML = tab1.rows[i + 1].cells[17].innerHTML;
-                cell18.innerHTML = "<input type='checkbox' name='check-tab2'>";
-                cell19.innerHTML = "<a onclick='tab2_To_tab1()' class='btn btn-default btn-sm'>Delete</a>";
+                cell1.innerHTML = tab1.rows[i + 1].cells[0].innerHTML;
+                cell2.innerHTML = tab1.rows[i + 1].cells[1].innerHTML;
+                cell3.innerHTML = tab1.rows[i + 1].cells[2].innerHTML;
+                cell4.innerHTML = tab1.rows[i + 1].cells[3].innerHTML;
+                cell5.innerHTML = tab1.rows[i + 1].cells[4].innerHTML;
+                cell6.innerHTML = tab1.rows[i + 1].cells[5].innerHTML;
+                cell7.innerHTML = tab1.rows[i + 1].cells[6].innerHTML;
+                cell8.innerHTML = tab1.rows[i + 1].cells[7].innerHTML;
+                cell9.innerHTML = tab1.rows[i + 1].cells[8].innerHTML;
+                cell10.innerHTML = tab1.rows[i + 1].cells[9].innerHTML;
+                cell11.innerHTML = tab1.rows[i + 1].cells[10].innerHTML;
+                cell12.innerHTML = tab1.rows[i + 1].cells[11].innerHTML;
+                cell13.innerHTML = tab1.rows[i + 1].cells[12].innerHTML;
+                cell14.innerHTML = tab1.rows[i + 1].cells[13].innerHTML;
+                cell15.innerHTML = tab1.rows[i + 1].cells[14].innerHTML;
+                cell16.innerHTML = tab1.rows[i + 1].cells[15].innerHTML;
+                cell17.innerHTML = tab1.rows[i + 1].cells[16].innerHTML;
+                cell18.innerHTML = tab1.rows[i + 1].cells[17].innerHTML;
+                cell19.innerHTML = "<input type='checkbox' name='check-tab2'>";
+                cell20.innerHTML = "<a onclick='tab2_To_tab1()' class='btn btn-default btn-sm'>Delete</a>";
 
 
                 //remove the transfered rows from the first table
@@ -209,23 +217,23 @@
                 //add values to the cells
 
 
-                cell1.innerHTML = tab2.rows[i + 1].cells[0].innerHTML;
-                cell2.innerHTML = tab2.rows[i + 1].cells[1].innerHTML;
-                cell3.innerHTML = tab2.rows[i + 1].cells[2].innerHTML;
-                cell4.innerHTML = tab2.rows[i + 1].cells[3].innerHTML;
-                cell5.innerHTML = tab2.rows[i + 1].cells[4].innerHTML;
-                cell6.innerHTML = tab2.rows[i + 1].cells[5].innerHTML;
-                cell7.innerHTML = tab2.rows[i + 1].cells[6].innerHTML;
-                cell8.innerHTML = tab2.rows[i + 1].cells[7].innerHTML;
-                cell9.innerHTML = tab2.rows[i + 1].cells[8].innerHTML;
-                cell10.innerHTML = tab2.rows[i + 1].cells[9].innerHTML;
-                cell11.innerHTML = tab2.rows[i + 1].cells[10].innerHTML;
-                cell12.innerHTML = tab2.rows[i + 1].cells[11].innerHTML;
-                cell13.innerHTML = tab2.rows[i + 1].cells[12].innerHTML;
-                cell14.innerHTML = tab2.rows[i + 1].cells[13].innerHTML;
-                cell15.innerHTML = tab2.rows[i + 1].cells[14].innerHTML;
-                cell16.innerHTML = tab2.rows[i + 1].cells[15].innerHTML;
-                cell17.innerHTML = tab2.rows[i + 1].cells[16].innerHTML;
+                cell1.innerHTML = tab2.rows[i + 1].cells[1].innerHTML;
+                cell2.innerHTML = tab2.rows[i + 1].cells[2].innerHTML;
+                cell3.innerHTML = tab2.rows[i + 1].cells[3].innerHTML;
+                cell4.innerHTML = tab2.rows[i + 1].cells[4].innerHTML;
+                cell5.innerHTML = tab2.rows[i + 1].cells[5].innerHTML;
+                cell6.innerHTML = tab2.rows[i + 1].cells[6].innerHTML;
+                cell7.innerHTML = tab2.rows[i + 1].cells[7].innerHTML;
+                cell8.innerHTML = tab2.rows[i + 1].cells[8].innerHTML;
+                cell9.innerHTML = tab2.rows[i + 1].cells[9].innerHTML;
+                cell10.innerHTML = tab2.rows[i + 1].cells[10].innerHTML;
+                cell11.innerHTML = tab2.rows[i + 1].cells[11].innerHTML;
+                cell12.innerHTML = tab2.rows[i + 1].cells[12].innerHTML;
+                cell13.innerHTML = tab2.rows[i + 1].cells[13].innerHTML;
+                cell14.innerHTML = tab2.rows[i + 1].cells[14].innerHTML;
+                cell15.innerHTML = tab2.rows[i + 1].cells[15].innerHTML;
+                cell16.innerHTML = tab2.rows[i + 1].cells[16].innerHTML;
+                cell17.innerHTML = tab2.rows[i + 1].cells[17].innerHTML;
                 cell18.innerHTML = "<input type='checkbox' name='check-tab2'>";
                 cell19.innerHTML = "<a onclick='tab2_To_tab1()' class='btn btn-default btn-sm'>Add</a>";
 
@@ -237,13 +245,11 @@
                 //we have deleted some rows so the checkboxes.length have changed
                 //so we have to decrement the value of i
                 i--;
-
+                
                 console.log("yes");
 
             }
     }
-
-
 </script>
 
 @*Figure out a better place for this.  It just needs to run before the document on ready.*@
@@ -256,10 +262,6 @@
         $('#tab1').DataTable();
     });
 </script>
-<script>
-    $(document).ready(function () {
-        $('#tab2').DataTable();
-    });
-</script>
+
 
 

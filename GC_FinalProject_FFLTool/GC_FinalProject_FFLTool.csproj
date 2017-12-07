@@ -439,6 +439,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\AllPlayersView.cshtml" />
+    <Content Include="Views\Home\WatchList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
