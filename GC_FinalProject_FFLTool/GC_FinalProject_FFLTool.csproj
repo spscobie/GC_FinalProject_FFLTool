@@ -330,6 +330,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\fantasynew.jpg" />
+    <Content Include="Content\Images\footballmap.jpeg" />
     <Content Include="Content\Images\map.jpg" />
     <Content Include="Content\Images\fantasy.jpg" />
     <Content Include="Content\Images\players.jpg" />
