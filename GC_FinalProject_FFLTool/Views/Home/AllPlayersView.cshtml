@@ -8,23 +8,23 @@
     <table id="tab2" class="table table-hover table-bordered" style="padding: 3px">
         <thead class="thead-dark" style="background-color: darkgrey">
             <tr>
-                <th>Position</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Team</th>
-                <th>Pass Att</th>
-                <th>Pass Comp</th>
-                <th>Pass Yds</th>
-                <th>Pass TD</th>
-                <th>Interceptions</th>
-                <th>Rush Att</th>
-                <th>Rush Yds</th>
-                <th>Rush TD</th>
-                <th>Receptions</th>
-                <th>Receiving Yards</th>
-                <th>Receiving TD</th>
-                <th>Fg Att</th>
-                <th>Fg Made</th>
+                <td>Position</td>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Team</td>
+                <td>Pass Att</td>
+                <td>Pass Comp</td>
+                <td>Pass Yds</td>
+                <td>Pass TD</td>
+                <td>Interceptions</td>
+                <td>Rush Att</td>
+                <td>Rush Yds</td>
+                <td>Rush TD</td>
+                <td>Receptions</td>
+                <td>Receiving Yards</td>
+                <td>Receiving TD</td>
+                <td>Fg Att</td>
+                <td>Fg Made</td>
             </tr>
 
         </thead>
@@ -44,76 +44,36 @@
     <a href="/Home/SearchPlayers?pos=WR" class=" btn btn-info btn-lg">WR</a>
     <a href="/Home/SearchPlayers?pos=TE" class=" btn btn-info btn-lg">TE</a>
     <a href="/Home/SearchPlayers?pos=K" class=" btn btn-info btn-lg">K</a>
-    <form action="/Home/SearchPlayers">
-<<<<<<< HEAD
-=======
-        @*//<<<<<<< HEAD*@
->>>>>>> 8d9c4ab2e7f778a01e938c4bc3d5b228f638c460
-        <input type="text" name="player" />
-        <input type="hidden" name="pos" value="@ViewBag.Pos" />
-        <input type="submit" value="Search" />
-        <p style="color: brown">You must search by last name only!</p>
-    </form>
 </div>
 <br />
 <br />
-
-<p>Click the button to sort the table alphabetically, by name:</p>
-<p><button onclick="sortTable()">Sort</button></p>
-
-@if (ViewBag.Players == null)
-{
-    <table class="table table-hover table-bordered">
-        <thead class="thead-dark" style="background-color: darkgrey">
-            <tr>
-                <th>Position</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Team</th>
-                <th>Pass Att</th>
-                <th>Pass Comp</th>
-                <th>Pass Yds</th>
-                <th>Pass TD</th>
-                <th>Interceptions</th>
-                <th>Rush Att</th>
-                <th>Rush Yds</th>
-                <th>Rush TD</th>
-                <th>Receptions</th>
-                <th>Receiving Yards</th>
-                <th>Receiving TD</th>
-                <th>FG Att</th>
-                <th>FG Made</th>
-            </tr>
-        </thead>
-    </table>
-}
-else
-{
-    <div class="table-responsive">
-        <table id="tab1" class="table table-bordered table-hover">
-            <thead class="thead-dark" style="background-color: darkgrey">
+        <table id="tab1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
                 <tr>
-                    <th>Position <button onclick="sortTable()" type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></button></th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Team</th>
-                    <th>Pass Att</th>
-                    <th>Pass Comp</th>
-                    <th>Pass Yds</th>
-                    <th>Pass TD</th>
-                    <th>Interceptions</th>
-                    <th>Rush Att</th>
-                    <th>Rush Yds</th>
-                    <th>Rush TD</th>
-                    <th>Receptions</th>
-                    <th>Receiving Yards</th>
-                    <th>Receiving TD</th>
-                    <th>FG Att</th>
-                    <th>FG Made</th>
+                    <td style="display:none">ID</td>
+                    <td>Position</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>Team</td>
+                    <td>Pass Att</td>
+                    <td>Pass Comp</td>
+                    <td>Pass Yds</td>
+                    <td>Pass TD</td>
+                    <td>Interceptions</td>
+                    <td>Rush Att</td>
+                    <td>Rush Yds</td>
+                    <td>Rush TD</td>
+                    <td>Receptions</td>
+                    <td>Receiving Yards</td>
+                    <td>Receiving TD</td>
+                    <td>FG Att</td>
+                    <td>FG Made</td>
+                    <td>Pick</td>
+                    <td>Add</td>
                 </tr>
             </thead>
-            <tbody>
-                @for (int i = 0; i < 25@*ViewBag.Players.Count*@; i++)
+
+                @for (int i = 0; i < @ViewBag.Players.Count; i++)
                 {
                     <tr class="active" style="background-color: whitesmoke">
                         <td style="display:none">@ViewBag.Players[i]["player"]["ID"]</td>
@@ -144,9 +104,9 @@ else
                         </td>
                     </tr>
                 }
+
         </table>
-    </div>
-}
+
 <script>
     function tab1_To_tab2() {
         var table1 = document.getElementById("tab1"),
@@ -285,50 +245,19 @@ else
 
 </script>
 
+@*Figure out a better place for this.  It just needs to run before the document on ready.*@
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
 <script>
-    function sortTable() {
-        var table, rows, switching, i, x, y, shouldSwitch;
-        var xint = 0, yint = 0;
-        table = document.getElementById("tab1");
-        switching = true;
-        /* Make a loop that will continue until
-        no switching has been done: */
-        while (switching) {
-            // Start by saying: no switching is done:
-            switching = false;
-            rows = table.getElementsByTagName("TR");
-            /* Loop through all table rows (except the
-            first, which contains table headers): */
-            for (i = 1; i < (rows.length - 1); i++) {
-                // Start by saying there should be no switching:
-                shouldSwitch = false;
-                /* Get the two elements you want to compare,
-                one from current row and one from the next: */
-                x = rows[i].getElementsByTagName("TD")[5];
-                y = rows[i + 1].getElementsByTagName("TD")[5];
-                //console.log(x);
-                //console.log(y);
-                //console.log("---");
-                // Check if the two rows should switch place:
-
-                xint = parseInt(x.innerHTML);
-                yint = parseInt(y.innerHTML);
-
-                if (yint > xint) {
-
-                    console.log(xint);
-                    console.log(yint);
-                    // I so, mark as a switch and break the loop:
-                    shouldSwitch = true;
-                    break;
-                }
-            }
-            if (shouldSwitch) {
-                /* If a switch has been marked, make the switch
-                and mark that a switch has been done: */
-                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                switching = true;
-            }
-        }
-    }
+    $(document).ready(function () {
+        $('#tab1').DataTable();
+    });
 </script>
+<script>
+    $(document).ready(function () {
+        $('#tab2').DataTable();
+    });
+</script>
+
