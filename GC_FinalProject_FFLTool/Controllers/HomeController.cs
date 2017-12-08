@@ -188,29 +188,12 @@ namespace GC_FinalProject_FFLTool.Controllers
             return View();
 
         }
-        //public ActionResult SavePlayers (string PlayerIds)
-        //{
-        //    FFLToolEntities ORM = new FFLToolEntities();
-
-        //    string un = User.Identity.GetUserId();
-
-        //    tblUserWatchlist w = new tblUserWatchlist();
-
-        //    w.UserId = un;
-        //    ORM.tblUserWatchlists.Add(w);
-        //    ORM.SaveChanges();
-
-        //    tblWatchlist w2 = new tblWatchlist();
-
-        //    string[] players = PlayerIds.Split(',');
-
-        //    for ()
-
-        //    return View("WatchlistView");
-        //}
+      
         public ActionResult WatchList()
         {
             FFLToolEntities1 ORM = new FFLToolEntities1();
+
+            string uID = User.Identity.GetUserId();
 
             List<tblWatchlist> bob = (from u in ORM.tblWatchlists
                                       where u.WatchlistId == 1000000
@@ -221,10 +204,14 @@ namespace GC_FinalProject_FFLTool.Controllers
             for (int i = 0; i < bob.Count; i++)
             {
 
-                newPlayer = bob[i].PlayerId.ToString() + ",";
+                newPlayer += bob[i].PlayerId.ToString();
 
+                if (i < bob.Count - 1)
+                {
+                    newPlayer = newPlayer + ",";
+                }
             }
-            //int Player = bob[0].PlayerId;
+
             HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/current/cumulative_player_stats.json?player={newPlayer}");
             WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
             WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
@@ -242,28 +229,7 @@ namespace GC_FinalProject_FFLTool.Controllers
 
             return View();
         }
-        //public ActionResult SavePlayers (string PlayerIds)
-        //{
-        //    FFLToolEntities ORM = new FFLToolEntities();
-
-        //    string un = User.Identity.GetUserId();
-
-        //    //add user to
-        //    tblUserWatchlist w = new tblUserWatchlist();
-
-        //    w.UserId = un;
-        //    ORM.tblUserWatchlists.Add(w);
-        //    ORM.SaveChanges();
-
-        //    tblWatchlist w2 = new tblWatchlist();
-
-        //    string[] players = PlayerIds.Split(',');
-
-        //    for ()
-
-        //    return View("WatchlistView");
-        //}
-
+   
     }
 
 }
