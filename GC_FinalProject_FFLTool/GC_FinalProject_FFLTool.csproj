@@ -119,6 +119,8 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -209,8 +211,44 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FFLToolModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FFLToolModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FFLToolModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FFLToolModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FFLToolModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\tblUserWatchlist.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblWatchlist.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -363,6 +401,16 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Models\FFLToolModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FFLToolModel.edmx</DependentUpon>
+      <LastGenOutput>FFLToolModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\FFLToolModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FFLToolModel.edmx</DependentUpon>
+      <LastGenOutput>FFLToolModel.cs</LastGenOutput>
+    </Content>
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.CopyComplete" />
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.CoreCompileInputs.cache" />
@@ -384,6 +432,13 @@
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.CoreCompileInputs.cache" />
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.GenerateResource.Cache" />
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.csprojResolveAssemblyReference.cache" />
+    <EntityDeploy Include="Models\FFLToolModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FFLToolModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\FFLToolModel.edmx.diagram">
+      <DependentUpon>FFLToolModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Models\Images\nfl grass logo.jpg" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
@@ -433,12 +488,14 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\ApiRequest.cshtml" />
-    <Content Include="Web.config" />
-    <Content Include="Views\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Views\Web.config" />
     <Content Include="Views\Home\AllPlayersView.cshtml" />
+    <Content Include="Views\Home\WatchList.cshtml" />
+    <Content Include="Views\Home\WatchlistView.cshtml" />
+    <Content Include="Web.config" />
+    <Content Include="Views\Web.config" />
+
+    <Content Include="Views\Web.config" />
+    <Content Include="Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -464,6 +521,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\GC_FinalProject_FFLTool.Migrations.InitialCreate.resources" />
     <EmbeddedResource Include="obj\Debug\GC_FinalProject_FFLTool.Migrations.UsedbMigration.resources" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
