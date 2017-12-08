@@ -189,6 +189,8 @@ namespace GC_FinalProject_FFLTool.Controllers
         {
             FFLToolEntities1  ORM = new FFLToolEntities1();
 
+            string uID = User.Identity.GetUserId();
+
             List<tblWatchlist> bob = (from u in ORM.tblWatchlists
                                 where u.WatchlistId == 1000000
                                 select u).ToList();
@@ -198,10 +200,15 @@ namespace GC_FinalProject_FFLTool.Controllers
             for (int i = 0; i < bob.Count; i++)
             {
 
-                newPlayer = bob[i].PlayerId.ToString() + ",";
+                newPlayer += bob[i].PlayerId.ToString();
 
+                if (i < bob.Count - 1)
+                {
+                    newPlayer = newPlayer + ",";
+                }
             }
-            //int Player = bob[0].PlayerId;
+            
+         
 
             HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/current/cumulative_player_stats.json?player={newPlayer}");
             WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
