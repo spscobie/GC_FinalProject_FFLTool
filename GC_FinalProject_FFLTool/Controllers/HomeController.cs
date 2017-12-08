@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.IO; 
+using System.IO;
 using System.Net;
 using Newtonsoft.Json.Linq;
 using System.Text;
@@ -164,36 +164,40 @@ namespace GC_FinalProject_FFLTool.Controllers
         }
 
 
-        //public ActionResult SavePlayers (string PlayerIds)
-        //{
-        //    FFLToolEntities ORM = new FFLToolEntities();
+        public ActionResult SavePlayer(string PlayerId)
+        {
+            FFLToolEntities1 ORM = new FFLToolEntities1();
 
-        //    string un = User.Identity.GetUserId();
+            string userId = User.Identity.GetUserId();
 
-        //    tblUserWatchlist w = new tblUserWatchlist();
+            tblUserWatchlist watchList = new tblUserWatchlist();
 
-        //    w.UserId = un;
-        //    ORM.tblUserWatchlists.Add(w);
-        //    ORM.SaveChanges();
+            watchList.UserId = userId;
+            //watchList.WatchlistId = PlayerId;
+            ORM.tblUserWatchlists.Add(watchList);
+            ORM.SaveChanges();
 
-        //    tblWatchlist w2 = new tblWatchlist();
+            string currWatchList = (from UW in ORM.tblUserWatchlists
+                                    where UW.UserId == userId
+                                    select UW.WatchlistId).Max().ToString();
+            tblWatchlist watchList2 = new tblWatchlist();
+            watchList2.WatchlistId = Convert.ToInt64(currWatchList);
+            watchList2.PlayerId = Convert.ToInt32(PlayerId);
+            ORM.tblWatchlists.Add(watchList2);
+            ORM.SaveChanges();
+            return View();
 
-        //    string[] players = PlayerIds.Split(',');
-
-        //    for ()
-
-        //    return View("WatchlistView");
-        //}
-
+        }
+      
         public ActionResult WatchList()
         {
-            FFLToolEntities1  ORM = new FFLToolEntities1();
+            FFLToolEntities1 ORM = new FFLToolEntities1();
 
             string uID = User.Identity.GetUserId();
 
             List<tblWatchlist> bob = (from u in ORM.tblWatchlists
-                                where u.WatchlistId == 1000000
-                                select u).ToList();
+                                      where u.WatchlistId == 1000000
+                                      select u).ToList();
 
             string newPlayer = "";
 
@@ -207,8 +211,6 @@ namespace GC_FinalProject_FFLTool.Controllers
                     newPlayer = newPlayer + ",";
                 }
             }
-            
-         
 
             HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/current/cumulative_player_stats.json?player={newPlayer}");
             WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
@@ -224,9 +226,10 @@ namespace GC_FinalProject_FFLTool.Controllers
 
             ViewBag.Players = apiDataJSON["cumulativeplayerstats"]["playerstatsentry"];
 
+
             return View();
         }
-
+   
     }
 
 }
