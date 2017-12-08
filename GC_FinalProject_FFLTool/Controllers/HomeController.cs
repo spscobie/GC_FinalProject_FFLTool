@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.IO; 
+using System.IO;
 using System.Net;
 using Newtonsoft.Json.Linq;
 using System.Text;
@@ -164,7 +164,7 @@ namespace GC_FinalProject_FFLTool.Controllers
         }
 
 
-        public ActionResult SavePlayer (string PlayerId)
+        public ActionResult SavePlayer(string PlayerId)
         {
             FFLToolEntities1 ORM = new FFLToolEntities1();
 
@@ -210,11 +210,11 @@ namespace GC_FinalProject_FFLTool.Controllers
         //}
         public ActionResult WatchList()
         {
-            FFLToolEntities1  ORM = new FFLToolEntities1();
+            FFLToolEntities1 ORM = new FFLToolEntities1();
 
             List<tblWatchlist> bob = (from u in ORM.tblWatchlists
-                                where u.WatchlistId == 1000000
-                                select u).ToList();
+                                      where u.WatchlistId == 1000000
+                                      select u).ToList();
 
             string newPlayer = "";
 
@@ -247,7 +247,7 @@ namespace GC_FinalProject_FFLTool.Controllers
         //    FFLToolEntities ORM = new FFLToolEntities();
 
         //    string un = User.Identity.GetUserId();
-            
+
         //    //add user to
         //    tblUserWatchlist w = new tblUserWatchlist();
 
@@ -256,7 +256,7 @@ namespace GC_FinalProject_FFLTool.Controllers
         //    ORM.SaveChanges();
 
         //    tblWatchlist w2 = new tblWatchlist();
-            
+
         //    string[] players = PlayerIds.Split(',');
 
         //    for ()
