@@ -163,33 +163,63 @@ namespace GC_FinalProject_FFLTool.Controllers
             return View("AllPlayersView");
         }
 
-<<<<<<< HEAD
-=======
 
-        public ActionResult SavePlayers (string PlayerIds)
+        //public ActionResult SavePlayers (string PlayerIds)
+        //{
+        //    FFLToolEntities ORM = new FFLToolEntities();
+
+        //    string un = User.Identity.GetUserId();
+
+        //    tblUserWatchlist w = new tblUserWatchlist();
+
+        //    w.UserId = un;
+        //    ORM.tblUserWatchlists.Add(w);
+        //    ORM.SaveChanges();
+
+        //    tblWatchlist w2 = new tblWatchlist();
+
+        //    string[] players = PlayerIds.Split(',');
+
+        //    for ()
+
+        //    return View("WatchlistView");
+        //}
+
+        public ActionResult WatchList()
         {
-            FFLToolEntities ORM = new FFLToolEntities();
+            FFLToolEntities1  ORM = new FFLToolEntities1();
 
-            string un = User.Identity.GetUserId();
+            List<tblWatchlist> bob = (from u in ORM.tblWatchlists
+                                where u.WatchlistId == 1000000
+                                select u).ToList();
 
-            tblUserWatchlist w = new tblUserWatchlist();
+            string newPlayer = "";
 
-            w.UserId = un;
-            ORM.tblUserWatchlists.Add(w);
-            ORM.SaveChanges();
+            for (int i = 0; i < bob.Count; i++)
+            {
 
-            tblWatchlist w2 = new tblWatchlist();
-            
-            string[] players = PlayerIds.Split(',');
+                newPlayer = bob[i].PlayerId.ToString() + ",";
 
-            for ()
+            }
+            //int Player = bob[0].PlayerId;
 
-            return View("WatchlistView");
+            HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/current/cumulative_player_stats.json?player={newPlayer}");
+            WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
+            WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
+            WebReq.Method = "GET";
+
+            HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
+
+            StreamReader reader = new StreamReader(WebResp.GetResponseStream());
+            string apiData = reader.ReadToEnd();
+
+            JObject apiDataJSON = JObject.Parse(apiData);
+
+            ViewBag.Players = apiDataJSON["cumulativeplayerstats"]["playerstatsentry"];
+
+            return View();
         }
 
-            
-            
->>>>>>> ddae049ba274c8e17c612d2b051d3cd68aee27ac
     }
 
 }
