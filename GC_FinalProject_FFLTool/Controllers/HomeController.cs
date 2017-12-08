@@ -163,10 +163,31 @@ namespace GC_FinalProject_FFLTool.Controllers
             return View("AllPlayersView");
         }
 
-<<<<<<< HEAD
-        public ActionResult SavePlayer (string PlayerId)
-=======
 
+        public ActionResult SavePlayer (string PlayerId)
+        {
+            FFLToolEntities1 ORM = new FFLToolEntities1();
+
+            string userId = User.Identity.GetUserId();
+
+            tblUserWatchlist watchList = new tblUserWatchlist();
+
+            watchList.UserId = userId;
+            //watchList.WatchlistId = PlayerId;
+            ORM.tblUserWatchlists.Add(watchList);
+            ORM.SaveChanges();
+
+            string currWatchList = (from UW in ORM.tblUserWatchlists
+                                    where UW.UserId == userId
+                                    select UW.WatchlistId).Max().ToString();
+            tblWatchlist watchList2 = new tblWatchlist();
+            watchList2.WatchlistId = Convert.ToInt64(currWatchList);
+            watchList2.PlayerId = Convert.ToInt32(PlayerId);
+            ORM.tblWatchlists.Add(watchList2);
+            ORM.SaveChanges();
+            return View();
+
+        }
         //public ActionResult SavePlayers (string PlayerIds)
         //{
         //    FFLToolEntities ORM = new FFLToolEntities();
@@ -187,9 +208,7 @@ namespace GC_FinalProject_FFLTool.Controllers
 
         //    return View("WatchlistView");
         //}
-
         public ActionResult WatchList()
->>>>>>> 6842ec6da7d6cae01d45fff40883d20af5351849
         {
             FFLToolEntities1  ORM = new FFLToolEntities1();
 
@@ -206,27 +225,6 @@ namespace GC_FinalProject_FFLTool.Controllers
 
             }
             //int Player = bob[0].PlayerId;
-
-<<<<<<< HEAD
-            string userId = User.Identity.GetUserId();
-
-            tblUserWatchlist watchList = new tblUserWatchlist();
-
-            watchList.UserId = userId;
-            //watchList.WatchlistId = PlayerId;
-            ORM.tblUserWatchlists.Add(watchList);
-            ORM.SaveChanges();
-
-            string currWatchList = (from UW in ORM.tblUserWatchlists
-                                  where UW.UserId == userId
-                                  select UW.WatchlistId).Max().ToString();
-            tblWatchlist watchList2 = new tblWatchlist();
-            watchList2.WatchlistId = Convert.ToInt64(currWatchList);
-            watchList2.PlayerId = Convert.ToInt32(PlayerId);
-            ORM.tblWatchlists.Add(watchList2);
-            ORM.SaveChanges();
-            
-=======
             HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/current/cumulative_player_stats.json?player={newPlayer}");
             WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
             WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
@@ -240,7 +238,7 @@ namespace GC_FinalProject_FFLTool.Controllers
             JObject apiDataJSON = JObject.Parse(apiData);
 
             ViewBag.Players = apiDataJSON["cumulativeplayerstats"]["playerstatsentry"];
->>>>>>> 6842ec6da7d6cae01d45fff40883d20af5351849
+
 
             return View();
         }
