@@ -43,7 +43,6 @@ namespace GC_FinalProject_FFLTool.Controllers
         }
 
         public JObject ApiRequest(string pos)
-
         {
             /*** Cumulative Game Stats API Call ***/
             //HttpWebRequest WebReq = WebRequest.CreateHttp("https://api.mysportsfeeds.com/v1.1/pull/nfl/current/cumulative_player_stats.json?position=qb,rb,wr,te,k");
@@ -164,10 +163,51 @@ namespace GC_FinalProject_FFLTool.Controllers
             return View("AllPlayersView");
         }
 
+<<<<<<< HEAD
         public ActionResult SavePlayer (string PlayerId)
-        {
-            FFLToolEntities ORM = new FFLToolEntities();
+=======
 
+        //public ActionResult SavePlayers (string PlayerIds)
+        //{
+        //    FFLToolEntities ORM = new FFLToolEntities();
+
+        //    string un = User.Identity.GetUserId();
+
+        //    tblUserWatchlist w = new tblUserWatchlist();
+
+        //    w.UserId = un;
+        //    ORM.tblUserWatchlists.Add(w);
+        //    ORM.SaveChanges();
+
+        //    tblWatchlist w2 = new tblWatchlist();
+
+        //    string[] players = PlayerIds.Split(',');
+
+        //    for ()
+
+        //    return View("WatchlistView");
+        //}
+
+        public ActionResult WatchList()
+>>>>>>> 6842ec6da7d6cae01d45fff40883d20af5351849
+        {
+            FFLToolEntities1  ORM = new FFLToolEntities1();
+
+            List<tblWatchlist> bob = (from u in ORM.tblWatchlists
+                                where u.WatchlistId == 1000000
+                                select u).ToList();
+
+            string newPlayer = "";
+
+            for (int i = 0; i < bob.Count; i++)
+            {
+
+                newPlayer = bob[i].PlayerId.ToString() + ",";
+
+            }
+            //int Player = bob[0].PlayerId;
+
+<<<<<<< HEAD
             string userId = User.Identity.GetUserId();
 
             tblUserWatchlist watchList = new tblUserWatchlist();
@@ -186,8 +226,23 @@ namespace GC_FinalProject_FFLTool.Controllers
             ORM.tblWatchlists.Add(watchList2);
             ORM.SaveChanges();
             
+=======
+            HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/current/cumulative_player_stats.json?player={newPlayer}");
+            WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
+            WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
+            WebReq.Method = "GET";
 
-            return View("WatchlistView");
+            HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
+
+            StreamReader reader = new StreamReader(WebResp.GetResponseStream());
+            string apiData = reader.ReadToEnd();
+
+            JObject apiDataJSON = JObject.Parse(apiData);
+
+            ViewBag.Players = apiDataJSON["cumulativeplayerstats"]["playerstatsentry"];
+>>>>>>> 6842ec6da7d6cae01d45fff40883d20af5351849
+
+            return View();
         }
         //public ActionResult SavePlayers (string PlayerIds)
         //{
@@ -211,8 +266,6 @@ namespace GC_FinalProject_FFLTool.Controllers
         //    return View("WatchlistView");
         //}
 
-            
-            
     }
 
 }
