@@ -164,27 +164,52 @@ namespace GC_FinalProject_FFLTool.Controllers
             return View("AllPlayersView");
         }
 
-
-        public ActionResult SavePlayers (string PlayerIds)
+        public ActionResult SavePlayer (string PlayerId)
         {
             FFLToolEntities ORM = new FFLToolEntities();
 
-            string un = User.Identity.GetUserId();
+            string userId = User.Identity.GetUserId();
 
-            tblUserWatchlist w = new tblUserWatchlist();
+            tblUserWatchlist watchList = new tblUserWatchlist();
 
-            w.UserId = un;
-            ORM.tblUserWatchlists.Add(w);
+            watchList.UserId = userId;
+            //watchList.WatchlistId = PlayerId;
+            ORM.tblUserWatchlists.Add(watchList);
             ORM.SaveChanges();
 
-            tblWatchlist w2 = new tblWatchlist();
+            string currWatchList = (from UW in ORM.tblUserWatchlists
+                                  where UW.UserId == userId
+                                  select UW.WatchlistId).Max().ToString();
+            tblWatchlist watchList2 = new tblWatchlist();
+            watchList2.WatchlistId = Convert.ToInt64(currWatchList);
+            watchList2.PlayerId = Convert.ToInt32(PlayerId);
+            ORM.tblWatchlists.Add(watchList2);
+            ORM.SaveChanges();
             
-            string[] players = PlayerIds.Split(',');
-
-            for ()
 
             return View("WatchlistView");
         }
+        //public ActionResult SavePlayers (string PlayerIds)
+        //{
+        //    FFLToolEntities ORM = new FFLToolEntities();
+
+        //    string un = User.Identity.GetUserId();
+            
+        //    //add user to
+        //    tblUserWatchlist w = new tblUserWatchlist();
+
+        //    w.UserId = un;
+        //    ORM.tblUserWatchlists.Add(w);
+        //    ORM.SaveChanges();
+
+        //    tblWatchlist w2 = new tblWatchlist();
+            
+        //    string[] players = PlayerIds.Split(',');
+
+        //    for ()
+
+        //    return View("WatchlistView");
+        //}
 
             
             

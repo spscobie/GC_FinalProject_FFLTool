@@ -76,12 +76,10 @@
           <Property Name="WatchlistId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'FFLTool.dbo.tblWatchlists' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblWatchlists">
           <Key>
             <PropertyRef Name="WatchlistId" />
-            
+            <PropertyRef Name="PlayerId" />
           </Key>
           <Property Name="WatchlistId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="PlayerId" Type="int" Nullable="false" />
@@ -99,8 +97,8 @@ warning 6002: The table/view 'FFLTool.dbo.tblWatchlists' does not have a primary
           </ReferentialConstraint>
         </Association>
         <!--Errors Found During Generation:
-warning 6035: The relationship 'FK__tblWatchl__Watch__123EB7A3' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK__tblWatchl__Watch__123EB7A3" />-->
+warning 6035: The relationship 'FK__tblWatchl__Watch__151B244E' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__tblWatchl__Watch__151B244E" />-->
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -165,12 +163,7 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__123EB7A3' has columns that
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUserWatchlists" EntityType="Self.tblUserWatchlists" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblWatchlists" EntityType="Self.tblWatchlists" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tblWatchlists].[WatchlistId] AS [WatchlistId], 
-    [tblWatchlists].[PlayerId] AS [PlayerId]
-    FROM [dbo].[tblWatchlists] AS [tblWatchlists]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="tblWatchlists" EntityType="Self.tblWatchlists" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__tblUserWa__UserI__0F624AF8" Association="Self.FK__tblUserWa__UserI__0F624AF8">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="tblUserWatchlists" EntitySet="tblUserWatchlists" />
