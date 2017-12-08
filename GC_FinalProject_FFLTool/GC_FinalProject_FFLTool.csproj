@@ -493,15 +493,14 @@
     <Content Include="Views\Home\WatchlistView.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Views\Web.config" />
-<<<<<<< HEAD
-=======
+
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
->>>>>>> ee5cf5dc30a2a89311e24c9cbe0d5e7bd705aad3
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
