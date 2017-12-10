@@ -64,3 +64,6 @@ FROM tblUserWatchlists;
 
 SELECT *
 FROM tblWatchlists;
+
+SELECT *
+FROM AspNetUsers;

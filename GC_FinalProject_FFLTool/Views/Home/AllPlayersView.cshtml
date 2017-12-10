@@ -106,11 +106,10 @@
 
             <td><input type="checkbox" name="check-tab1" /></td>
             <td>
-                <a onclick="tab1_To_tab2()" class="btn btn-default btn-sm"> Add</a>
+                <a href="/Home/SavePlayers?PlayerIds=@ViewBag.Players[i]["player"]["ID"]" onclick="tab1_To_tab2()" class="btn btn-default btn-sm"> Add</a>
             </td>
         </tr>
     }
-
 </table>
 
 <script>

@@ -165,7 +165,7 @@ namespace GC_FinalProject_FFLTool.Controllers
         }
 
 
-        public ActionResult SavePlayers (string PlayerIds)
+        public /*ActionResult*/ void SavePlayers (string PlayerIds)
         {
             FFLToolEntities ORM = new FFLToolEntities();
 
@@ -181,13 +181,17 @@ namespace GC_FinalProject_FFLTool.Controllers
             
             string[] players = PlayerIds.Split(',');
 
-            for ()
+            for (int i = 0; i < players.Length; i++)
+            {
+                w2.WatchlistId = w.WatchlistId;
+                w2.PlayerId = Convert.ToInt32(players[i]);
+                ORM.tblWatchlists.Add(w2);
+            }
 
-            return View("WatchlistView");
+            ORM.SaveChanges();
+
+            //return View("WatchlistView");
         }
-
-            
-            
     }
 
 }
