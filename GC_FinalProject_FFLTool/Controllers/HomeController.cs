@@ -171,7 +171,7 @@ namespace GC_FinalProject_FFLTool.Controllers
 
             JObject WatchList = Table2();
 
-           
+
 
             ViewBag.Players = players["cumulativeplayerstats"]["playerstatsentry"];
 
@@ -300,8 +300,8 @@ namespace GC_FinalProject_FFLTool.Controllers
 
             return View();
         }
-        
-        public ActionResult NewWatchlist ()
+
+        public ActionResult NewWatchlist()
         {
             string userId = User.Identity.GetUserId();
 
