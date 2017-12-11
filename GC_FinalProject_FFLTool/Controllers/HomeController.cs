@@ -311,6 +311,50 @@ namespace GC_FinalProject_FFLTool.Controllers
             return apiDataJSON;
         }
 
+        public ActionResult WatchListManagement()
+        {
+
+            FFLToolEntities2 ORM = new FFLToolEntities2();
+
+            string uID = User.Identity.GetUserId();
+
+            if (uID == null)
+            {
+                return View("../Account/Login");
+            }
+
+            List<tblUserWatchlist> userWatchlists = ORM.tblUserWatchlists.Where(x => x.UserId == uID).Distinct().ToList();
+
+            List<tblWatchlist> WL = ORM.tblWatchlists.Where(x => x.WatchlistName != null).ToList();
+
+            //List<tblWatchlist> watchlists = new List<tblWatchlist>();
+
+            List<string> watchlists = new List<string>();
+            List<string> watchlistId = new List<string>();
+
+            for (int i = 0; i < userWatchlists.Count; i++)
+            {
+
+                foreach (var item in WL)
+                {
+                    
+                    if (userWatchlists[i].WatchlistId == item.WatchlistId && !watchlists.Contains(item.WatchlistName))
+                    {
+
+                        watchlists.Add(item.WatchlistName);
+                        watchlistId.Add(item.WatchlistId.ToString());
+
+                    }
+
+                }
+            }
+
+            ViewBag.WatchList = watchlists;
+            ViewBag.WatchlistId = watchlistId;
+
+            return View();
+        }
+
         public ActionResult WatchList(string watchlistId)
         {
             FFLToolEntities2 ORM = new FFLToolEntities2();
@@ -345,8 +389,8 @@ namespace GC_FinalProject_FFLTool.Controllers
 
             return View();
         }
-        
-        public ActionResult NewWatchlist ()
+
+        public ActionResult NewWatchlist()
         {
             string userId = User.Identity.GetUserId();
 
