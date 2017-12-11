@@ -171,7 +171,7 @@ namespace GC_FinalProject_FFLTool.Controllers
 
             JObject WatchList = Table2();
 
-           
+
 
             ViewBag.Players = players["cumulativeplayerstats"]["playerstatsentry"];
 
@@ -189,7 +189,7 @@ namespace GC_FinalProject_FFLTool.Controllers
 
         public ActionResult SavePlayer(string PlayerId)
         {
-            FFLToolEntities1 ORM = new FFLToolEntities1();
+            FFLToolEntities2 ORM = new FFLToolEntities2();
 
             tblUserWatchlist watchList = new tblUserWatchlist();
 
@@ -214,7 +214,7 @@ namespace GC_FinalProject_FFLTool.Controllers
 
         public JObject Table2()
         {
-            FFLToolEntities1 ORM = new FFLToolEntities1();
+            FFLToolEntities2 ORM = new FFLToolEntities2();
 
             string uID = User.Identity.GetUserId();
 
@@ -258,26 +258,71 @@ namespace GC_FinalProject_FFLTool.Controllers
             return apiDataJSON;
         }
 
-        public ActionResult WatchList()
+        public ActionResult WatchListManagement()
         {
-            FFLToolEntities1 ORM = new FFLToolEntities1();
+
+            FFLToolEntities2 ORM = new FFLToolEntities2();
 
             string uID = User.Identity.GetUserId();
 
-            List<tblWatchlist> bob = (from u in ORM.tblWatchlists
-                                      where u.WatchlistId == (from UW in ORM.tblUserWatchlists
-                                                              where UW.UserId == uID
-                                                              select UW.WatchlistId).Max()
-                                      select u).ToList();
+            if (uID == null)
+            {
+                return View("../Account/Login");
+            }
+
+            List<tblUserWatchlist> userWatchlists = ORM.tblUserWatchlists.Where(x => x.UserId == uID).Distinct().ToList();
+
+            List<tblWatchlist> WL = ORM.tblWatchlists.Where(x => x.WatchlistName != null).ToList();
+
+            //List<tblWatchlist> watchlists = new List<tblWatchlist>();
+
+            List<string> watchlists = new List<string>();
+            List<string> watchlistId = new List<string>();
+
+            for (int i = 0; i < userWatchlists.Count; i++)
+            {
+
+                foreach (var item in WL)
+                {
+                    
+                    if (userWatchlists[i].WatchlistId == item.WatchlistId && !watchlists.Contains(item.WatchlistName))
+                    {
+
+                        watchlists.Add(item.WatchlistName);
+                        watchlistId.Add(item.WatchlistId.ToString());
+
+                    }
+
+                }
+            }
+
+            ViewBag.WatchList = watchlists;
+            ViewBag.WatchlistId = watchlistId;
+
+            return View();
+        }
+
+        public ActionResult WatchList(string WatchlistId)
+        {
+            FFLToolEntities2 ORM = new FFLToolEntities2();
+
+            string uID = User.Identity.GetUserId();
+
+            List<tblWatchlist> watchlists = (from u in ORM.tblWatchlists
+                                             where u.WatchlistId == (from UW in ORM.tblUserWatchlists
+                                                                     where UW.UserId == uID
+                                                                     select UW.WatchlistId).Max()
+                                             select u).ToList();
+
 
             string newPlayer = "";
 
-            for (int i = 0; i < bob.Count; i++)
+            for (int i = 0; i < watchlists.Count; i++)
             {
 
-                newPlayer += bob[i].PlayerId.ToString();
+                newPlayer += watchlists[i].PlayerId.ToString();
 
-                if (i < bob.Count - 1)
+                if (i < watchlists.Count - 1)
                 {
                     newPlayer = newPlayer + ",";
                 }
@@ -300,8 +345,8 @@ namespace GC_FinalProject_FFLTool.Controllers
 
             return View();
         }
-        
-        public ActionResult NewWatchlist ()
+
+        public ActionResult NewWatchlist()
         {
             string userId = User.Identity.GetUserId();
 
@@ -310,7 +355,7 @@ namespace GC_FinalProject_FFLTool.Controllers
                 return View("../Account/Login");
             }
 
-            FFLToolEntities1 ORM = new FFLToolEntities1();
+            FFLToolEntities2 ORM = new FFLToolEntities2();
 
             tblUserWatchlist watchList = new tblUserWatchlist();
 

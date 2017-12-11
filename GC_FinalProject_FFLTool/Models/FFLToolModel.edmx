@@ -82,6 +82,7 @@
             <PropertyRef Name="PlayerId" />
           </Key>
           <Property Name="WatchlistId" Type="bigint" Nullable="false" />
+          <Property Name="WatchlistName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="PlayerId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK__tblUserWa__UserI__0F624AF8">
@@ -97,8 +98,8 @@
           </ReferentialConstraint>
         </Association>
         <!--Errors Found During Generation:
-warning 6035: The relationship 'FK__tblWatchl__Watch__151B244E' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK__tblWatchl__Watch__151B244E" />-->
+warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__tblWatchl__Watch__2BFE89A6" />-->
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -267,6 +268,7 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__151B244E' has columns that
             <PropertyRef Name="PlayerId" />
           </Key>
           <Property Name="WatchlistId" Type="Int64" Nullable="false" />
+          <Property Name="WatchlistName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PlayerId" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -313,7 +315,7 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__151B244E' has columns that
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="FFLToolEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
@@ -343,7 +345,7 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__151B244E' has columns that
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="FFLToolModelStoreContainer" CdmEntityContainer="FFLToolEntities1">
+        <EntityContainerMapping StorageEntityContainer="FFLToolModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="C__MigrationHistory">
             <EntityTypeMapping TypeName="FFLToolModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
@@ -413,6 +415,7 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__151B244E' has columns that
             <EntityTypeMapping TypeName="FFLToolModel.tblWatchlist">
               <MappingFragment StoreEntitySet="tblWatchlists">
                 <ScalarProperty Name="WatchlistId" ColumnName="WatchlistId" />
+                <ScalarProperty Name="WatchlistName" ColumnName="WatchlistName" />
                 <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
               </MappingFragment>
             </EntityTypeMapping>
