@@ -39,6 +39,7 @@ FROM tblTeams
 ORDER BY UserId, TeamName
 
 DROP TABLE tblUserWatchlists;
+DELETE FROM tblUserWatchlists;
 DROP TABLE tblWatchlists;
 
 SELECT *
@@ -56,8 +57,10 @@ CREATE TABLE tblUserWatchlists (
 
 CREATE TABLE tblWatchlists (
 	WatchlistId BIGINT NOT NULL,
+	WatchlistName VARCHAR(100) NOT NULL,
 	PlayerId INT NOT NULL,
-	FOREIGN KEY (WatchlistId) REFERENCES tblUserWatchlists(WatchlistId));
+	FOREIGN KEY (WatchlistId) REFERENCES tblUserWatchlists (WatchlistId),
+	CONSTRAINT PK_WatchlistPLayerID PRIMARY KEY (WatchlistId, PlayerId));
 
 SELECT *
 FROM tblUserWatchlists;
@@ -67,3 +70,13 @@ FROM tblWatchlists;
 
 SELECT *
 FROM AspNetUsers;
+
+UPDATE a
+SET a.WatchlistName = 'QB Test List'
+FROM tblWatchlists a
+WHERE a.WatchlistId = 1000047;
+
+UPDATE a
+SET a.WatchlistName = 'The Winningest List'
+FROM tblWatchlists a
+WHERE a.WatchlistId = 1000051;

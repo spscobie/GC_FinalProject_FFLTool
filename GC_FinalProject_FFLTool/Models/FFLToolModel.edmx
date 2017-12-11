@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="FFLToolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="FFLToolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -76,14 +76,13 @@
           <Property Name="WatchlistId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'FFLTool.dbo.tblWatchlists' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblWatchlists">
           <Key>
             <PropertyRef Name="WatchlistId" />
-            
+            <PropertyRef Name="PlayerId" />
           </Key>
-          <Property Name="WatchlistId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="WatchlistId" Type="bigint" Nullable="false" />
+          <Property Name="WatchlistName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="PlayerId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK__tblUserWa__UserI__0F624AF8">
@@ -99,8 +98,8 @@ warning 6002: The table/view 'FFLTool.dbo.tblWatchlists' does not have a primary
           </ReferentialConstraint>
         </Association>
         <!--Errors Found During Generation:
-warning 6035: The relationship 'FK__tblWatchl__Watch__123EB7A3' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK__tblWatchl__Watch__123EB7A3" />-->
+warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__tblWatchl__Watch__2BFE89A6" />-->
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -165,12 +164,7 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__123EB7A3' has columns that
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUserWatchlists" EntityType="Self.tblUserWatchlists" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblWatchlists" EntityType="Self.tblWatchlists" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tblWatchlists].[WatchlistId] AS [WatchlistId], 
-    [tblWatchlists].[PlayerId] AS [PlayerId]
-    FROM [dbo].[tblWatchlists] AS [tblWatchlists]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="tblWatchlists" EntityType="Self.tblWatchlists" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__tblUserWa__UserI__0F624AF8" Association="Self.FK__tblUserWa__UserI__0F624AF8">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="tblUserWatchlists" EntitySet="tblUserWatchlists" />
@@ -192,7 +186,8 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__123EB7A3' has columns that
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FFLToolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -255,7 +250,7 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__123EB7A3' has columns that
           <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="tblUserWatchlists" Relationship="Self.FK__tblUserWa__UserI__5EBF139D" FromRole="AspNetUsers" ToRole="tblUserWatchlists" />
+          <NavigationProperty Name="tblUserWatchlists" Relationship="Self.FK__tblUserWa__UserI__0F624AF8" FromRole="AspNetUsers" ToRole="tblUserWatchlists" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
         <EntityType Name="tblUserWatchlist">
@@ -263,15 +258,17 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__123EB7A3' has columns that
             <PropertyRef Name="WatchlistId" />
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="WatchlistId" Type="Int64" Nullable="false" />
+          <Property Name="WatchlistId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__tblUserWa__UserI__5EBF139D" FromRole="tblUserWatchlists" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__tblUserWa__UserI__0F624AF8" FromRole="tblUserWatchlists" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="tblWatchlist">
           <Key>
             <PropertyRef Name="WatchlistId" />
+            <PropertyRef Name="PlayerId" />
           </Key>
-          <Property Name="WatchlistId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WatchlistId" Type="Int64" Nullable="false" />
+          <Property Name="WatchlistName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PlayerId" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -302,7 +299,7 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__123EB7A3' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblUserWa__UserI__5EBF139D">
+        <Association Name="FK__tblUserWa__UserI__0F624AF8">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
           <End Role="tblUserWatchlists" Type="Self.tblUserWatchlist" Multiplicity="*" />
           <ReferentialConstraint>
@@ -318,7 +315,7 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__123EB7A3' has columns that
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="FFLToolEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="FFLToolEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
@@ -334,7 +331,7 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__123EB7A3' has columns that
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblUserWa__UserI__5EBF139D" Association="Self.FK__tblUserWa__UserI__5EBF139D">
+          <AssociationSet Name="FK__tblUserWa__UserI__0F624AF8" Association="Self.FK__tblUserWa__UserI__0F624AF8">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="tblUserWatchlists" EntitySet="tblUserWatchlists" />
           </AssociationSet>
@@ -348,7 +345,7 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__123EB7A3' has columns that
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="FFLToolModelStoreContainer" CdmEntityContainer="FFLToolEntities">
+        <EntityContainerMapping StorageEntityContainer="FFLToolModelStoreContainer" CdmEntityContainer="FFLToolEntities2">
           <EntitySetMapping Name="C__MigrationHistory">
             <EntityTypeMapping TypeName="FFLToolModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
@@ -418,6 +415,7 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__123EB7A3' has columns that
             <EntityTypeMapping TypeName="FFLToolModel.tblWatchlist">
               <MappingFragment StoreEntitySet="tblWatchlists">
                 <ScalarProperty Name="WatchlistId" ColumnName="WatchlistId" />
+                <ScalarProperty Name="WatchlistName" ColumnName="WatchlistName" />
                 <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
               </MappingFragment>
             </EntityTypeMapping>

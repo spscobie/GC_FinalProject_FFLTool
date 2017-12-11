@@ -13,10 +13,10 @@ namespace GC_FinalProject_FFLTool.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class FFLToolEntities : DbContext
+    public partial class FFLToolEntities2 : DbContext
     {
-        public FFLToolEntities()
-            : base("name=FFLToolEntities")
+        public FFLToolEntities2()
+            : base("name=FFLToolEntities2")
         {
         }
     

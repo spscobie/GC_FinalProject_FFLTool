@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "WatchList";
+}
+
+<link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+
+<h2>WatchList</h2>
+
+<div class="table-responsive">
+<table id="tab1" class="table table-striped table-bordered table-hover table-condensed">
+    <thead class="thead-dark " style="background-color: darkgrey">
+        <tr class="text-center">
+            <td><strong>Position</strong></td>
+            <td><storng>First Name</storng></td>
+            <td><strong>Last Name</strong></td>
+            <td><strong>Team</strong></td>
+            <td>Current</td>
+            <td>2016</td>
+            <td>2015</td>
+            <td>2014</td>
+        </tr>
+    </thead>
+
+    @for (int i = 0; i < @ViewBag.PlayersCurr.Count; i++)
+    {
+        <tr class="warning" style="background-color: whitesmoke">
+            <td class="text-center">@ViewBag.PlayersCurr[i]["player"]["Position"]</td>
+            <td>@ViewBag.PlayersCurr[i]["player"]["FirstName"]</td>
+            <td>@ViewBag.PlayersCurr[i]["player"]["LastName"]</td>
+            <td class="text-center">@ViewBag.PlayersCurr[i]["team"]["Abbreviation"]</td>
+            <td class="text-center">@(ViewBag.PlayersCurr[i]["stats"]["PassYards"] == null || ViewBag.PlayersCurr[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.PlayersCurr[i]["stats"]["PassYards"]["#text"])</td>
+            
+            @if (i < ViewBag.Players2016.Count)
+            {
+                <td class="text-center">@(ViewBag.Players2016[i]["stats"]["PassYards"] == null || ViewBag.Players2016[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players2016[i]["stats"]["PassYards"]["#text"])</td>
+            }
+            else
+            {
+                <td></td>
+            }
+
+            @if (i < ViewBag.Players2015.Count)
+            {
+                <td class="text-center">@(ViewBag.Players2015[i]["stats"]["PassYards"] == null || ViewBag.Players2015[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players2015[i]["stats"]["PassYards"]["#text"])</td>
+            }
+            else
+            {
+                <td></td>
+            }
+
+            @if (i < ViewBag.Players2014.Count)
+            {
+                <td class="text-center">@(ViewBag.Players2014[i]["stats"]["PassYards"] == null || ViewBag.Players2014[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players2014[i]["stats"]["PassYards"]["#text"])</td>
+            }
+            else
+            {
+                <td></td>
+            }
+        </tr>
+    }
+</table>
+</div>

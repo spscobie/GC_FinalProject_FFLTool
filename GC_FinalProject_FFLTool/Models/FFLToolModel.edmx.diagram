@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f0d7b99508a342d588422afaca1c1286" Name="Diagram1">
+      <Diagram DiagramId="0f32f8057a344dd7b17e768ad359c568" Name="Diagram1">
         <EntityTypeShape EntityType="FFLToolModel.C__MigrationHistory" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FFLToolModel.AspNetRole" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FFLToolModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
@@ -14,7 +14,7 @@
         <EntityTypeShape EntityType="FFLToolModel.tblWatchlist" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
         <AssociationConnector Association="FFLToolModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="FFLToolModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="FFLToolModel.FK__tblUserWa__UserI__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="FFLToolModel.FK__tblUserWa__UserI__0F624AF8" ManuallyRouted="false" />
         <AssociationConnector Association="FFLToolModel.AspNetUserRoles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
