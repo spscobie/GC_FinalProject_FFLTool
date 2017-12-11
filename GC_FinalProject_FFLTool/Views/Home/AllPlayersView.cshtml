@@ -1,13 +1,14 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Player List";
 }
 
 <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
 
-
+<div class="table-responsive">
     <!--document.write('<a href="' + burl + '">Open here</a>');-->
     <!--<a href="" class=" btn btn-success btn-lg">Save</a><a href="/Home/NewWatchlist" class=" btn btn-info btn-lg">New Watchlist</a>-->
-    <table id="tab2" class="table align="left" style="padding: 3px">
+    <table id="tab2" class="table table-hover table-bordered" style="padding: 3px">
         <thead class="thead-dark" style="background-color: darkgrey">
             <tr>
                 <td>Position</td>
@@ -19,8 +20,6 @@
         </thead>
         @if (ViewBag.WatchList != null && ViewBag.WatchList.Count != 0)
         {
-
-
             for (int i = 0; i < @ViewBag.WatchList.Count; i++)
             {
                 <tr class="active" style="background-color: whitesmoke">
@@ -28,20 +27,17 @@
                     <td>@ViewBag.WatchList[i]["player"]["Position"]</td>
                     <td>@ViewBag.WatchList[i]["player"]["FirstName"]</td>
                     <td>@ViewBag.WatchList[i]["player"]["LastName"]</td>
-
                 </tr>
-
             }
         }
     </table>
-
-
+</div>
 
 <h2>Player List</h2>
 
 <br />
 <br />
-<div class="btn-group container-fluid">
+<div class="btn-group">
     <a href="/Home/SearchPlayers?pos=QB" class=" btn btn-info btn-lg">QB</a>
     <a href="/Home/SearchPlayers?pos=RB" class=" btn btn-info btn-lg">RB</a>
     <a href="/Home/SearchPlayers?pos=WR" class=" btn btn-info btn-lg">WR</a>
@@ -50,7 +46,7 @@
 </div>
 <br />
 <br />
-<table id="tab1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+<table id="tab1" class="table table-striped table-bordered table-hover" cellspacing="0" style="width:100%">
     <thead>
         <tr>
             <td style="display:none">ID</td>
@@ -71,47 +67,72 @@
             <td>Receiving TD</td>
             <td>FG Att</td>
             <td>FG Made</td>
-            <td>Add</td>
+            @for (int j = 0; j < ViewBag.UserWatchlists.Count; j++)
+            {
+                <!-- First iteration is for a new watchlist -->
+                if (j == 0)
+                {
+                    <td style="background-color: lightpink">
+                        Add to:
+                        <strong>NEW</strong>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Add to Existing:
+                        <strong><i>@ViewBag.UserWatchlists[j]</i></strong>
+                    </td>
+                }
+            }
         </tr>
-
-
     </thead>
 
     @for (int i = 0; i < @ViewBag.Players.Count; i++)
     {
-        
-            <tr class="one active" style="background-color: whitesmoke">
-                <td style="display:none">@ViewBag.Players[i]["player"]["ID"]</td>
-                <td>@ViewBag.Players[i]["player"]["Position"]</td>
-                <td>@ViewBag.Players[i]["player"]["FirstName"]</td>
-                <td>@ViewBag.Players[i]["player"]["LastName"]</td>
-                <td>@ViewBag.Players[i]["team"]["Abbreviation"]</td>
-                <td>@(ViewBag.Players[i]["stats"]["PassAttempts"] == null || ViewBag.Players[i]["stats"]["PassAttempts"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["PassAttempts"]["#text"])</td>
-                <td>@(ViewBag.Players[i]["stats"]["PassCompletions"] == null || ViewBag.Players[i]["stats"]["PassCompletions"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["PassCompletions"]["#text"])</td>
-                <td>@(ViewBag.Players[i]["stats"]["PassYards"] == null || ViewBag.Players[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["PassYards"]["#text"])</td>
-                <td>@(ViewBag.Players[i]["stats"]["PassTD"] == null || ViewBag.Players[i]["stats"]["PassTD"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["PassTD"]["#text"])</td>
-                <td>@(ViewBag.Players[i]["stats"]["PassInt"] == null || ViewBag.Players[i]["stats"]["PassInt"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["PassInt"]["#text"])</td>
+        <tr class="active" style="background-color: whitesmoke">
+            <td style="display:none">@ViewBag.Players[i]["player"]["ID"]</td>
+            <td>@ViewBag.Players[i]["player"]["Position"]</td>
+            <td>@ViewBag.Players[i]["player"]["FirstName"]</td>
+            <td>@ViewBag.Players[i]["player"]["LastName"]</td>
+            <td>@ViewBag.Players[i]["team"]["Abbreviation"]</td>
+            <td>@(ViewBag.Players[i]["stats"]["PassAttempts"] == null || ViewBag.Players[i]["stats"]["PassAttempts"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["PassAttempts"]["#text"])</td>
+            <td>@(ViewBag.Players[i]["stats"]["PassCompletions"] == null || ViewBag.Players[i]["stats"]["PassCompletions"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["PassCompletions"]["#text"])</td>
+            <td>@(ViewBag.Players[i]["stats"]["PassYards"] == null || ViewBag.Players[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["PassYards"]["#text"])</td>
+            <td>@(ViewBag.Players[i]["stats"]["PassTD"] == null || ViewBag.Players[i]["stats"]["PassTD"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["PassTD"]["#text"])</td>
+            <td>@(ViewBag.Players[i]["stats"]["PassInt"] == null || ViewBag.Players[i]["stats"]["PassInt"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["PassInt"]["#text"])</td>
 
-                <td>@(ViewBag.Players[i]["stats"]["RushAttepmts"] == null || ViewBag.Players[i]["stats"]["RushAttepmts"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["RushAttepmts"]["#text"])</td>
-                <td>@(ViewBag.Players[i]["stats"]["RushYards"] == null || ViewBag.Players[i]["stats"]["RushYards"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["RushYards"]["#text"])</td>
-                <td>@(ViewBag.Players[i]["stats"]["RushTD"] == null || ViewBag.Players[i]["stats"]["RushTD"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["RushTD"]["#text"])</td>
+            <td>@(ViewBag.Players[i]["stats"]["RushAttepmts"] == null || ViewBag.Players[i]["stats"]["RushAttepmts"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["RushAttepmts"]["#text"])</td>
+            <td>@(ViewBag.Players[i]["stats"]["RushYards"] == null || ViewBag.Players[i]["stats"]["RushYards"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["RushYards"]["#text"])</td>
+            <td>@(ViewBag.Players[i]["stats"]["RushTD"] == null || ViewBag.Players[i]["stats"]["RushTD"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["RushTD"]["#text"])</td>
 
-                <td>@(ViewBag.Players[i]["stats"]["Receptions"] == null || ViewBag.Players[i]["stats"]["Receptions"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["Receptions"]["#text"])</td>
-                <td>@(ViewBag.Players[i]["stats"]["RecYards"] == null || ViewBag.Players[i]["stats"]["RecYards"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["RecYards"]["#text"])</td>
-                <td>@(ViewBag.Players[i]["stats"]["RecTD"] == null || ViewBag.Players[i]["stats"]["RecTD"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["RecTD"]["#text"])</td>
+            <td>@(ViewBag.Players[i]["stats"]["Receptions"] == null || ViewBag.Players[i]["stats"]["Receptions"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["Receptions"]["#text"])</td>
+            <td>@(ViewBag.Players[i]["stats"]["RecYards"] == null || ViewBag.Players[i]["stats"]["RecYards"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["RecYards"]["#text"])</td>
+            <td>@(ViewBag.Players[i]["stats"]["RecTD"] == null || ViewBag.Players[i]["stats"]["RecTD"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["RecTD"]["#text"])</td>
 
-                <td>@(ViewBag.Players[i]["stats"]["FgAtt"] == null || ViewBag.Players[i]["stats"]["FgAtt"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["FgAtt"]["#text"])</td>
-                <td>@(ViewBag.Players[i]["stats"]["FgMade"] == null || ViewBag.Players[i]["stats"]["FgMade"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["FgMade"]["#text"])</td>
+            <td>@(ViewBag.Players[i]["stats"]["FgAtt"] == null || ViewBag.Players[i]["stats"]["FgAtt"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["FgAtt"]["#text"])</td>
+            <td>@(ViewBag.Players[i]["stats"]["FgMade"] == null || ViewBag.Players[i]["stats"]["FgMade"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["FgMade"]["#text"])</td>
 
-                <td>
-                    <a href="/Home/SavePlayer?PlayerId=@ViewBag.Players[i]["player"]["ID"]" class="btn btn-default btn-sm"> Add</a>
-                </td>
-            </tr>
-       
+            @for (int j = 0; j < ViewBag.UserWatchlists.Count; j++)
+            {
+                if (j == 0)
+                {
+                    <td style="background-color: lightpink">
+                        <a href="/Home/SavePlayerToNewList?PlayerId=@ViewBag.Players[i]["player"]["ID"]" class="btn btn-danger btn-sm">Add</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a href="/Home/SavePlayerToExistingList?PlayerId=@ViewBag.Players[i]["player"]["ID"]&watchListName=@ViewBag.UserWatchlists[j]" class="btn btn-primary btn-sm">Add</a>
+                    </td>
+                }
+            }
+        </tr>
 
     }
-
 </table>
+
 
 @*<script>
 
@@ -269,9 +290,9 @@
 
 <script>
     $(document).ready(function () {
-
         $('#tab1').DataTable({
+            "columnDefs": [
+                { "className": "dt-center", "targets": "_all" }]
         });
     });
-
 </script>

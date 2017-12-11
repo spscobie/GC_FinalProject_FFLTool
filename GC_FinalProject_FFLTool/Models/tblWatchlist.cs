@@ -15,6 +15,7 @@ namespace GC_FinalProject_FFLTool.Models
     public partial class tblWatchlist
     {
         public long WatchlistId { get; set; }
+        public string WatchlistName { get; set; }
         public int PlayerId { get; set; }
     }
 }
