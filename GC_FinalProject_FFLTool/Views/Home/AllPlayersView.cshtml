@@ -68,6 +68,8 @@
             <td>Receiving TD</td>
             <td>FG Att</td>
             <td>FG Made</td>
+            <td>Score</td>
+
             @for (int j = 0; j < ViewBag.UserWatchlists.Count; j++)
             {
                 <!-- First iteration is for a new watchlist -->
@@ -113,6 +115,21 @@
 
             <td>@(ViewBag.Players[i]["stats"]["FgAtt"] == null || ViewBag.Players[i]["stats"]["FgAtt"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["FgAtt"]["#text"])</td>
             <td>@(ViewBag.Players[i]["stats"]["FgMade"] == null || ViewBag.Players[i]["stats"]["FgMade"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["FgMade"]["#text"])</td>
+            @{ 
+                var player = ViewBag.Players[i]["stats"];
+                var score = 0;
+                score += Convert.ToInt32(player["PassTD"]["#text"]) * 6;
+                score += Convert.ToInt32(player["PassYards"]["#text"]) * .04 ;
+                score -= Convert.ToInt32(player["PassInt"]["#text"]) * 2;
+                score += Convert.ToInt32(player["RushYards"]["#text"]) / 10;
+                score += Convert.ToInt32(player["RushTD"]["#text"]) * 6;
+                score += Convert.ToInt32(player["RecYards"]["#text"]) / 10;
+                score += Convert.ToInt32(player["RecTD"]["#text"]) * 6;
+
+
+
+            }
+            <td>@score</td>
 
             @for (int j = 0; j < ViewBag.UserWatchlists.Count; j++)
             {
@@ -290,6 +307,7 @@
 <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
 <script>
+
     $(document).ready(function () {
 
         $('#tab1').DataTable({

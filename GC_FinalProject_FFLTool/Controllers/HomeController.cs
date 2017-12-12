@@ -16,6 +16,7 @@ namespace GC_FinalProject_FFLTool.Controllers
 {
     public class HomeController : Controller
     {
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -25,6 +26,7 @@ namespace GC_FinalProject_FFLTool.Controllers
 
         public JObject ApiRequest(string pos, string player)
         {
+
             HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/current/cumulative_player_stats.json{pos}{player}");
             WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
             WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
@@ -36,12 +38,13 @@ namespace GC_FinalProject_FFLTool.Controllers
             string apiData = reader.ReadToEnd();
 
             JObject apiDataJSON = JObject.Parse(apiData);
-
+ 
             return apiDataJSON;
         }
 
         public JObject ApiRequest(string pos)
         {
+
             /*** Cumulative Game Stats API Call ***/
             //HttpWebRequest WebReq = WebRequest.CreateHttp("https://api.mysportsfeeds.com/v1.1/pull/nfl/current/cumulative_player_stats.json?position=qb,rb,wr,te,k");
             HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/current/cumulative_player_stats.json{pos}");
@@ -226,6 +229,8 @@ namespace GC_FinalProject_FFLTool.Controllers
 
 
             ViewBag.Players = players["cumulativeplayerstats"]["playerstatsentry"];
+            ViewBag.UserWatchlists = DropdownWatchLists();
+
 
             if (WatchList != null && WatchList.Count != 0)
             {
@@ -389,7 +394,6 @@ namespace GC_FinalProject_FFLTool.Controllers
                         watchlistId.Add(item.WatchlistId.ToString());
 
                     }
-
                 }
             }
 
@@ -457,5 +461,6 @@ namespace GC_FinalProject_FFLTool.Controllers
 
             return RedirectToAction("ShowAllPlayers");
         }
+
     }
 }
