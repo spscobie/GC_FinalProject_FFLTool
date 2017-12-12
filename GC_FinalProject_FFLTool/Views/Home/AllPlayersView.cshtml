@@ -5,6 +5,7 @@
 
 <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
 
+<h2>@ViewBag.WatchListName</h2>
 <div class="table-responsive">
     <!--document.write('<a href="' + burl + '">Open here</a>');-->
     <!--<a href="" class=" btn btn-success btn-lg">Save</a><a href="/Home/NewWatchlist" class=" btn btn-info btn-lg">New Watchlist</a>-->
@@ -67,18 +68,22 @@
             <td>Receiving TD</td>
             <td>FG Att</td>
             <td>FG Made</td>
+            <td>Score</td>
+
             @for (int j = 0; j < ViewBag.UserWatchlists.Count; j++)
             {
                 <!-- First iteration is for a new watchlist -->
                 if (j == 0)
                 {
-                    <td style="background-color: lightpink">Add to:
+                    <td style="background-color: lightpink">
+                        Add to:
                         <strong>NEW</strong>
                     </td>
                 }
                 else
                 {
-                    <td>Add to Existing:
+                    <td>
+                        Add to Existing:
                         <strong><i>@ViewBag.UserWatchlists[j]</i></strong>
                     </td>
                 }
@@ -88,7 +93,7 @@
 
     @for (int i = 0; i < @ViewBag.Players.Count; i++)
     {
-        <tr class="active" style="background-color: whitesmoke">            
+        <tr class="active" style="background-color: whitesmoke">
             <td style="display:none">@ViewBag.Players[i]["player"]["ID"]</td>
             <td>@ViewBag.Players[i]["player"]["Position"]</td>
             <td>@ViewBag.Players[i]["player"]["FirstName"]</td>
@@ -110,13 +115,29 @@
 
             <td>@(ViewBag.Players[i]["stats"]["FgAtt"] == null || ViewBag.Players[i]["stats"]["FgAtt"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["FgAtt"]["#text"])</td>
             <td>@(ViewBag.Players[i]["stats"]["FgMade"] == null || ViewBag.Players[i]["stats"]["FgMade"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["FgMade"]["#text"])</td>
+            @{ 
+                var player = ViewBag.Players[i]["stats"];
+                var score = 0;
+                score += Convert.ToInt32(player["PassTD"]["#text"]) * 6;
+                score += Convert.ToInt32(player["PassYards"]["#text"]) * .04 ;
+                score -= Convert.ToInt32(player["PassInt"]["#text"]) * 2;
+                score += Convert.ToInt32(player["RushYards"]["#text"]) / 10;
+                score += Convert.ToInt32(player["RushTD"]["#text"]) * 6;
+                score += Convert.ToInt32(player["RecYards"]["#text"]) / 10;
+                score += Convert.ToInt32(player["RecTD"]["#text"]) * 6;
+
+
+
+            }
+            <td>@score</td>
 
             @for (int j = 0; j < ViewBag.UserWatchlists.Count; j++)
             {
                 if (j == 0)
                 {
+
                     <td style="background-color: lightpink">
-                        <a href="/Home/SavePlayerToNewList?PlayerId=@ViewBag.Players[i]["player"]["ID"]" class="btn btn-danger btn-sm">Add</a>
+                        <a id="yourHref" href="/Home/SavePlayerToNewList?PlayerId=@ViewBag.Players[i]["player"]["ID"]&watchListName=" class="btn btn-danger btn-sm" onclick="myFunction()">Add</a>
                     </td>
                 }
                 else
@@ -286,11 +307,34 @@
 @Scripts.Render("~/bundles/bootstrap")
 <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
+
 <script>
+        function myFunction() {
+    var txt;
+    var watchListName = prompt("Please enter the name for your new watchlist:");
+    if (watchListName == null || watchListName == "") {
+            txt = "User cancelled the prompt.";
+        } else {
+            txt = watchListName;
+    }
+
+    var yourElement = document.getElementById('yourHref');
+    yourElement.setAttribute('href', yourElement.getAttribute('href')+txt );
+
+
+
+   // localStorage.setItem("storageName", txt);
+}
+</script>
+
+<script>
+
     $(document).ready(function () {
+
         $('#tab1').DataTable({
             "columnDefs": [
                 { "className": "dt-center", "targets": "_all" }]
         });
     });
+
 </script>

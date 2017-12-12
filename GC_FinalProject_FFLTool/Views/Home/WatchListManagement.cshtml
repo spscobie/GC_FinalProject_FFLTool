@@ -9,7 +9,7 @@
 
 
 <h2>WatchListManagement</h2>
-<table id="tab1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+<table id="tab1" class="table table-striped table-bordered" width="100%">
     <thead>
         <tr>
             <td>Watch List Name</td>
@@ -21,8 +21,14 @@
             <td style="display:none">@ViewBag.WatchlistId[i]</td>
             <td>@ViewBag.WatchList[i]</td>
             <td>
-                <a href="/Home/WatchList?watchlistId=@ViewBag.WatchlistId[i]" class="btn btn-default btn-sm"> Edit</a>
+
+                <a href="/Home/WatchList?watchlistId=@ViewBag.WatchlistId[i]" class="btn btn-primary btn-md"> Edit</a>
+                
+
+                <a href="/Home/WatchList?watchlistId=@ViewBag.WatchlistId[i]&watchListName=@ViewBag.WatchList[i]" class="btn btn-default btn-sm"> Inspect</a>
+
             </td>
         </tr>
     }
 </table>
+

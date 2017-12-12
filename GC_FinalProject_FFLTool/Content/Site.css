@@ -4,7 +4,7 @@
     background-image: url('images/yfl_logo_nowhite.png');
     background-position: right top 100px;
     background-repeat: no-repeat;
-    background-size: 500px 600px;
+    background-size: 300px 300px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -14,8 +14,8 @@
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
+   will truncate terms that are too long to fit in the left column */
+
 .dl-horizontal dt {
     white-space: normal;
 }
@@ -24,9 +24,11 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 100px;
 }
+
 
 th.dt-center, td.dt-center {
     text-align: center;
 }
+

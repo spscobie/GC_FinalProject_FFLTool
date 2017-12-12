@@ -368,6 +368,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\BootStrapTheme.css" />
+    <Content Include="Content\Images\BootStrapTheme.css" />
     <Content Include="Content\Images\fantasynew.jpg" />
     <Content Include="Content\Images\footballmap.jpeg" />
     <Content Include="Content\Images\map.jpg" />
@@ -492,10 +494,9 @@
     <Content Include="Views\Home\AllPlayersView.cshtml" />
     <Content Include="Views\Home\WatchList.cshtml" />
     <Content Include="Views\Home\WatchlistView.cshtml" />
-    <Content Include="Views\Web.config" />
-    <Content Include="Web.config" />
     <Content Include="Views\Home\WatchListManagement.cshtml" />
-
+    <Content Include="Web.config" />
+    <Content Include="Views\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
