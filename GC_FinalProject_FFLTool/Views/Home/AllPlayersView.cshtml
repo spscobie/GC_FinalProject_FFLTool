@@ -135,8 +135,9 @@
             {
                 if (j == 0)
                 {
+
                     <td style="background-color: lightpink">
-                        <a href="/Home/SavePlayerToNewList?PlayerId=@ViewBag.Players[i]["player"]["ID"]" class="btn btn-danger btn-sm">Add</a>
+                        <a id="yourHref" href="/Home/SavePlayerToNewList?PlayerId=@ViewBag.Players[i]["player"]["ID"]&watchListName=" class="btn btn-danger btn-sm" onclick="myFunction()">Add</a>
                     </td>
                 }
                 else
@@ -305,6 +306,26 @@
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
 <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+
+<script>
+        function myFunction() {
+    var txt;
+    var watchListName = prompt("Please enter the name for your new watchlist:");
+    if (watchListName == null || watchListName == "") {
+            txt = "User cancelled the prompt.";
+        } else {
+            txt = watchListName;
+    }
+
+    var yourElement = document.getElementById('yourHref');
+    yourElement.setAttribute('href', yourElement.getAttribute('href')+txt );
+
+
+
+   // localStorage.setItem("storageName", txt);
+}
+</script>
 
 <script>
 
