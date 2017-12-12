@@ -6,7 +6,8 @@
 <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
 
 <h2>WatchList</h2>
-
+<h2>@ViewBag.WatchListName</h2>
+<a href="/Home/ShowAllPlayers?watchlistId=@ViewBag.WatchlistId&watchListName=@ViewBag.WatchListName" class="btn btn-default btn-sm"> Edit</a>
 <div class="table-responsive">
 <table id="tab1" class="table table-striped table-bordered table-hover table-condensed">
     <thead class="thead-dark " style="background-color: darkgrey">
