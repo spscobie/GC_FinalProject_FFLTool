@@ -2,62 +2,226 @@
 @{
     ViewBag.Title = "WatchList";
 }
-
+@using Newtonsoft.Json.Linq
 <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
 
 <h2>WatchList</h2>
 
-<div class="table-responsive">
-<table id="tab1" class="table table-striped table-bordered table-hover table-condensed">
-    <thead class="thead-dark " style="background-color: darkgrey">
-        <tr class="text-center">
-            <td><strong>Position</strong></td>
-            <td><storng>First Name</storng></td>
-            <td><strong>Last Name</strong></td>
-            <td><strong>Team</strong></td>
-            <td>Current</td>
-            <td>2016</td>
-            <td>2015</td>
-            <td>2014</td>
-        </tr>
-    </thead>
+<div class="container-fluid">
+    <div class="table-responsive">
+        <table id="tab1" class="table table-striped table-bordered table-hover table-condensed">
+            <thead class="thead-dark " style="background-color: darkgrey">
+                <tr class="text-center">
+                    <td><strong>Position</strong></td>
+                    <td><storng>First Name</storng></td>
+                    <td><strong>Last Name</strong></td>
+                    <td><strong>Team</strong></td>
+                    <td>Current</td>
+                    <td>2016</td>
+                    <td>2015</td>
+                    <td>2014</td>
+                    <td>Week @ViewBag.CurrOpp[0]["week"] Opp.</td>
+                    <td>Pass Yds p/game vs Opp</td>
+                    <td>Rush Yds p/game vs Opp</td>
+                    <td>Rec Yds p/game vs Opp</td>
+                    <td>Total TD p/game vs Opp</td>
+                </tr>
+            </thead>
 
-    @for (int i = 0; i < @ViewBag.PlayersCurr.Count; i++)
-    {
-        <tr class="warning" style="background-color: whitesmoke">
-            <td class="text-center">@ViewBag.PlayersCurr[i]["player"]["Position"]</td>
-            <td>@ViewBag.PlayersCurr[i]["player"]["FirstName"]</td>
-            <td>@ViewBag.PlayersCurr[i]["player"]["LastName"]</td>
-            <td class="text-center">@ViewBag.PlayersCurr[i]["team"]["Abbreviation"]</td>
-            <td class="text-center">@(ViewBag.PlayersCurr[i]["stats"]["PassYards"] == null || ViewBag.PlayersCurr[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.PlayersCurr[i]["stats"]["PassYards"]["#text"])</td>
-            
-            @if (i < ViewBag.Players2016.Count)
+            @for (int i = 0; i < ViewBag.PlayersCurr.Count; i++)
             {
-                <td class="text-center">@(ViewBag.Players2016[i]["stats"]["PassYards"] == null || ViewBag.Players2016[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players2016[i]["stats"]["PassYards"]["#text"])</td>
-            }
-            else
-            {
-                <td></td>
-            }
+                <tr class="warning" style="background-color: whitesmoke">
+                    <td class="text-center">@ViewBag.PlayersCurr[i]["player"]["Position"]</td>
+                    <td>@ViewBag.PlayersCurr[i]["player"]["FirstName"]</td>
+                    <td>@ViewBag.PlayersCurr[i]["player"]["LastName"]</td>
+                    <td class="text-center">@ViewBag.PlayersCurr[i]["team"]["Abbreviation"]</td>
+                    <td class="text-center">@(ViewBag.PlayersCurr[i]["stats"]["PassYards"] == null || ViewBag.PlayersCurr[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.PlayersCurr[i]["stats"]["PassYards"]["#text"])</td>
 
-            @if (i < ViewBag.Players2015.Count)
-            {
-                <td class="text-center">@(ViewBag.Players2015[i]["stats"]["PassYards"] == null || ViewBag.Players2015[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players2015[i]["stats"]["PassYards"]["#text"])</td>
-            }
-            else
-            {
-                <td></td>
-            }
+                    @if (i < ViewBag.Players2016.Count)
+                    {
+                        <td class="text-center">@(ViewBag.Players2016[i]["stats"]["PassYards"] == null || ViewBag.Players2016[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players2016[i]["stats"]["PassYards"]["#text"])</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
 
-            @if (i < ViewBag.Players2014.Count)
-            {
-                <td class="text-center">@(ViewBag.Players2014[i]["stats"]["PassYards"] == null || ViewBag.Players2014[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players2014[i]["stats"]["PassYards"]["#text"])</td>
+                    @if (i < ViewBag.Players2015.Count)
+                    {
+                        <td class="text-center">@(ViewBag.Players2015[i]["stats"]["PassYards"] == null || ViewBag.Players2015[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players2015[i]["stats"]["PassYards"]["#text"])</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+
+                    @if (i < ViewBag.Players2014.Count)
+                    {
+                        <td class="text-center">@(ViewBag.Players2014[i]["stats"]["PassYards"] == null || ViewBag.Players2014[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players2014[i]["stats"]["PassYards"]["#text"])</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+
+                    @{ var opp = "";}
+                    @foreach (var matchup in ViewBag.CurrOpp)
+                    {
+                        if (ViewBag.PlayersCurr[i]["team"]["Abbreviation"] == matchup["awayTeam"]["Abbreviation"])
+                        {
+                            <td class="text-center">@matchup["homeTeam"]["Abbreviation"]</td>
+                            opp = @matchup["homeTeam"]["Abbreviation"];
+                        }
+                        else if (ViewBag.PlayersCurr[i]["team"]["Abbreviation"] == matchup["homeTeam"]["Abbreviation"])
+                        {
+                            <td class="text-center">@matchup["awayTeam"]["Abbreviation"]</td>
+                            opp = @matchup["awayTeam"]["Abbreviation"];
+                        }
+                    }
+
+                    @{ var passYdPer = 0; var rushYdPer = 0; var recYdPer = 0; var tdPer = 0.0;  var gameCount = 0;}
+                    @{ string oppHome, oppAway;}
+                    @foreach (var history in ViewBag.PlayersLogsCurr)
+                    {
+                        if (ViewBag.PlayersCurr[i]["player"]["ID"] == history["player"]["ID"])
+                        {
+                            oppHome = history["game"]["homeTeam"]["Abbreviation"].ToString();
+                            oppAway = history["game"]["awayTeam"]["Abbreviation"].ToString();
+                            if (oppHome == opp)
+                            {
+                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                gameCount++;
+                            }
+                            else if (oppAway == opp)
+                            {
+                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                gameCount++;
+                            }
+                        }
+                    }
+
+                    @foreach (var history in ViewBag.PlayersLogs2016)
+                    {
+                        if (ViewBag.PlayersCurr[i]["player"]["ID"] == history["player"]["ID"])
+                        {
+                            oppHome = history["game"]["homeTeam"]["Abbreviation"].ToString();
+                            oppAway = history["game"]["awayTeam"]["Abbreviation"].ToString();
+                            if (oppHome == opp)
+                            {
+                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                gameCount++;
+                            }
+                            else if (oppAway == opp)
+                            {
+                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                gameCount++;
+                            }
+                        }
+                    }
+
+                    @foreach (var history in ViewBag.PlayersLogs2015)
+                    {
+                        if (ViewBag.PlayersCurr[i]["player"]["ID"] == history["player"]["ID"])
+                        {
+                            oppHome = history["game"]["homeTeam"]["Abbreviation"].ToString();
+                            oppAway = history["game"]["awayTeam"]["Abbreviation"].ToString();
+                            if (oppHome == opp)
+                            {
+                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                gameCount++;
+                            }
+                            else if (oppAway == opp)
+                            {
+                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                gameCount++;
+                            }
+                        }
+                    }
+
+                    @foreach (var history in ViewBag.PlayersLogs2014)
+                    {
+                        if (ViewBag.PlayersCurr[i]["player"]["ID"] == history["player"]["ID"])
+                        {
+                            oppHome = history["game"]["homeTeam"]["Abbreviation"].ToString();
+                            oppAway = history["game"]["awayTeam"]["Abbreviation"].ToString();
+                            if (oppHome == opp)
+                            {
+                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                gameCount++;
+                            }
+                            else if (oppAway == opp)
+                            {
+                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                gameCount++;
+                            }
+                        }
+                    }
+
+                    @if (passYdPer > 0)
+                    {
+                        var finalPassYdPer = Math.Round(passYdPer / Convert.ToDouble(gameCount));
+                        <td class="text-center">@finalPassYdPer</td>
+                    }
+                    else
+                    {
+                        <td class="text-center">-</td>
+                    }
+
+                    @if (rushYdPer > 0)
+                    {
+                        var finalRushYdPer = Math.Round(rushYdPer / Convert.ToDouble(gameCount));
+                        <td class="text-center">@finalRushYdPer</td>
+                    }
+                    else
+                    {
+                        <td class="text-center">-</td>
+                    }
+
+                    @if (recYdPer > 0)
+                    {
+                        var finalRecYdPer = Math.Round(recYdPer / Convert.ToDouble(gameCount));
+                        <td class="text-center">@finalRecYdPer</td>
+                    }
+                    else
+                    {
+                        <td class="text-center">-</td>
+                    }
+
+                    @if (tdPer > 0)
+                    {
+                        var finalTdPer = Math.Round((tdPer / gameCount), 1);
+                        <td class="text-center">@finalTdPer</td>
+                    }
+                    else
+                    {
+                        <td class="text-center">-</td>
+                    }
+                </tr>
             }
-            else
-            {
-                <td></td>
-            }
-        </tr>
-    }
-</table>
+        </table>
+    </div>
 </div>

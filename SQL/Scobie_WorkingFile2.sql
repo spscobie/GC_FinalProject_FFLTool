@@ -80,3 +80,13 @@ UPDATE a
 SET a.WatchlistName = 'The Winningest List'
 FROM tblWatchlists a
 WHERE a.WatchlistId = 1000051;
+
+DELETE FROM tblWatchlists
+WHERE WatchlistId = 1000047 AND PlayerId NOT IN (5933, 7274);
+
+INSERT INTO tblWatchlists
+VALUES (1000047, 'QB Test List', 6825),
+	   (1000047, 'QB Test List', 7274)
+
+INSERT INTO tblWatchlists
+VALUES (1000047, 'QB Test List', 9712)
