@@ -26,3 +26,10 @@ select,
 textarea {
     max-width: 280px;
 }
+
+<<<<<<< HEAD
+=======
+th.dt-center, td.dt-center {
+    text-align: center;
+}
+>>>>>>> 7c371e97efedb9475a8afe4d74dce223cf625b7d

@@ -5,7 +5,7 @@
 
 <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
 
-<div class="table-responsive ">
+<div class="table-responsive">
     <!--document.write('<a href="' + burl + '">Open here</a>');-->
     <!--<a href="" class=" btn btn-success btn-lg">Save</a><a href="/Home/NewWatchlist" class=" btn btn-info btn-lg">New Watchlist</a>-->
     <table id="tab2" class="table table-hover table-bordered" style="padding: 3px">
@@ -20,8 +20,6 @@
         </thead>
         @if (ViewBag.WatchList != null && ViewBag.WatchList.Count != 0)
         {
-
-
             for (int i = 0; i < @ViewBag.WatchList.Count; i++)
             {
                 <tr class="active" style="background-color: whitesmoke">
@@ -29,13 +27,10 @@
                     <td>@ViewBag.WatchList[i]["player"]["Position"]</td>
                     <td>@ViewBag.WatchList[i]["player"]["FirstName"]</td>
                     <td>@ViewBag.WatchList[i]["player"]["LastName"]</td>
-
                 </tr>
-
             }
         }
     </table>
-
 </div>
 
 <h2>Player List</h2>
@@ -51,7 +46,7 @@
 </div>
 <br />
 <br />
-<table id="tab1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+<table id="tab1" class="table table-striped table-bordered table-hover" cellspacing="0" style="width:100%">
     <thead>
         <tr>
             <td style="display:none">ID</td>
@@ -72,10 +67,25 @@
             <td>Receiving TD</td>
             <td>FG Att</td>
             <td>FG Made</td>
-            <td>Add</td>
+            @for (int j = 0; j < ViewBag.UserWatchlists.Count; j++)
+            {
+                <!-- First iteration is for a new watchlist -->
+                if (j == 0)
+                {
+                    <td style="background-color: lightpink">
+                        Add to:
+                        <strong>NEW</strong>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Add to Existing:
+                        <strong><i>@ViewBag.UserWatchlists[j]</i></strong>
+                    </td>
+                }
+            }
         </tr>
-
-
     </thead>
 
     @for (int i = 0; i < @ViewBag.Players.Count; i++)
@@ -103,14 +113,26 @@
             <td>@(ViewBag.Players[i]["stats"]["FgAtt"] == null || ViewBag.Players[i]["stats"]["FgAtt"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["FgAtt"]["#text"])</td>
             <td>@(ViewBag.Players[i]["stats"]["FgMade"] == null || ViewBag.Players[i]["stats"]["FgMade"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["FgMade"]["#text"])</td>
 
-            <td>
-                <a href="/Home/SavePlayer?PlayerId=@ViewBag.Players[i]["player"]["ID"]" class="btn btn-default btn-sm"> Add</a>
-            </td>
+            @for (int j = 0; j < ViewBag.UserWatchlists.Count; j++)
+            {
+                if (j == 0)
+                {
+                    <td style="background-color: lightpink">
+                        <a href="/Home/SavePlayerToNewList?PlayerId=@ViewBag.Players[i]["player"]["ID"]" class="btn btn-danger btn-sm">Add</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a href="/Home/SavePlayerToExistingList?PlayerId=@ViewBag.Players[i]["player"]["ID"]&watchListName=@ViewBag.UserWatchlists[j]" class="btn btn-primary btn-sm">Add</a>
+                    </td>
+                }
+            }
         </tr>
 
     }
-
 </table>
+
 
 @*<script>
 
@@ -270,6 +292,8 @@
     $(document).ready(function () {
 
         $('#tab1').DataTable({
+            "columnDefs": [
+                { "className": "dt-center", "targets": "_all" }]
         });
     });
 

@@ -7,60 +7,57 @@
 
 <h2>WatchList</h2>
 
-<table id="tab1" class="table table-striped table-bordered" cellspacing="0" width="100%">
-    <thead>
-        <tr>
-            <td style="display:none">ID</td>
-            <td>Position</td>
-            <td>First Name</td>
-            <td>Last Name</td>
-            <td>Team</td>
-            <td>Pass Att</td>
-            <td>Pass Comp</td>
-            <td>Pass Yds</td>
-            <td>Pass TD</td>
-            <td>Interceptions</td>
-            <td>Rush Att</td>
-            <td>Rush Yds</td>
-            <td>Rush TD</td>
-            <td>Receptions</td>
-            <td>Receiving Yards</td>
-            <td>Receiving TD</td>
-            <td>FG Att</td>
-            <td>FG Made</td>
-
+<div class="table-responsive">
+<table id="tab1" class="table table-striped table-bordered table-hover table-condensed">
+    <thead class="thead-dark " style="background-color: darkgrey">
+        <tr class="text-center">
+            <td><strong>Position</strong></td>
+            <td><storng>First Name</storng></td>
+            <td><strong>Last Name</strong></td>
+            <td><strong>Team</strong></td>
+            <td>Current</td>
+            <td>2016</td>
+            <td>2015</td>
+            <td>2014</td>
         </tr>
-
-
     </thead>
 
-    @for (int i = 0; i < @ViewBag.WatchList.Count; i++)
+    @for (int i = 0; i < @ViewBag.PlayersCurr.Count; i++)
     {
-        <tr class="active" style="background-color: whitesmoke">
-            <td style="display:none">@ViewBag.WatchList[i]["player"]["ID"]</td>
-            <td>@ViewBag.WatchList[i]["player"]["Position"]</td>
-            <td>@ViewBag.WatchList[i]["player"]["FirstName"]</td>
-            <td>@ViewBag.WatchList[i]["player"]["LastName"]</td>
-            <td>@ViewBag.WatchList[i]["team"]["Abbreviation"]</td>
-            <td>@(ViewBag.WatchList[i]["stats"]["PassAttempts"] == null || ViewBag.WatchList[i]["stats"]["PassAttempts"]["#text"] == "0" ? "-" : ViewBag.WatchList[i]["stats"]["PassAttempts"]["#text"])</td>
-            <td>@(ViewBag.WatchList[i]["stats"]["PassCompletions"] == null || ViewBag.WatchList[i]["stats"]["PassCompletions"]["#text"] == "0" ? "-" : ViewBag.WatchList[i]["stats"]["PassCompletions"]["#text"])</td>
-            <td>@(ViewBag.WatchList[i]["stats"]["PassYards"] == null || ViewBag.WatchList[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.WatchList[i]["stats"]["PassYards"]["#text"])</td>
-            <td>@(ViewBag.WatchList[i]["stats"]["PassTD"] == null || ViewBag.WatchList[i]["stats"]["PassTD"]["#text"] == "0" ? "-" : ViewBag.WatchList[i]["stats"]["PassTD"]["#text"])</td>
-            <td>@(ViewBag.WatchList[i]["stats"]["PassInt"] == null || ViewBag.WatchList[i]["stats"]["PassInt"]["#text"] == "0" ? "-" : ViewBag.WatchList[i]["stats"]["PassInt"]["#text"])</td>
+        <tr class="warning" style="background-color: whitesmoke">
+            <td class="text-center">@ViewBag.PlayersCurr[i]["player"]["Position"]</td>
+            <td>@ViewBag.PlayersCurr[i]["player"]["FirstName"]</td>
+            <td>@ViewBag.PlayersCurr[i]["player"]["LastName"]</td>
+            <td class="text-center">@ViewBag.PlayersCurr[i]["team"]["Abbreviation"]</td>
+            <td class="text-center">@(ViewBag.PlayersCurr[i]["stats"]["PassYards"] == null || ViewBag.PlayersCurr[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.PlayersCurr[i]["stats"]["PassYards"]["#text"])</td>
+            
+            @if (i < ViewBag.Players2016.Count)
+            {
+                <td class="text-center">@(ViewBag.Players2016[i]["stats"]["PassYards"] == null || ViewBag.Players2016[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players2016[i]["stats"]["PassYards"]["#text"])</td>
+            }
+            else
+            {
+                <td></td>
+            }
 
-            <td>@(ViewBag.WatchList[i]["stats"]["RushAttepmts"] == null || ViewBag.WatchList[i]["stats"]["RushAttepmts"]["#text"] == "0" ? "-" : ViewBag.WatchList[i]["stats"]["RushAttepmts"]["#text"])</td>
-            <td>@(ViewBag.WatchList[i]["stats"]["RushYards"] == null || ViewBag.WatchList[i]["stats"]["RushYards"]["#text"] == "0" ? "-" : ViewBag.WatchList[i]["stats"]["RushYards"]["#text"])</td>
-            <td>@(ViewBag.WatchList[i]["stats"]["RushTD"] == null || ViewBag.WatchList[i]["stats"]["RushTD"]["#text"] == "0" ? "-" : ViewBag.WatchList[i]["stats"]["RushTD"]["#text"])</td>
+            @if (i < ViewBag.Players2015.Count)
+            {
+                <td class="text-center">@(ViewBag.Players2015[i]["stats"]["PassYards"] == null || ViewBag.Players2015[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players2015[i]["stats"]["PassYards"]["#text"])</td>
+            }
+            else
+            {
+                <td></td>
+            }
 
-            <td>@(ViewBag.WatchList[i]["stats"]["Receptions"] == null || ViewBag.WatchList[i]["stats"]["Receptions"]["#text"] == "0" ? "-" : ViewBag.WatchList[i]["stats"]["Receptions"]["#text"])</td>
-            <td>@(ViewBag.WatchList[i]["stats"]["RecYards"] == null || ViewBag.WatchList[i]["stats"]["RecYards"]["#text"] == "0" ? "-" : ViewBag.WatchList[i]["stats"]["RecYards"]["#text"])</td>
-            <td>@(ViewBag.WatchList[i]["stats"]["RecTD"] == null || ViewBag.WatchList[i]["stats"]["RecTD"]["#text"] == "0" ? "-" : ViewBag.WatchList[i]["stats"]["RecTD"]["#text"])</td>
-
-            <td>@(ViewBag.WatchList[i]["stats"]["FgAtt"] == null || ViewBag.WatchList[i]["stats"]["FgAtt"]["#text"] == "0" ? "-" : ViewBag.WatchList[i]["stats"]["FgAtt"]["#text"])</td>
-            <td>@(ViewBag.WatchList[i]["stats"]["FgMade"] == null || ViewBag.WatchList[i]["stats"]["FgMade"]["#text"] == "0" ? "-" : ViewBag.WatchList[i]["stats"]["FgMade"]["#text"])</td>
-
+            @if (i < ViewBag.Players2014.Count)
+            {
+                <td class="text-center">@(ViewBag.Players2014[i]["stats"]["PassYards"] == null || ViewBag.Players2014[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players2014[i]["stats"]["PassYards"]["#text"])</td>
+            }
+            else
+            {
+                <td></td>
+            }
         </tr>
-
     }
-
 </table>
+</div>

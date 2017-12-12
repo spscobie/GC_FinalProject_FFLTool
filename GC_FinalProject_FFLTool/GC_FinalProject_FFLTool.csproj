@@ -368,6 +368,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\BootStrapTheme.css" />
+    <Content Include="Content\Images\BootStrapTheme.css" />
     <Content Include="Content\Images\fantasynew.jpg" />
     <Content Include="Content\Images\footballmap.jpeg" />
     <Content Include="Content\Images\map.jpg" />
@@ -439,6 +441,7 @@
     <Content Include="Models\FFLToolModel.edmx.diagram">
       <DependentUpon>FFLToolModel.edmx</DependentUpon>
     </Content>
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Models\Images\nfl grass logo.jpg" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
@@ -491,16 +494,11 @@
     <Content Include="Views\Home\AllPlayersView.cshtml" />
     <Content Include="Views\Home\WatchList.cshtml" />
     <Content Include="Views\Home\WatchlistView.cshtml" />
+    <Content Include="Views\Home\WatchListManagement.cshtml" />
     <Content Include="Web.config" />
-    <Content Include="Views\Web.config" />
-
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
