@@ -240,10 +240,11 @@ namespace GC_FinalProject_FFLTool.Controllers
             return View("AllPlayersView");
         }
 
-        public ActionResult SavePlayerToNewList(string PlayerId)
+        public ActionResult SavePlayerToNewList(string PlayerId, string watchListName)
         {
             FFLToolEntities2 ORM = new FFLToolEntities2();
 
+            string name = watchListName;
             string userId = User.Identity.GetUserId();
             string currWatchList = (from UW in ORM.tblUserWatchlists
                                     where UW.UserId == userId
@@ -252,7 +253,7 @@ namespace GC_FinalProject_FFLTool.Controllers
             tblWatchlist watchList = new tblWatchlist();
             watchList.WatchlistId = Convert.ToInt64(currWatchList);
             watchList.PlayerId = Convert.ToInt32(PlayerId);
-            watchList.WatchlistName = "New Watch List";
+            watchList.WatchlistName = watchListName;
 
             try
             {
@@ -261,10 +262,10 @@ namespace GC_FinalProject_FFLTool.Controllers
             }
             catch
             {
-                return Redirect("ShowAllPlayers");
+                return RedirectToAction("ShowAllPlayers", new { watchListName = name });
             }
 
-            return Redirect("ShowAllPlayers");
+            return RedirectToAction("ShowAllPlayers", new { watchListName = name });
         }
 
         public ActionResult SavePlayerToExistingList(string PlayerId, string watchListName)
