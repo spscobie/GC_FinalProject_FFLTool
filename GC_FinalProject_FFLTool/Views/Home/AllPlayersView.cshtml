@@ -115,11 +115,11 @@
 
             <td>@(ViewBag.Players[i]["stats"]["FgAtt"] == null || ViewBag.Players[i]["stats"]["FgAtt"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["FgAtt"]["#text"])</td>
             <td>@(ViewBag.Players[i]["stats"]["FgMade"] == null || ViewBag.Players[i]["stats"]["FgMade"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["FgMade"]["#text"])</td>
-            @{ 
+            @{
                 var player = ViewBag.Players[i]["stats"];
                 var score = 0;
                 score += Convert.ToInt32(player["PassTD"]["#text"]) * 6;
-                score += Convert.ToInt32(player["PassYards"]["#text"]) * .04 ;
+                score += Convert.ToInt32(player["PassYards"]["#text"]) * .04;
                 score -= Convert.ToInt32(player["PassInt"]["#text"]) * 2;
                 score += Convert.ToInt32(player["RushYards"]["#text"]) / 10;
                 score += Convert.ToInt32(player["RushTD"]["#text"]) * 6;
@@ -149,7 +149,7 @@
             }
         </tr>
 
-    }
+                }
 </table>
 
 
@@ -309,22 +309,19 @@
 
 
 <script>
-        function myFunction() {
-    var txt;
-    var watchListName = prompt("Please enter the name for your new watchlist:");
-    if (watchListName == null || watchListName == "") {
+    function myFunction() {
+        var txt;
+        var watchListName = prompt("Please enter the name for your new watchlist:");
+        if (watchListName == null || watchListName == "") {
             txt = "User cancelled the prompt.";
         } else {
             txt = watchListName;
+        }
+
+        var yourElement = document.getElementById('yourHref');
+        yourElement.setAttribute('href', yourElement.getAttribute('href') + txt);
+
     }
-
-    var yourElement = document.getElementById('yourHref');
-    yourElement.setAttribute('href', yourElement.getAttribute('href')+txt );
-
-
-
-   // localStorage.setItem("storageName", txt);
-}
 </script>
 
 <script>
@@ -333,7 +330,8 @@
 
         $('#tab1').DataTable({
             "columnDefs": [
-                { "className": "dt-center", "targets": "_all" }]
+                { "className": "dt-center", "targets": "_all", "fixedColumns": "{leftColumns : 1}"}]
+
         });
     });
 
