@@ -3,7 +3,10 @@
     ViewBag.Title = "WatchListManagement";
 }
 
-
+@if (ViewBag.WatchListName != null)
+{
+    <h1>@ViewBag.WatchListName has been deleted!</h1>
+}
 
 <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
 
@@ -25,7 +28,7 @@
 
                 <a href="/Home/WatchList?watchlistId=@ViewBag.WatchlistId[i]&watchListName=@ViewBag.WatchList[i]" class="btn btn-default btn-sm"> Inspect</a>
 
-                <a href="/Home/DeleteWatchList?watchlistId=@ViewBag.WatchlistId[i]" class="btn btn-default btn-sm">Delete List</a>
+                <a href="/Home/DeleteWatchList?watchlistId=@ViewBag.WatchlistId[i]&watchListName=@ViewBag.WatchList[i]" class="btn btn-default btn-sm">Delete List</a>
 
             </td>
         </tr>

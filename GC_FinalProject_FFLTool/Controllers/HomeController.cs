@@ -394,7 +394,7 @@ namespace GC_FinalProject_FFLTool.Controllers
             return apiDataJSON;
         }
 
-        public ActionResult WatchListManagement()
+        public ActionResult WatchListManagement(string watchListName)
         {
 
             FFLToolEntities2 ORM = new FFLToolEntities2();
@@ -427,6 +427,11 @@ namespace GC_FinalProject_FFLTool.Controllers
 
                     }
                 }
+            }
+
+            if (watchListName != null)
+            {
+                ViewBag.WatchListName = watchListName;
             }
 
             ViewBag.WatchList = watchlists;
@@ -511,7 +516,7 @@ namespace GC_FinalProject_FFLTool.Controllers
             return RedirectToAction("ShowAllPlayers");
         }
 
-        public ActionResult DeleteWatchList(string watchlistId)
+        public ActionResult DeleteWatchList(string watchlistId, string watchListName)
         {
             long ID = Int64.Parse(watchlistId);
             FFLToolEntities2 ORM = new FFLToolEntities2();
@@ -520,7 +525,9 @@ namespace GC_FinalProject_FFLTool.Controllers
 
             ORM.SaveChanges();
 
-            return RedirectToAction("WatchListManagement");
+            string name = watchListName;
+
+            return RedirectToAction("WatchListManagement", new { watchListName = name });
         }
 
     }
