@@ -6,7 +6,7 @@
 <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
 
 <h2>@ViewBag.WatchListName</h2>
-<div class="table-responsive">
+<div  class="col-md-10 table-responsive" >
     <!--document.write('<a href="' + burl + '">Open here</a>');-->
     <!--<a href="" class=" btn btn-success btn-lg">Save</a><a href="/Home/NewWatchlist" class=" btn btn-info btn-lg">New Watchlist</a>-->
     <table id="tab2" class="table table-hover table-bordered" style="padding: 3px">
@@ -32,7 +32,7 @@
             }
         }
     </table>
-</div>
+</>
 
 <h2>Player List</h2>
 
@@ -153,154 +153,7 @@
 </table>
 
 
-@*<script>
 
-        var playerStr = "";
-
-        function tab1_To_tab2() {
-            var table1 = document.getElementById("tab1"),
-                table2 = document.getElementById("tab2"),
-                checkboxes = document.getElementsByName("check-tab1");
-
-
-
-            for (var i = 0; i < checkboxes.length; i++)
-                if (checkboxes[i].checked) {
-
-                    //Create new row and cells
-
-                    var newRow = tab2.insertRow(tab2.length),
-                        cell1 = newRow.insertCell(0),
-                        cell2 = newRow.insertCell(1),
-                        cell3 = newRow.insertCell(2),
-                        cell4 = newRow.insertCell(3),
-                        cell5 = newRow.insertCell(4),
-                        cell6 = newRow.insertCell(5),
-                        cell7 = newRow.insertCell(6),
-                        cell8 = newRow.insertCell(7),
-                        cell9 = newRow.insertCell(8),
-                        cell10 = newRow.insertCell(9),
-                        cell11 = newRow.insertCell(10),
-                        cell12 = newRow.insertCell(11),
-                        cell13 = newRow.insertCell(12),
-                        cell14 = newRow.insertCell(13),
-                        cell15 = newRow.insertCell(14),
-                        cell16 = newRow.insertCell(15),
-                        cell17 = newRow.insertCell(16),
-                        cell18 = newRow.insertCell(17),
-                        cell19 = newRow.insertCell(18),
-                        cell20 = newRow.insertCell(19);
-
-                    //add values to the cells
-
-
-                    cell1.innerHTML = tab1.rows[i + 1].cells[0].innerHTML;
-
-                    console.log(cell1.innerHTML);
-                    playerStr = playerStr + cell1.innerHTML + ",";
-                    console.log(playerStr);
-
-                    cell2.innerHTML = tab1.rows[i + 1].cells[1].innerHTML;
-                    cell3.innerHTML = tab1.rows[i + 1].cells[2].innerHTML;
-                    cell4.innerHTML = tab1.rows[i + 1].cells[3].innerHTML;
-                    cell5.innerHTML = tab1.rows[i + 1].cells[4].innerHTML;
-                    cell6.innerHTML = tab1.rows[i + 1].cells[5].innerHTML;
-                    cell7.innerHTML = tab1.rows[i + 1].cells[6].innerHTML;
-                    cell8.innerHTML = tab1.rows[i + 1].cells[7].innerHTML;
-                    cell9.innerHTML = tab1.rows[i + 1].cells[8].innerHTML;
-                    cell10.innerHTML = tab1.rows[i + 1].cells[9].innerHTML;
-                    cell11.innerHTML = tab1.rows[i + 1].cells[10].innerHTML;
-                    cell12.innerHTML = tab1.rows[i + 1].cells[11].innerHTML;
-                    cell13.innerHTML = tab1.rows[i + 1].cells[12].innerHTML;
-                    cell14.innerHTML = tab1.rows[i + 1].cells[13].innerHTML;
-                    cell15.innerHTML = tab1.rows[i + 1].cells[14].innerHTML;
-                    cell16.innerHTML = tab1.rows[i + 1].cells[15].innerHTML;
-                    cell17.innerHTML = tab1.rows[i + 1].cells[16].innerHTML;
-                    cell18.innerHTML = tab1.rows[i + 1].cells[17].innerHTML;
-                    cell19.innerHTML = "<input type='checkbox' name='check-tab2'>";
-                    cell20.innerHTML = "<a onclick='tab2_To_tab1()' class='btn btn-default btn-sm'>Delete</a>";
-
-
-                    //remove the transfered rows from the first table
-
-                    var index = tab1.rows[i + 1].rowIndex;
-                    tab1.deleteRow(index);
-                    //we have deleted some rows so the checkboxes.length have changed
-                    //so we have to decrement the value of i
-                    i--;
-
-                    console.log("yes");
-
-                }
-        }
-
-        function tab2_To_tab1() {
-            var table1 = document.getElementById("tab1"),
-                table2 = document.getElementById("tab2"),
-                checkboxes = document.getElementsByName("check-tab2");
-
-            for (var i = 0; i < checkboxes.length; i++)
-                if (checkboxes[i].checked) {
-
-                    //Create new row and cells
-                    var newRow = tab1.insertRow(tab1.length),
-                        cell1 = newRow.insertCell(0),
-                        cell2 = newRow.insertCell(1),
-                        cell3 = newRow.insertCell(2),
-                        cell4 = newRow.insertCell(3),
-                        cell5 = newRow.insertCell(4),
-                        cell6 = newRow.insertCell(5),
-                        cell7 = newRow.insertCell(6),
-                        cell8 = newRow.insertCell(7),
-                        cell9 = newRow.insertCell(8),
-                        cell10 = newRow.insertCell(9),
-                        cell11 = newRow.insertCell(10),
-                        cell12 = newRow.insertCell(11),
-                        cell13 = newRow.insertCell(12),
-                        cell14 = newRow.insertCell(13),
-                        cell15 = newRow.insertCell(14),
-                        cell16 = newRow.insertCell(15),
-                        cell17 = newRow.insertCell(16),
-                        cell18 = newRow.insertCell(17),
-                        cell19 = newRow.insertCell(18);
-
-                    //add values to the cells
-
-
-                    cell1.innerHTML = tab2.rows[i + 1].cells[1].innerHTML;
-                    cell2.innerHTML = tab2.rows[i + 1].cells[2].innerHTML;
-                    cell3.innerHTML = tab2.rows[i + 1].cells[3].innerHTML;
-                    cell4.innerHTML = tab2.rows[i + 1].cells[4].innerHTML;
-                    cell5.innerHTML = tab2.rows[i + 1].cells[5].innerHTML;
-                    cell6.innerHTML = tab2.rows[i + 1].cells[6].innerHTML;
-                    cell7.innerHTML = tab2.rows[i + 1].cells[7].innerHTML;
-                    cell8.innerHTML = tab2.rows[i + 1].cells[8].innerHTML;
-                    cell9.innerHTML = tab2.rows[i + 1].cells[9].innerHTML;
-                    cell10.innerHTML = tab2.rows[i + 1].cells[10].innerHTML;
-                    cell11.innerHTML = tab2.rows[i + 1].cells[11].innerHTML;
-                    cell12.innerHTML = tab2.rows[i + 1].cells[12].innerHTML;
-                    cell13.innerHTML = tab2.rows[i + 1].cells[13].innerHTML;
-                    cell14.innerHTML = tab2.rows[i + 1].cells[14].innerHTML;
-                    cell15.innerHTML = tab2.rows[i + 1].cells[15].innerHTML;
-                    cell16.innerHTML = tab2.rows[i + 1].cells[16].innerHTML;
-                    cell17.innerHTML = tab2.rows[i + 1].cells[17].innerHTML;
-                    cell18.innerHTML = "<input type='checkbox' name='check-tab2'>";
-                    cell19.innerHTML = "<a onclick='tab2_To_tab1()' class='btn btn-default btn-sm'>Add</a>";
-
-
-                    //remove the transfered rows from the first table
-
-                    var index = tab2.rows[i + 1].rowIndex;
-                    tab2.deleteRow(index);
-                    //we have deleted some rows so the checkboxes.length have changed
-                    //so we have to decrement the value of i
-                    i--;
-
-                    console.log("yes");
-
-                }
-        }
-    </script>*@
 
 @*Figure out a better place for this.  It just needs to run before the document on ready.*@
 @Scripts.Render("~/bundles/jquery")

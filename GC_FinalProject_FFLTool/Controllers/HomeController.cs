@@ -79,6 +79,41 @@ namespace GC_FinalProject_FFLTool.Controllers
             return apiDataJSON;
         }
 
+        public JObject ApiRequestPlayerLogs(string season, string playerIds)
+        {
+            HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/{season}/player_gamelogs.json{playerIds}");
+            WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
+            WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
+            WebReq.Method = "GET";
+
+            HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
+
+            StreamReader reader = new StreamReader(WebResp.GetResponseStream());
+            string apiData = reader.ReadToEnd();
+
+            JObject apiDataJSON = JObject.Parse(apiData);
+
+            return apiDataJSON;
+        }
+
+        public JObject ApiRequestSchedule()
+        {
+            HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/current/full_game_schedule.json?date=from-20171212-to-20171218");
+            WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
+            WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
+            WebReq.Method = "GET";
+
+            HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
+
+            StreamReader reader = new StreamReader(WebResp.GetResponseStream());
+            string apiData = reader.ReadToEnd();
+
+            JObject apiDataJSON = JObject.Parse(apiData);
+
+            return apiDataJSON;
+        }
+
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -225,11 +260,8 @@ namespace GC_FinalProject_FFLTool.Controllers
 
             }
 
-
-
             ViewBag.Players = players["cumulativeplayerstats"]["playerstatsentry"];
             ViewBag.UserWatchlists = DropdownWatchLists();
-
 
             if (WatchList != null && WatchList.Count != 0)
             {
@@ -424,7 +456,9 @@ namespace GC_FinalProject_FFLTool.Controllers
                 }
             }
 
-            JObject playersCurr, players2016, players2015, players2014;
+            JObject playersCurr, players2016, players2015, players2014, sched, playerlogsCurr, playerlogs2016, playerlogs2015, playerlogs2014;
+
+            /* Summary stats */
             playersCurr = ApiRequestHistorical("current", "?player=" + newPlayer);
             players2016 = ApiRequestHistorical("2016-2017-regular", "?player=" + newPlayer);
             players2015 = ApiRequestHistorical("2015-2016-regular", "?player=" + newPlayer);
@@ -436,6 +470,21 @@ namespace GC_FinalProject_FFLTool.Controllers
             ViewBag.Players2014 = players2014["cumulativeplayerstats"]["playerstatsentry"];
             ViewBag.WatchlistName = watchlistName;
             ViewBag.WatchlistId = watchlistId;
+
+            /* Upcoming opponent */
+            sched = ApiRequestSchedule();
+            ViewBag.CurrOpp = sched["fullgameschedule"]["gameentry"];
+
+            /* Game log stats */
+            playerlogsCurr = ApiRequestPlayerLogs("current", "?player=" + newPlayer);
+            playerlogs2016 = ApiRequestPlayerLogs("2016-2017-regular", "?player=" + newPlayer);
+            playerlogs2015 = ApiRequestPlayerLogs("2015-2016-regular", "?player=" + newPlayer);
+            playerlogs2014 = ApiRequestPlayerLogs("2014-2015-regular", "?player=" + newPlayer);
+
+            ViewBag.PlayersLogsCurr = playerlogsCurr["playergamelogs"]["gamelogs"];
+            ViewBag.PlayersLogs2016 = playerlogs2016["playergamelogs"]["gamelogs"];
+            ViewBag.PlayersLogs2015 = playerlogs2015["playergamelogs"]["gamelogs"];
+            ViewBag.PlayersLogs2014 = playerlogs2014["playergamelogs"]["gamelogs"];
 
             return View();
         }
