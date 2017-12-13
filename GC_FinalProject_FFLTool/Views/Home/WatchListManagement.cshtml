@@ -28,7 +28,7 @@
 
                 <a href="/Home/WatchList?watchlistId=@ViewBag.WatchlistId[i]&watchListName=@ViewBag.WatchList[i]" class="btn btn-default btn-sm"> Inspect</a>
 
-                <a href="/Home/DeleteWatchList?watchlistId=@ViewBag.WatchlistId[i]&watchListName=@ViewBag.WatchList[i]" class="btn btn-default btn-sm">Delete List</a>
+                <a href="/Home/DeleteWatchList?watchlistId=@ViewBag.WatchlistId[i]&watchListName=@ViewBag.WatchList[i]" class="btn btn-default btn-sm" onclick="return confirm('Are you sure?')">Delete List</a>
 
             </td>
         </tr>

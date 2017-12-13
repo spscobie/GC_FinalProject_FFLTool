@@ -4,24 +4,24 @@
 }
 
 <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+@if (ViewBag.WatchList != null && ViewBag.WatchList.Count != 0)
+{
+    <h2>@ViewBag.WatchListName</h2>
+    <div class="col-md-10 table-responsive">
+        <!--document.write('<a href="' + burl + '">Open here</a>');-->
+        <!--<a href="" class=" btn btn-success btn-lg">Save</a><a href="/Home/NewWatchlist" class=" btn btn-info btn-lg">New Watchlist</a>-->
+        <table id="tab2" class="table table-hover table-bordered" style="padding: 3px">
+            <thead class="thead-dark" style="background-color: darkgrey">
+                <tr>
+                    <td>Position</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
 
-<h2>@ViewBag.WatchListName</h2>
-<div  class="col-md-10 table-responsive" >
-    <!--document.write('<a href="' + burl + '">Open here</a>');-->
-    <!--<a href="" class=" btn btn-success btn-lg">Save</a><a href="/Home/NewWatchlist" class=" btn btn-info btn-lg">New Watchlist</a>-->
-    <table id="tab2" class="table table-hover table-bordered" style="padding: 3px">
-        <thead class="thead-dark" style="background-color: darkgrey">
-            <tr>
-                <td>Position</td>
-                <td>First Name</td>
-                <td>Last Name</td>
+                </tr>
 
-            </tr>
+            </thead>
 
-        </thead>
-        @if (ViewBag.WatchList != null && ViewBag.WatchList.Count != 0)
-        {
-            for (int i = 0; i < @ViewBag.WatchList.Count; i++)
+            @for (int i = 0; i < @ViewBag.WatchList.Count; i++)
             {
                 <tr class="active" style="background-color: whitesmoke">
                     <td style="display:none">@ViewBag.WatchList[i]["player"]["ID"]</td>
@@ -30,10 +30,11 @@
                     <td>@ViewBag.WatchList[i]["player"]["LastName"]</td>
                 </tr>
             }
-        }
-    </table>
-</div>
 
+        </table>
+    </div>
+}
+<br />
 <h2>Player List</h2>
 
 <br />
@@ -132,9 +133,9 @@
             <td>@score</td>
 
             @for (int j = 0; j < ViewBag.UserWatchlists.Count; j++)
-            {
-                if (j == 0)
                 {
+                    if (j == 0)
+                    {
 
                     <td style="background-color: lightpink">
                         <a id="yourHref" href="/Home/SavePlayerToNewList?PlayerId=@ViewBag.Players[i]["player"]["ID"]&watchListName=" class="btn btn-danger btn-sm" onclick="myFunction()">Add</a>
@@ -183,7 +184,7 @@
 
         $('#tab1').DataTable({
             "columnDefs": [
-                { "className": "dt-center", "targets": "_all", "fixedColumns": "{leftColumns : 1}"}]
+                { "className": "dt-center", "targets": "_all", "fixedColumns": "{leftColumns : 1}" }]
 
         });
     });
