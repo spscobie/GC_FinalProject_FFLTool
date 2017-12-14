@@ -121,14 +121,14 @@
             @{
                 var player = ViewBag.Players[i]["stats"];
                 var score = 0;
-                score += Convert.ToInt32(player["PassTD"]["#text"]) * 6;
-                score += Convert.ToInt32(player["PassYards"]["#text"]) * .04;
-                score -= Convert.ToInt32(player["PassInt"]["#text"]) * 2;
-                score += Convert.ToInt32(player["RushYards"]["#text"]) / 10;
-                score += Convert.ToInt32(player["RushTD"]["#text"]) * 6;
-                score += Convert.ToInt32(player["RecYards"]["#text"]) / 10;
-                score += Convert.ToInt32(player["RecTD"]["#text"]) * 6;
-
+                score += ViewBag.Players[i]["stats"]["PassTD"] == null ? 0 : Convert.ToInt32(player["PassTD"]["#text"]) * 6;
+                score += ViewBag.Players[i]["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(player["PassYards"]["#text"]) * .04;
+                score -= ViewBag.Players[i]["stats"]["PassInt"] == null ? 0 : Convert.ToInt32(player["PassInt"]["#text"]) * 2;
+                score += ViewBag.Players[i]["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(player["RushYards"]["#text"]) / 10;
+                score += ViewBag.Players[i]["stats"]["RushTD"] == null ? 0 : Convert.ToInt32(player["RushTD"]["#text"]) * 6;
+                score += ViewBag.Players[i]["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(player["RecYards"]["#text"]) / 10;
+                score += ViewBag.Players[i]["stats"]["RecTD"] == null ? 0 : Convert.ToInt32(player["RecTD"]["#text"]) * 6;
+                score += ViewBag.Players[i]["stats"]["FgMade"] == null ? 0 : Convert.ToInt32(player["FgMade"]["#text"]) * 3;
 
 
             }

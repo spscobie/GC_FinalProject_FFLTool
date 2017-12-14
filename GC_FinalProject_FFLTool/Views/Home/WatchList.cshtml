@@ -18,7 +18,7 @@
 }
 
 <div class="container-fluid">
-    <div class="col-md-10 table-responsive">
+    <div class="table-responsive">
         <table id="tab1" class="table table-striped table-bordered table-hover table-condensed">
             <thead class="thead-dark " style="background-color: darkgrey">
                 <tr class="text-center">
@@ -79,27 +79,27 @@
                             oppAway = history["game"]["awayTeam"]["Abbreviation"].ToString();
                             if (oppHome == opp)
                             {
-                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
-                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
-                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
-                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                passYdPer += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
                                 fgMadePer += history["stats"]["FgMade"] == null ? 0 : Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
                                 gameCount++;
                             }
                             else if (oppAway == opp)
                             {
-                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
-                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
-                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
-                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                passYdPer += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
                                 fgMadePer += history["stats"]["FgMade"] == null ? 0 :  Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
                                 gameCount++;
                             }
 
-                            passYdPer2017 += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
-                            rushYdPer2017 += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
-                            recYdPer2017 += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
-                            tdPer2017 += Convert.ToInt32(history["stats"]["PassTD"]["#text"]);
+                            passYdPer2017 += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                            rushYdPer2017 += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                            recYdPer2017 += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                            tdPer2017 += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
                             fgMadePer2017 += history["stats"]["FgMade"] == null ? 0 : Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
 
                             gameCount2017++;
@@ -114,19 +114,19 @@
                             oppAway = history["game"]["awayTeam"]["Abbreviation"].ToString();
                             if (oppHome == opp)
                             {
-                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
-                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
-                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
-                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                passYdPer += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
                                 fgMadePer += history["stats"]["FgMade"] == null ? 0 : Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
                                 gameCount++;
                             }
                             else if (oppAway == opp)
                             {
-                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
-                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
-                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
-                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                passYdPer += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
                                 fgMadePer += history["stats"]["FgMade"] == null ? 0 : Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
                                 gameCount++;
                             }
@@ -141,19 +141,19 @@
                             oppAway = history["game"]["awayTeam"]["Abbreviation"].ToString();
                             if (oppHome == opp)
                             {
-                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
-                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
-                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
-                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                passYdPer += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
                                 fgMadePer += history["stats"]["FgMade"] == null ? 0 : Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
                                 gameCount++;
                             }
                             else if (oppAway == opp)
                             {
-                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
-                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
-                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
-                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                passYdPer += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
                                 fgMadePer += history["stats"]["FgMade"] == null ? 0 : Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
                                 gameCount++;
                             }
@@ -168,19 +168,19 @@
                             oppAway = history["game"]["awayTeam"]["Abbreviation"].ToString();
                             if (oppHome == opp)
                             {
-                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
-                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
-                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
-                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                passYdPer += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
                                 fgMadePer += history["stats"]["FgMade"] == null ? 0 : Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
                                 gameCount++;
                             }
                             else if (oppAway == opp)
                             {
-                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
-                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
-                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
-                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                passYdPer += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
                                 fgMadePer += history["stats"]["FgMade"] == null ? 0 : Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
                                 gameCount++;
                             }
