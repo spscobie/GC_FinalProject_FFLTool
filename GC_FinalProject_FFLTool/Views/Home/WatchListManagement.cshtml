@@ -12,27 +12,26 @@
 
 
 <h2>Watch List Management</h2>
-
-<table id="tab1" class="table table-striped table-bordered" width="100%">
-    <thead>
-        <tr>
-            <td>Watch List Name</td>
-        </tr>
-    </thead>
-    @for (int i = 0; i < @ViewBag.WatchList.Count; i++)
-    {
-        <tr class="active" style="background-color: whitesmoke">
-            <td style="display:none">@ViewBag.WatchlistId[i]</td>
-            <td>@ViewBag.WatchList[i]</td>
-            <td>
-
-                <a href="/Home/WatchList?watchlistId=@ViewBag.WatchlistId[i]&watchListName=@ViewBag.WatchList[i]" class="btn btn-default btn-sm">Inspect  <span class="glyphicon glyphicon-search"></span></a>
-
-                <a href="/Home/DeleteWatchList?watchlistId=@ViewBag.WatchlistId[i]&watchListName=@ViewBag.WatchList[i]" class="btn btn-default btn-sm" onclick="return confirm('Are you sure?')">Delete List  <span class="glyphicon glyphicon-minus"></span></a>
-
-            </td>
-        </tr>
-    }
-</table>
-
-
+<div class="container-fluid">
+    <div class="table-responsive">
+        <table id="tab1" class="table table-striped table-bordered table-hover table-condensed">
+            <thead>
+                <tr style="background-color: black">
+                    <td class="text-center" style="color: white"><strong>Watch List Name</strong></td>
+                    <td class="text-center" style="color: white"><strong>Action</strong></td>
+                </tr>
+            </thead>
+            @for (int i = 0; i < @ViewBag.WatchList.Count; i++)
+            {
+                <tr class="active" style="background-color: whitesmoke">
+                    <td style="display:none">@ViewBag.WatchlistId[i]</td>
+                    <td class="col-md-5 text-center">@ViewBag.WatchList[i]</td>
+                    <td class="col-md-2 text-center">
+                        <a href="/Home/WatchList?watchlistId=@ViewBag.WatchlistId[i]&watchListName=@ViewBag.WatchList[i]" class="btn btn-primary btn-sm">Inspect  <span class="glyphicon glyphicon-search"></span></a>
+                        <a href="/Home/DeleteWatchList?watchlistId=@ViewBag.WatchlistId[i]&watchListName=@ViewBag.WatchList[i]" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete List  <span class="glyphicon glyphicon-minus"></span></a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

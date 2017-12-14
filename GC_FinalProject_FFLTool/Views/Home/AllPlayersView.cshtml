@@ -15,17 +15,13 @@
     </p>
 
     <div class="col-md-10 table-responsive">
-        <!--document.write('<a href="' + burl + '">Open here</a>');-->
-        <!--<a href="" class=" btn btn-success btn-lg">Save</a><a href="/Home/NewWatchlist" class=" btn btn-info btn-lg">New Watchlist</a>-->
         <table id="tab2" class="table table-hover table-bordered" style="padding: 3px">
             <thead class="thead-dark" style="background-color: darkgrey">
                 <tr>
                     <td>Position</td>
                     <td>First Name</td>
                     <td>Last Name</td>
-
                 </tr>
-
             </thead>
 
             @for (int i = 0; i < @ViewBag.WatchList.Count; i++)
@@ -37,15 +33,11 @@
                     <td>@ViewBag.WatchList[i]["player"]["LastName"]</td>
                 </tr>
             }
-
         </table>
     </div>
 }
 <br />
-
-
 <br />
-
 <br />
 
 <div class="btn-group">
