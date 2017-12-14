@@ -9,6 +9,9 @@ using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using System.Data;
+using System.Data.Entity;
+using System.Data.SqlClient;
 using GC_FinalProject_FFLTool.Models;
 using Microsoft.AspNet.Identity;
 
@@ -436,7 +439,7 @@ namespace GC_FinalProject_FFLTool.Controllers
             return View();
         }
 
-        public ActionResult WatchList(string watchlistId, string watchlistName)
+        public ActionResult WatchList(string watchlistId, string watchlistName, string deletedPlayer = null)
         {
             FFLToolEntities2 ORM = new FFLToolEntities2();
 
@@ -469,8 +472,6 @@ namespace GC_FinalProject_FFLTool.Controllers
             ViewBag.Players2016 = players2016["cumulativeplayerstats"]["playerstatsentry"];
             ViewBag.Players2015 = players2015["cumulativeplayerstats"]["playerstatsentry"];
             ViewBag.Players2014 = players2014["cumulativeplayerstats"]["playerstatsentry"];
-            ViewBag.WatchlistName = watchlistName;
-            ViewBag.WatchlistId = watchlistId;
 
             /* Upcoming opponent */
             sched = ApiRequestSchedule();
@@ -486,6 +487,10 @@ namespace GC_FinalProject_FFLTool.Controllers
             ViewBag.PlayersLogs2016 = playerlogs2016["playergamelogs"]["gamelogs"];
             ViewBag.PlayersLogs2015 = playerlogs2015["playergamelogs"]["gamelogs"];
             ViewBag.PlayersLogs2014 = playerlogs2014["playergamelogs"]["gamelogs"];
+
+            ViewBag.WatchlistName = watchlistName;
+            ViewBag.WatchlistId = watchlistId;
+            ViewBag.DeletedPlayer = deletedPlayer;
 
             return View();
         }
@@ -510,6 +515,23 @@ namespace GC_FinalProject_FFLTool.Controllers
             ORM.SaveChanges();
 
             return RedirectToAction("ShowAllPlayers");
+        }
+
+        public ActionResult DropPlayer(string watchlistId, string playerId)
+        {
+            FFLToolEntities2 ORM = new FFLToolEntities2();
+
+            tblWatchlist watchlist = ORM.tblWatchlists.Find(Convert.ToInt64(watchlistId), Convert.ToInt32(playerId));
+               
+            ORM.tblWatchlists.Remove(watchlist);
+            ORM.SaveChanges();
+
+            JObject delPlayerJSON =  ApiRequestHistorical("current", "?player=" + playerId);
+            string delPlayer = (string)delPlayerJSON["cumulativeplayerstats"]["playerstatsentry"][0]["player"]["FirstName"] + " " + (string)delPlayerJSON["cumulativeplayerstats"]["playerstatsentry"][0]["player"]["LastName"];
+
+            return RedirectToAction("WatchList", new { WatchlistId = watchlist.WatchlistId.ToString(),
+                                                       WatchlistName = watchlist.WatchlistName,
+                                                       DeletedPlayer = delPlayer });
         }
 
     }
