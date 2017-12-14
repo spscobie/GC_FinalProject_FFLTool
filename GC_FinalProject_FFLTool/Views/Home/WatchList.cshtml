@@ -288,12 +288,12 @@
                         <td class="text-center">-</td>
                     }
 
-                    <td class="text-center"><a class="btn btn-danger btn-xs" href="/Home/DropPlayer?watchlistId=@ViewBag.WatchlistId&playerId=@ViewBag.PlayersCurr[i]["player"]["ID"]">Drop</a></td>
+                    <td class="text-center"><a class="btn btn-danger btn-xs" href="/Home/DropPlayer?watchlistId=@ViewBag.WatchlistId&playerId=@ViewBag.PlayersCurr[i]["player"]["ID"]" onclick="return confirm('Are you sure?')">Drop</a></td>
                 </tr>
                         }
         </table>
         <br />
-        <p><a href="/Home/ShowAllPlayers?watchlistId=@ViewBag.WatchlistId&watchListName=@ViewBag.WatchListName" class="btn btn-success btn-lg"> Add more players</a></p>
+        <p><a href="/Home/ShowAllPlayers?watchlistId=@ViewBag.WatchlistId&watchListName=@ViewBag.WatchListName" class="btn btn-success btn-lg" > Add more players</a></p>
         <br />
     </div>
 </div>

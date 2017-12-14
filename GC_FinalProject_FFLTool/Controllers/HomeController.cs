@@ -41,7 +41,7 @@ namespace GC_FinalProject_FFLTool.Controllers
             string apiData = reader.ReadToEnd();
 
             JObject apiDataJSON = JObject.Parse(apiData);
- 
+
             return apiDataJSON;
         }
 
@@ -116,7 +116,6 @@ namespace GC_FinalProject_FFLTool.Controllers
             return apiDataJSON;
         }
 
-
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -143,7 +142,7 @@ namespace GC_FinalProject_FFLTool.Controllers
             JObject WatchList = new JObject();
             if (watchListName != null)
             {
-                
+
                 watchlist.WatchlistName = watchListName.Trim();
 
                 //need to error handle gracefully
@@ -152,9 +151,11 @@ namespace GC_FinalProject_FFLTool.Controllers
                                          select W.WatchlistId).Distinct().Single();
 
                 WatchList = Table2(watchlist.WatchlistId.ToString());
+
+                ViewBag.WatchListID = watchlist.WatchlistId;
             }
 
-          
+
             JObject players = ApiRequest("?position=qb");
 
             ViewBag.Players = players["cumulativeplayerstats"]["playerstatsentry"];
@@ -324,7 +325,7 @@ namespace GC_FinalProject_FFLTool.Controllers
             }
             catch
             {
-                return RedirectToAction("ShowAllPlayers", new {watchListName = name });
+                return RedirectToAction("ShowAllPlayers", new { watchListName = name });
             }
 
 
@@ -533,9 +534,12 @@ namespace GC_FinalProject_FFLTool.Controllers
             JObject delPlayerJSON = ApiRequestHistorical("current", "?player=" + playerId);
             string delPlayer = (string)delPlayerJSON["cumulativeplayerstats"]["playerstatsentry"][0]["player"]["FirstName"] + " " + (string)delPlayerJSON["cumulativeplayerstats"]["playerstatsentry"][0]["player"]["LastName"];
 
-            return RedirectToAction("WatchList", new { WatchlistId = watchlist.WatchlistId.ToString(),
+            return RedirectToAction("WatchList", new
+            {
+                WatchlistId = watchlist.WatchlistId.ToString(),
                 WatchlistName = watchlist.WatchlistName,
-                DeletedPlayer = delPlayer });
+                DeletedPlayer = delPlayer
+            });
         }
 
         public ActionResult DeleteWatchList(string watchlistId, string watchListName)
@@ -543,7 +547,7 @@ namespace GC_FinalProject_FFLTool.Controllers
             long ID = Int64.Parse(watchlistId);
             FFLToolEntities2 ORM = new FFLToolEntities2();
 
-            ORM.tblUserWatchlists.Remove(ORM.tblUserWatchlists.Find(ID,User.Identity.GetUserId()));
+            ORM.tblUserWatchlists.Remove(ORM.tblUserWatchlists.Find(ID, User.Identity.GetUserId()));
 
             ORM.SaveChanges();
 

@@ -7,7 +7,8 @@
 @if (ViewBag.WatchList != null && ViewBag.WatchList.Count != 0)
 {
     <h2>@ViewBag.WatchListName</h2><br />
-    <a href="/Home/WatchList?watchlistId=@ViewBag.Watchlist&watchListName=@ViewBag.WatchListName" class="btn btn-default btn-sm"> Inspect</a><br />
+    <p><a href="/Home/WatchList?watchlistId=@ViewBag.WatchListID&watchListName=@ViewBag.WatchListName" class="btn btn-default btn-sm"> Inspect</a></p>
+
     <div class="col-md-10 table-responsive">
         <!--document.write('<a href="' + burl + '">Open here</a>');-->
         <!--<a href="" class=" btn btn-success btn-lg">Save</a><a href="/Home/NewWatchlist" class=" btn btn-info btn-lg">New Watchlist</a>-->
