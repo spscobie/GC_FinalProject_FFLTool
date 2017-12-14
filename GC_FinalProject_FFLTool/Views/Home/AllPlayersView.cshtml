@@ -6,8 +6,13 @@
 <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
 @if (ViewBag.WatchList != null && ViewBag.WatchList.Count != 0)
 {
-    <h2>@ViewBag.WatchListName</h2><br />
-    <p><a href="/Home/WatchList?watchlistId=@ViewBag.WatchListID&watchListName=@ViewBag.WatchListName" class="btn btn-default btn-sm"> Inspect</a></p>
+    <h2>@ViewBag.WatchListName</h2>
+    <p>
+        <a href="/Home/WatchList?watchlistId=@ViewBag.WatchListID&watchListName=@ViewBag.WatchListName" class="btn btn-default btn-sm">
+            Inspect
+            <span class="glyphicon glyphicon-search"></span>
+        </a>
+    </p>
 
     <div class="col-md-10 table-responsive">
         <!--document.write('<a href="' + burl + '">Open here</a>');-->
@@ -37,11 +42,16 @@
     </div>
 }
 <br />
-<h2>Player List</h2>
+
 
 <br />
+
 <br />
+
 <div class="btn-group">
+    <p>
+        <h2>Player List</h2>
+    </p>
     <a href="/Home/SearchPlayers?pos=QB" class=" btn btn-info btn-lg">QB</a>
     <a href="/Home/SearchPlayers?pos=RB" class=" btn btn-info btn-lg">RB</a>
     <a href="/Home/SearchPlayers?pos=WR" class=" btn btn-info btn-lg">WR</a>
@@ -50,6 +60,7 @@
 </div>
 <br />
 <br />
+
 <table id="tab1" class="table table-striped table-bordered table-hover" cellspacing="0" style="width:100%">
     <thead>
         <tr>
@@ -140,13 +151,13 @@
                     {
 
                     <td style="background-color: lightpink">
-                        <a id="yourHref" href="/Home/SavePlayerToNewList?PlayerId=@ViewBag.Players[i]["player"]["ID"]&watchListName=" class="btn btn-danger btn-sm" onclick="myFunction()">Add</a>
+                        <a id="yourHref" href="/Home/SavePlayerToNewList?PlayerId=@ViewBag.Players[i]["player"]["ID"]&watchListName=" class="btn btn-danger btn-sm" onclick="myFunction()">Add  <span class="glyphicon glyphicon-plus"></span></a>
                     </td>
                 }
                 else
                 {
                     <td>
-                        <a href="/Home/SavePlayerToExistingList?PlayerId=@ViewBag.Players[i]["player"]["ID"]&watchListName=@ViewBag.UserWatchlists[j]" class="btn btn-primary btn-sm">Add</a>
+                        <a href="/Home/SavePlayerToExistingList?PlayerId=@ViewBag.Players[i]["player"]["ID"]&watchListName=@ViewBag.UserWatchlists[j]" class="btn btn-primary btn-sm">Add  <span class="glyphicon glyphicon-plus"></span></a>
                     </td>
                 }
             }

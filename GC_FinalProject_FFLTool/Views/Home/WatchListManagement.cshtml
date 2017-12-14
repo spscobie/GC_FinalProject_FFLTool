@@ -11,7 +11,7 @@
 <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
 
 
-<h2>WatchListManagement</h2>
+<h2>Watch List Management</h2>
 
 <table id="tab1" class="table table-striped table-bordered" width="100%">
     <thead>
@@ -26,9 +26,9 @@
             <td>@ViewBag.WatchList[i]</td>
             <td>
 
-                <a href="/Home/WatchList?watchlistId=@ViewBag.WatchlistId[i]&watchListName=@ViewBag.WatchList[i]" class="btn btn-default btn-sm"> Inspect</a>
+                <a href="/Home/WatchList?watchlistId=@ViewBag.WatchlistId[i]&watchListName=@ViewBag.WatchList[i]" class="btn btn-default btn-sm">Inspect  <span class="glyphicon glyphicon-search"></span></a>
 
-                <a href="/Home/DeleteWatchList?watchlistId=@ViewBag.WatchlistId[i]&watchListName=@ViewBag.WatchList[i]" class="btn btn-default btn-sm" onclick="return confirm('Are you sure?')">Delete List</a>
+                <a href="/Home/DeleteWatchList?watchlistId=@ViewBag.WatchlistId[i]&watchListName=@ViewBag.WatchList[i]" class="btn btn-default btn-sm" onclick="return confirm('Are you sure?')">Delete List  <span class="glyphicon glyphicon-minus"></span></a>
 
             </td>
         </tr>
