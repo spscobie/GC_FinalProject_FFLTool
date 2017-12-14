@@ -18,7 +18,7 @@
 }
 
 <div class="container-fluid">
-    <div class="table-responsive">
+    <div class="col-md-10 table-responsive">
         <table id="tab1" class="table table-striped table-bordered table-hover table-condensed">
             <thead class="thead-dark " style="background-color: darkgrey">
                 <tr class="text-center">
@@ -70,6 +70,7 @@
                         var recYdPer2017 = 0;  var recYdPer = 0; var tdPer2017 = 0.0; var tdPer = 0.0; var gameCount2017 = 0;  var gameCount = 0;
                         string oppHome, oppAway;
                     }
+
                     @foreach (var history in ViewBag.PlayersLogsCurr)
                     {
                         if (ViewBag.PlayersCurr[i]["player"]["ID"] == history["player"]["ID"])
@@ -289,7 +290,7 @@
 
                     <td class="text-center"><a class="btn btn-danger btn-xs" href="/Home/DropPlayer?watchlistId=@ViewBag.WatchlistId&playerId=@ViewBag.PlayersCurr[i]["player"]["ID"]">Drop</a></td>
                 </tr>
-            }
+                        }
         </table>
         <br />
         <p><a href="/Home/ShowAllPlayers?watchlistId=@ViewBag.WatchlistId&watchListName=@ViewBag.WatchListName" class="btn btn-success btn-lg"> Add more players</a></p>

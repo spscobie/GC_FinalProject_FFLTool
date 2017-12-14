@@ -131,6 +131,13 @@ namespace GC_FinalProject_FFLTool.Controllers
 
         public ActionResult ShowAllPlayers(string watchlistId, string watchListName)
         {
+            string userId = User.Identity.GetUserId();
+
+            if (userId == null)
+            {
+                return View("../Account/Login");
+            }
+
             FFLToolEntities2 ORM = new FFLToolEntities2();
             tblWatchlist watchlist = new tblWatchlist();
             JObject WatchList = new JObject();
@@ -147,15 +154,7 @@ namespace GC_FinalProject_FFLTool.Controllers
                 WatchList = Table2(watchlist.WatchlistId.ToString());
             }
 
-            //watchlist = watchListName;
-
-            
-            //if (watchlistId != null)
-            //{
-            //    WatchList = Table2(watchlistId);
-            //}
-
-
+          
             JObject players = ApiRequest("?position=qb");
 
             ViewBag.Players = players["cumulativeplayerstats"]["playerstatsentry"];
@@ -398,7 +397,7 @@ namespace GC_FinalProject_FFLTool.Controllers
             return apiDataJSON;
         }
 
-        public ActionResult WatchListManagement()
+        public ActionResult WatchListManagement(string watchListName)
         {
 
             FFLToolEntities2 ORM = new FFLToolEntities2();
@@ -431,6 +430,11 @@ namespace GC_FinalProject_FFLTool.Controllers
 
                     }
                 }
+            }
+
+            if (watchListName != null)
+            {
+                ViewBag.WatchListName = watchListName;
             }
 
             ViewBag.WatchList = watchlists;
@@ -522,16 +526,30 @@ namespace GC_FinalProject_FFLTool.Controllers
             FFLToolEntities2 ORM = new FFLToolEntities2();
 
             tblWatchlist watchlist = ORM.tblWatchlists.Find(Convert.ToInt64(watchlistId), Convert.ToInt32(playerId));
-               
+
             ORM.tblWatchlists.Remove(watchlist);
             ORM.SaveChanges();
 
-            JObject delPlayerJSON =  ApiRequestHistorical("current", "?player=" + playerId);
+            JObject delPlayerJSON = ApiRequestHistorical("current", "?player=" + playerId);
             string delPlayer = (string)delPlayerJSON["cumulativeplayerstats"]["playerstatsentry"][0]["player"]["FirstName"] + " " + (string)delPlayerJSON["cumulativeplayerstats"]["playerstatsentry"][0]["player"]["LastName"];
 
             return RedirectToAction("WatchList", new { WatchlistId = watchlist.WatchlistId.ToString(),
-                                                       WatchlistName = watchlist.WatchlistName,
-                                                       DeletedPlayer = delPlayer });
+                WatchlistName = watchlist.WatchlistName,
+                DeletedPlayer = delPlayer });
+        }
+
+        public ActionResult DeleteWatchList(string watchlistId, string watchListName)
+        {
+            long ID = Int64.Parse(watchlistId);
+            FFLToolEntities2 ORM = new FFLToolEntities2();
+
+            ORM.tblUserWatchlists.Remove(ORM.tblUserWatchlists.Find(ID,User.Identity.GetUserId()));
+
+            ORM.SaveChanges();
+
+            string name = watchListName;
+
+            return RedirectToAction("WatchListManagement", new { watchListName = name });
         }
 
     }
