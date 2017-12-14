@@ -5,28 +5,18 @@
 @using Newtonsoft.Json.Linq
 <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
 
-<h2>WatchList</h2>
-
 <h2>@ViewBag.WatchListName</h2>
-<a href="/Home/ShowAllPlayers?watchlistId=@ViewBag.WatchlistId&watchListName=@ViewBag.WatchListName" class="btn btn-default btn-sm"> Edit</a>
-<div class="col-md-10 table-responsive">
-<table id="tab1" class="table table-striped table-bordered table-hover table-condensed">
-    <thead class="thead-dark " style="background-color: darkgrey">
-        <tr class="text-center">
-            <td><strong>Position</strong></td>
-            <td><storng>First Name</storng></td>
-            <td><strong>Last Name</strong></td>
-            <td><strong>Team</strong></td>
-            <td>Current</td>
-            <td>2016</td>
-            <td>2015</td>
-            <td>2014</td>
-        </tr>
-    </thead>
-    </table>
-    </div>
-<a href="/Home/ShowAllPlayers?watchlistId=@ViewBag.WatchlistId&watchListName=@ViewBag.WatchListName" class="btn btn-default btn-sm"> Add</a>
+<h4>Current Season - 2014</h4>
 
+
+@if (ViewBag.DeletedPlayer != null)
+{
+    <br />
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Note:</strong> @ViewBag.DeletedPlayer has been removed from this watch list.</div>
+    <br />
+}
 
 <div class="container-fluid">
     <div class="table-responsive">
@@ -34,18 +24,22 @@
             <thead class="thead-dark " style="background-color: darkgrey">
                 <tr class="text-center">
                     <td><strong>Position</strong></td>
-                    <td><storng>First Name</storng></td>
+                    <td><strong>First Name</strong></td>
                     <td><strong>Last Name</strong></td>
                     <td><strong>Team</strong></td>
-                    <td>Current</td>
-                    <td>2016</td>
-                    <td>2015</td>
-                    <td>2014</td>
                     <td>Week @ViewBag.CurrOpp[0]["week"] Opp.</td>
+                    <td>Times played</td>
                     <td>Pass Yds p/game vs Opp</td>
+                    <td>Pass Yds p/game <i>2017</i></td>
                     <td>Rush Yds p/game vs Opp</td>
+                    <td>Rush Yds p/game <i>2017</i></td>
                     <td>Rec Yds p/game vs Opp</td>
+                    <td>Rec Yds p/game <i>2017</i></td>
+                    <td>FG Made p/game vs Opp</td>
+                    <td>FG Made p/game <i>2017</i></td>
                     <td>Total TD p/game vs Opp</td>
+                    <td>Total TD p/game <i>2017</i></td>
+                    <td style="background-color: burlywood"><strong>Action</strong></td>
                 </tr>
             </thead>
 
@@ -55,35 +49,7 @@
                     <td class="text-center">@ViewBag.PlayersCurr[i]["player"]["Position"]</td>
                     <td>@ViewBag.PlayersCurr[i]["player"]["FirstName"]</td>
                     <td>@ViewBag.PlayersCurr[i]["player"]["LastName"]</td>
-                    <td class="text-center">@ViewBag.PlayersCurr[i]["team"]["Abbreviation"]</td>
-                    <td class="text-center">@(ViewBag.PlayersCurr[i]["stats"]["PassYards"] == null || ViewBag.PlayersCurr[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.PlayersCurr[i]["stats"]["PassYards"]["#text"])</td>
-
-                    @if (i < ViewBag.Players2016.Count)
-                    {
-                        <td class="text-center">@(ViewBag.Players2016[i]["stats"]["PassYards"] == null || ViewBag.Players2016[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players2016[i]["stats"]["PassYards"]["#text"])</td>
-                    }
-                    else
-                    {
-                        <td></td>
-                    }
-
-                    @if (i < ViewBag.Players2015.Count)
-                    {
-                        <td class="text-center">@(ViewBag.Players2015[i]["stats"]["PassYards"] == null || ViewBag.Players2015[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players2015[i]["stats"]["PassYards"]["#text"])</td>
-                    }
-                    else
-                    {
-                        <td></td>
-                    }
-
-                    @if (i < ViewBag.Players2014.Count)
-                    {
-                        <td class="text-center">@(ViewBag.Players2014[i]["stats"]["PassYards"] == null || ViewBag.Players2014[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players2014[i]["stats"]["PassYards"]["#text"])</td>
-                    }
-                    else
-                    {
-                        <td></td>
-                    }
+                    <td class="text-center">@ViewBag.PlayersCurr[i]["team"]["Abbreviation"]</td>        
 
                     @{ var opp = "";}
                     @foreach (var matchup in ViewBag.CurrOpp)
@@ -100,8 +66,12 @@
                         }
                     }
 
-                    @{ var passYdPer = 0; var rushYdPer = 0; var recYdPer = 0; var tdPer = 0.0;  var gameCount = 0;}
-                    @{ string oppHome, oppAway;}
+                    @{ 
+                        var passYdPer2017 = 0; var passYdPer = 0; var rushYdPer2017 = 0; var rushYdPer = 0; var fgMadePer2017 = 0; var fgMadePer = 0;
+                        var recYdPer2017 = 0;  var recYdPer = 0; var tdPer2017 = 0.0; var tdPer = 0.0; var gameCount2017 = 0;  var gameCount = 0;
+                        string oppHome, oppAway;
+                    }
+
                     @foreach (var history in ViewBag.PlayersLogsCurr)
                     {
                         if (ViewBag.PlayersCurr[i]["player"]["ID"] == history["player"]["ID"])
@@ -110,20 +80,30 @@
                             oppAway = history["game"]["awayTeam"]["Abbreviation"].ToString();
                             if (oppHome == opp)
                             {
-                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
-                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
-                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
-                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                passYdPer += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                fgMadePer += history["stats"]["FgMade"] == null ? 0 : Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
                                 gameCount++;
                             }
                             else if (oppAway == opp)
                             {
-                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
-                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
-                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
-                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                passYdPer += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                fgMadePer += history["stats"]["FgMade"] == null ? 0 :  Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
                                 gameCount++;
                             }
+
+                            passYdPer2017 += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                            rushYdPer2017 += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                            recYdPer2017 += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                            tdPer2017 += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                            fgMadePer2017 += history["stats"]["FgMade"] == null ? 0 : Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
+
+                            gameCount2017++;
                         }
                     }
 
@@ -135,18 +115,20 @@
                             oppAway = history["game"]["awayTeam"]["Abbreviation"].ToString();
                             if (oppHome == opp)
                             {
-                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
-                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
-                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
-                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                passYdPer += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                fgMadePer += history["stats"]["FgMade"] == null ? 0 : Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
                                 gameCount++;
                             }
                             else if (oppAway == opp)
                             {
-                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
-                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
-                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
-                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                passYdPer += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                fgMadePer += history["stats"]["FgMade"] == null ? 0 : Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
                                 gameCount++;
                             }
                         }
@@ -160,18 +142,20 @@
                             oppAway = history["game"]["awayTeam"]["Abbreviation"].ToString();
                             if (oppHome == opp)
                             {
-                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
-                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
-                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
-                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                passYdPer += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                fgMadePer += history["stats"]["FgMade"] == null ? 0 : Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
                                 gameCount++;
                             }
                             else if (oppAway == opp)
                             {
-                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
-                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
-                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
-                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                passYdPer += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                fgMadePer += history["stats"]["FgMade"] == null ? 0 : Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
                                 gameCount++;
                             }
                         }
@@ -185,27 +169,41 @@
                             oppAway = history["game"]["awayTeam"]["Abbreviation"].ToString();
                             if (oppHome == opp)
                             {
-                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
-                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
-                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
-                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                passYdPer += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                fgMadePer += history["stats"]["FgMade"] == null ? 0 : Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
                                 gameCount++;
                             }
                             else if (oppAway == opp)
                             {
-                                passYdPer += Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
-                                rushYdPer += Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
-                                recYdPer += Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
-                                tdPer += (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                passYdPer += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
+                                rushYdPer += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
+                                recYdPer += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
+                                tdPer += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
+                                fgMadePer += history["stats"]["FgMade"] == null ? 0 : Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
                                 gameCount++;
                             }
                         }
                     }
 
+                    <td class="text-center">@gameCount</td>
+
                     @if (passYdPer > 0)
                     {
                         var finalPassYdPer = Math.Round(passYdPer / Convert.ToDouble(gameCount));
                         <td class="text-center">@finalPassYdPer</td>
+                    }
+                    else
+                    {
+                        <td class="text-center">-</td>
+                    }
+
+                    @if (passYdPer2017 > 0)
+                    {
+                        var finalPassYdPer2017 = Math.Round(passYdPer2017 / Convert.ToDouble(gameCount2017));
+                        <td class="text-center">@finalPassYdPer2017</td>
                     }
                     else
                     {
@@ -222,10 +220,50 @@
                         <td class="text-center">-</td>
                     }
 
+                    @if (rushYdPer2017 > 0)
+                    {
+                        var finalRushYdPer2017 = Math.Round(rushYdPer2017 / Convert.ToDouble(gameCount2017));
+                        <td class="text-center">@finalRushYdPer2017</td>
+                    }
+                    else
+                    {
+                        <td class="text-center">-</td>
+                    }
+
                     @if (recYdPer > 0)
                     {
                         var finalRecYdPer = Math.Round(recYdPer / Convert.ToDouble(gameCount));
                         <td class="text-center">@finalRecYdPer</td>
+                    }
+                    else
+                    {
+                        <td class="text-center">-</td>
+                    }
+
+                    @if (recYdPer2017 > 0)
+                    {
+                        var finalRecYdPer2017 = Math.Round(recYdPer2017 / Convert.ToDouble(gameCount2017));
+                        <td class="text-center">@finalRecYdPer2017</td>
+                    }
+                    else
+                    {
+                        <td class="text-center">-</td>
+                    }
+
+                    @if (fgMadePer > 0)
+                    {
+                        var finalfgMadePer = Math.Round(fgMadePer / Convert.ToDouble(gameCount));
+                        <td class="text-center">@finalfgMadePer</td>
+                    }
+                    else
+                    {
+                        <td class="text-center">-</td>
+                    }
+
+                    @if (fgMadePer2017 > 0)
+                    {
+                        var finalfgMadePer2017 = Math.Round(fgMadePer2017 / Convert.ToDouble(gameCount2017));
+                        <td class="text-center">@finalfgMadePer2017</td>
                     }
                     else
                     {
@@ -241,8 +279,22 @@
                     {
                         <td class="text-center">-</td>
                     }
+                    @if (tdPer2017 > 0)
+                    {
+                        var finalTdPer2017 = Math.Round((tdPer2017 / gameCount2017), 1);
+                        <td class="text-center">@finalTdPer2017</td>
+                    }
+                    else
+                    {
+                        <td class="text-center">-</td>
+                    }
+
+                    <td class="text-center"><a class="btn btn-danger btn-xs" href="/Home/DropPlayer?watchlistId=@ViewBag.WatchlistId&playerId=@ViewBag.PlayersCurr[i]["player"]["ID"]" onclick="return confirm('Are you sure?')">Drop  <span class="glyphicon glyphicon-minus"></span></a></td>
                 </tr>
-            }
+                        }
         </table>
+        <br />
+        <p><a href="/Home/ShowAllPlayers?watchlistId=@ViewBag.WatchlistId&watchListName=@ViewBag.WatchListName" class="btn btn-success btn-lg" >Add more players  <span class="glyphicon glyphicon-plus"></span></a></p>
+        <br />
     </div>
 </div>
