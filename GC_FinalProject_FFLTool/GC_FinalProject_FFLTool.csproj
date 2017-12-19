@@ -368,7 +368,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\BootStrapTheme.css" />
     <Content Include="Content\Images\BootStrapTheme.css" />
     <Content Include="Content\Images\fantasynew.jpg" />
     <Content Include="Content\Images\footballmap.jpeg" />
@@ -444,7 +443,6 @@
     <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\FFLTool - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
-    <Content Include="Models\Images\nfl grass logo.jpg" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.dll" />
@@ -507,6 +505,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Images\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>

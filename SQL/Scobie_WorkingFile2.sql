@@ -90,3 +90,31 @@ VALUES (1000047, 'QB Test List', 6825),
 
 INSERT INTO tblWatchlists
 VALUES (1000047, 'QB Test List', 9712)
+
+SELECT *
+FROM AspNetUsers
+WHERE Id = 'f99dc422-0aca-44a0-8a8d-ff42a2fd3834'
+
+SELECT *
+FROM AspNetUsers
+WHERE Email = 'stephen.scobie@gmail.com'
+
+SELECT *
+FROM tblUserWatchlists
+WHERE UserId = 'bee9ae91-357a-4e7d-bbb6-66a8f9d3edbd'
+
+UPDATE a
+SET a.WatchlistName = 'Scobie QB List1'
+FROM tblWatchlists a
+WHERE a.WatchlistId = 1000351
+
+SELECT *
+FROM tblWatchlists
+WHERE WatchlistId IN (SELECT DISTINCT WatchlistId
+					  FROM tblUserWatchlists
+					  WHERE UserId = 'bee9ae91-357a-4e7d-bbb6-66a8f9d3edbd')
+
+UPDATE a
+SET a.WatchlistName = 'Scobie WR List1'
+FROM tblWatchlists a
+WHERE a.WatchlistId = 1000353
