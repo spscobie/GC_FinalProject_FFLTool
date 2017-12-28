@@ -43,6 +43,7 @@
                 </tr>
             </thead>
 
+            <!-- Begin iterating though each player in a playlist -->
             @for (int i = 0; i < ViewBag.PlayersCurr.Count; i++)
             {
                 <tr class="warning" style="background-color: whitesmoke">
@@ -51,6 +52,7 @@
                     <td>@ViewBag.PlayersCurr[i]["player"]["LastName"]</td>
                     <td class="text-center">@ViewBag.PlayersCurr[i]["team"]["Abbreviation"]</td>        
 
+                    <!-- Find upcoming opponent -->
                     @{ var opp = "";}
                     @foreach (var matchup in ViewBag.CurrOpp)
                     {
@@ -66,12 +68,14 @@
                         }
                     }
 
+                    <!-- Declare intermediary summary stat variables -->
                     @{ 
                         var passYdPer2017 = 0; var passYdPer = 0; var rushYdPer2017 = 0; var rushYdPer = 0; var fgMadePer2017 = 0; var fgMadePer = 0;
                         var recYdPer2017 = 0;  var recYdPer = 0; var tdPer2017 = 0.0; var tdPer = 0.0; var gameCount2017 = 0;  var gameCount = 0;
                         string oppHome, oppAway;
                     }
 
+                    <!-- Calculate intermediate stats versus opponent for the current season -->
                     @foreach (var history in ViewBag.PlayersLogsCurr)
                     {
                         if (ViewBag.PlayersCurr[i]["player"]["ID"] == history["player"]["ID"])
@@ -93,10 +97,11 @@
                                 rushYdPer += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
                                 recYdPer += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
                                 tdPer += history["stats"]["PassYards"] == null && history["stats"]["RushTD"] == null && history["stats"]["RecTD"] == null ? 0 : (Convert.ToInt32(history["stats"]["PassTD"]["#text"]) + Convert.ToInt32(history["stats"]["RushTD"]["#text"]) + Convert.ToInt32(history["stats"]["RecTD"]["#text"]));
-                                fgMadePer += history["stats"]["FgMade"] == null ? 0 :  Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
+                                fgMadePer += history["stats"]["FgMade"] == null ? 0 : Convert.ToInt32(history["stats"]["FgMade"]["#text"]);
                                 gameCount++;
                             }
 
+                            <!-- Calculate intermediate summary stats for all opponents in the current year -->
                             passYdPer2017 += history["stats"]["PassYards"] == null ? 0 : Convert.ToInt32(history["stats"]["PassYards"]["#text"]);
                             rushYdPer2017 += history["stats"]["RushYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RushYards"]["#text"]);
                             recYdPer2017 += history["stats"]["RecYards"] == null ? 0 : Convert.ToInt32(history["stats"]["RecYards"]["#text"]);
@@ -107,6 +112,7 @@
                         }
                     }
 
+                    <!-- Calculate intermediate stats versus opponent for the 2016 season -->
                     @foreach (var history in ViewBag.PlayersLogs2016)
                     {
                         if (ViewBag.PlayersCurr[i]["player"]["ID"] == history["player"]["ID"])
@@ -134,6 +140,7 @@
                         }
                     }
 
+                    <!-- Calculate intermediate stats versus opponent for the 2015 season -->
                     @foreach (var history in ViewBag.PlayersLogs2015)
                     {
                         if (ViewBag.PlayersCurr[i]["player"]["ID"] == history["player"]["ID"])
@@ -161,6 +168,7 @@
                         }
                     }
 
+                    <!-- Calculate intermediate stats versus opponent for the 2014 season -->
                     @foreach (var history in ViewBag.PlayersLogs2014)
                     {
                         if (ViewBag.PlayersCurr[i]["player"]["ID"] == history["player"]["ID"])
@@ -190,10 +198,35 @@
 
                     <td class="text-center">@gameCount</td>
 
+                    <!-- Declare summary stat variables -->
+                    @{
+                        var finalPassYdPer = Math.Round(passYdPer / Convert.ToDouble(gameCount));
+                        var finalPassYdPer2017 = Math.Round(passYdPer2017 / Convert.ToDouble(gameCount2017));
+                        var finalRushYdPer = Math.Round(rushYdPer / Convert.ToDouble(gameCount));
+                        var finalRushYdPer2017 = Math.Round(rushYdPer2017 / Convert.ToDouble(gameCount2017));
+                        var finalRecYdPer = Math.Round(recYdPer / Convert.ToDouble(gameCount));
+                        var finalRecYdPer2017 = Math.Round(recYdPer2017 / Convert.ToDouble(gameCount2017));
+                        var finalfgMadePer = Math.Round(fgMadePer / Convert.ToDouble(gameCount));
+                        var finalfgMadePer2017 = Math.Round(fgMadePer2017 / Convert.ToDouble(gameCount2017));
+                        var finalTdPer = Math.Round((tdPer / gameCount), 1);
+                        var finalTdPer2017 = Math.Round((tdPer2017 / gameCount2017), 1);
+                    }
+
+                    <!-- Display all summary stat variables with appropriate color coding -->
                     @if (passYdPer > 0)
                     {
-                        var finalPassYdPer = Math.Round(passYdPer / Convert.ToDouble(gameCount));
-                        <td class="text-center">@finalPassYdPer</td>
+                        if (finalPassYdPer > finalPassYdPer2017)
+                        {
+                            <td class="text-center" style="color: forestgreen">@finalPassYdPer</td>
+                        }
+                        else if (finalPassYdPer < finalPassYdPer2017)
+                        {
+                            <td class="text-center" style="color: crimson">@finalPassYdPer</td>
+                        }
+                        else
+                        {
+                            <td class="text-center">@finalPassYdPer</td>
+                        }
                     }
                     else
                     {
@@ -202,7 +235,6 @@
 
                     @if (passYdPer2017 > 0)
                     {
-                        var finalPassYdPer2017 = Math.Round(passYdPer2017 / Convert.ToDouble(gameCount2017));
                         <td class="text-center">@finalPassYdPer2017</td>
                     }
                     else
@@ -212,8 +244,18 @@
 
                     @if (rushYdPer > 0)
                     {
-                        var finalRushYdPer = Math.Round(rushYdPer / Convert.ToDouble(gameCount));
-                        <td class="text-center">@finalRushYdPer</td>
+                        if (finalRushYdPer > finalRushYdPer2017)
+                        {
+                            <td class="text-center" style="color: forestgreen">@finalRushYdPer</td>
+                        }
+                        else if (finalRushYdPer < finalRushYdPer2017)
+                        {
+                            <td class="text-center" style="color: crimson">@finalRushYdPer</td>
+                        }
+                        else
+                        {
+                            <td class="text-center">@finalRushYdPer</td>
+                        }
                     }
                     else
                     {
@@ -222,7 +264,6 @@
 
                     @if (rushYdPer2017 > 0)
                     {
-                        var finalRushYdPer2017 = Math.Round(rushYdPer2017 / Convert.ToDouble(gameCount2017));
                         <td class="text-center">@finalRushYdPer2017</td>
                     }
                     else
@@ -232,8 +273,18 @@
 
                     @if (recYdPer > 0)
                     {
-                        var finalRecYdPer = Math.Round(recYdPer / Convert.ToDouble(gameCount));
-                        <td class="text-center">@finalRecYdPer</td>
+                        if (finalRecYdPer > finalRecYdPer2017)
+                        {
+                            <td class="text-center" style="color: forestgreen">@finalRecYdPer</td>
+                        }
+                        else if (finalRecYdPer < finalRecYdPer2017)
+                        {
+                            <td class="text-center" style="color: crimson">@finalRecYdPer</td>
+                        }
+                        else
+                        {
+                            <td class="text-center">@finalRecYdPer</td>
+                        }
                     }
                     else
                     {
@@ -242,7 +293,6 @@
 
                     @if (recYdPer2017 > 0)
                     {
-                        var finalRecYdPer2017 = Math.Round(recYdPer2017 / Convert.ToDouble(gameCount2017));
                         <td class="text-center">@finalRecYdPer2017</td>
                     }
                     else
@@ -252,8 +302,18 @@
 
                     @if (fgMadePer > 0)
                     {
-                        var finalfgMadePer = Math.Round(fgMadePer / Convert.ToDouble(gameCount));
-                        <td class="text-center">@finalfgMadePer</td>
+                        if (finalfgMadePer > finalfgMadePer2017)
+                        {
+                            <td class="text-center" style="color: forestgreen">@finalfgMadePer</td>
+                        }
+                        else if (finalfgMadePer < finalfgMadePer2017)
+                        {
+                            <td class="text-center" style="color: crimson">@finalfgMadePer</td>
+                        }
+                        else
+                        {
+                            <td class="text-center">@finalfgMadePer</td>
+                        }
                     }
                     else
                     {
@@ -262,7 +322,6 @@
 
                     @if (fgMadePer2017 > 0)
                     {
-                        var finalfgMadePer2017 = Math.Round(fgMadePer2017 / Convert.ToDouble(gameCount2017));
                         <td class="text-center">@finalfgMadePer2017</td>
                     }
                     else
@@ -272,16 +331,26 @@
 
                     @if (tdPer > 0)
                     {
-                        var finalTdPer = Math.Round((tdPer / gameCount), 1);
-                        <td class="text-center">@finalTdPer</td>
+                        if (finalTdPer > finalTdPer2017)
+                        {
+                            <td class="text-center" style="color: forestgreen">@finalTdPer</td>
+                        }
+                        else if (finalTdPer < finalTdPer2017)
+                        {
+                            <td class="text-center" style="color: crimson">@finalTdPer</td>
+                        }
+                        else
+                        {
+                            <td class="text-center">@finalTdPer</td>
+                        }
                     }
                     else
                     {
                         <td class="text-center">-</td>
                     }
+
                     @if (tdPer2017 > 0)
                     {
-                        var finalTdPer2017 = Math.Round((tdPer2017 / gameCount2017), 1);
                         <td class="text-center">@finalTdPer2017</td>
                     }
                     else

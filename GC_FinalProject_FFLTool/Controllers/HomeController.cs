@@ -101,7 +101,7 @@ namespace GC_FinalProject_FFLTool.Controllers
 
         public JObject ApiRequestSchedule()
         {
-            HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/current/full_game_schedule.json?date=from-20171212-to-20171218");
+            HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/current/full_game_schedule.json?date=from-20171226-to-20180101");
             WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
             WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
             WebReq.Method = "GET";
