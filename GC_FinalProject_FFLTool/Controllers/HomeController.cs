@@ -17,7 +17,7 @@ using Microsoft.AspNet.Identity;
 
 namespace GC_FinalProject_FFLTool.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : CustomBaseController //this was changed by sscobie
     {
 
         public ActionResult About()

@@ -1,10 +1,6 @@
 ﻿body {
-    padding-top: 200px;
+    padding-top: 50px;
     padding-bottom: 20px;
-    background-image: url('images/yfl_logo_nowhite.png');
-    background-position: right top 100px;
-    background-repeat: no-repeat;
-    background-size: 300px 300px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -27,8 +23,43 @@ textarea {
     max-width: 100px;
 }
 
-
 th.dt-center, td.dt-center {
     text-align: center;
 }
 
+/* BEGIN NON-PACKAGED CSS SELECTORS */
+body.home_index {
+    background-color: black;
+}
+
+#bannerHomeIndexContainer1 {
+    position: relative;
+    text-align: center;
+}
+
+#bannerHomeIndexContainer2 {
+    width: 100%;
+    padding: 0;
+}
+
+#bannerHomeIndexImg1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#bannerHomeIndexText1 {
+    font-size: 60px;
+    position: absolute;
+    color: white;
+    top: 40%;
+    width: 100%;
+}
+
+#bannerHomeIndexText2 {
+    font-size: 30px;
+    position: absolute;
+    color: azure;
+    top: 300px;
+    left: 125px;
+}

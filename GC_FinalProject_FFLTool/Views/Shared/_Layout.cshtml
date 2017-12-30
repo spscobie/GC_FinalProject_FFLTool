@@ -8,7 +8,7 @@
     <link href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
+<body class="@ViewBag.PageClass">
 
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <div class="container body-content">
+    <div class="container-fluid body-content">
         @RenderBody()
         @*<hr />*@
         @*<footer>
