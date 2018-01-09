@@ -34,32 +34,35 @@ body.home_index {
 
 #bannerHomeIndexContainer1 {
     position: relative;
-    text-align: center;
-}
-
-#bannerHomeIndexContainer2 {
-    width: 100%;
-    padding: 0;
 }
 
 #bannerHomeIndexImg1 {
-    position: absolute;
-    top: 0;
-    left: 0;
+    background-image: url(/Content/Images/YFL_Banner_4.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    height: 600px;
 }
 
 #bannerHomeIndexText1 {
-    font-size: 60px;
+    font-size: 3vw;
     position: absolute;
     color: white;
-    top: 40%;
-    width: 100%;
+    top: 13vw;
+    left: 6vw;
 }
 
 #bannerHomeIndexText2 {
-    font-size: 30px;
+    font-size: 2vw;
     position: absolute;
     color: azure;
-    top: 300px;
-    left: 125px;
+    top: 17vw;
+    left: 6vw;
+}
+
+.home-index-featurette-break {
+    border: 0;
+    border-top: 1px;
+    border-style: solid;
+    border-color: white;
+    margin: 50px;
 }
