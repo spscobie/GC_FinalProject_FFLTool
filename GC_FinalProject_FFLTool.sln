@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GC_FinalProject_FFLTool", "GC_FinalProject_FFLTool\GC_FinalProject_FFLTool.csproj", "{2FBFEAC6-5CBB-4C05-8DAF-ECF69E0876E9}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MySportsFeedsAPI_SPs", "SQL\CLR\MySportsFeedsAPI_SPs\MySportsFeedsAPI_SPs.sqlproj", "{581C881F-9E2C-4CC0-8DBC-7307B573F1AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,12 @@ Global
 		{2FBFEAC6-5CBB-4C05-8DAF-ECF69E0876E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FBFEAC6-5CBB-4C05-8DAF-ECF69E0876E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FBFEAC6-5CBB-4C05-8DAF-ECF69E0876E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{581C881F-9E2C-4CC0-8DBC-7307B573F1AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{581C881F-9E2C-4CC0-8DBC-7307B573F1AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{581C881F-9E2C-4CC0-8DBC-7307B573F1AE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{581C881F-9E2C-4CC0-8DBC-7307B573F1AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{581C881F-9E2C-4CC0-8DBC-7307B573F1AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{581C881F-9E2C-4CC0-8DBC-7307B573F1AE}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
