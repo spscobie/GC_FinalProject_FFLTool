@@ -20,6 +20,8 @@ namespace GC_FinalProject_FFLTool.Controllers
     public class HomeController : CustomBaseController //this was changed by sscobie
     {
 
+        private string currentSeason = "2017-regular";
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -30,7 +32,7 @@ namespace GC_FinalProject_FFLTool.Controllers
         public JObject ApiRequest(string pos, string player)
         {
 
-            HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/current/cumulative_player_stats.json{pos}{player}");
+            HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/{currentSeason}/cumulative_player_stats.json{pos}{player}");
             WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
             WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
             WebReq.Method = "GET";
@@ -49,8 +51,8 @@ namespace GC_FinalProject_FFLTool.Controllers
         {
 
             /*** Cumulative Game Stats API Call ***/
-            //HttpWebRequest WebReq = WebRequest.CreateHttp("https://api.mysportsfeeds.com/v1.1/pull/nfl/current/cumulative_player_stats.json?position=qb,rb,wr,te,k");
-            HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/current/cumulative_player_stats.json{pos}");
+            //HttpWebRequest WebReq = WebRequest.CreateHttp("https://api.mysportsfeeds.com/v1.1/pull/nfl/{currentSeason}/cumulative_player_stats.json?position=qb,rb,wr,te,k");
+            HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/{currentSeason}/cumulative_player_stats.json{pos}");
             WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
             WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
             WebReq.Method = "GET";
@@ -101,7 +103,7 @@ namespace GC_FinalProject_FFLTool.Controllers
 
         public JObject ApiRequestSchedule()
         {
-            HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/current/full_game_schedule.json?date=from-20171226-to-20180101");
+            HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/{currentSeason}/full_game_schedule.json?date=from-20171226-to-20180101");
             WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
             WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
             WebReq.Method = "GET";
@@ -380,7 +382,7 @@ namespace GC_FinalProject_FFLTool.Controllers
                     }
                 }
 
-                HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/current/cumulative_player_stats.json?player={newPlayer}");
+                HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/{currentSeason}/cumulative_player_stats.json?player={newPlayer}");
                 WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
                 WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
                 WebReq.Method = "GET";
@@ -468,7 +470,7 @@ namespace GC_FinalProject_FFLTool.Controllers
             JObject playersCurr, players2016, players2015, players2014, sched, playerlogsCurr, playerlogs2016, playerlogs2015, playerlogs2014;
 
             /* Summary stats */
-            playersCurr = ApiRequestHistorical("current", "?player=" + newPlayer);
+            playersCurr = ApiRequestHistorical(currentSeason, "?player=" + newPlayer);
             players2016 = ApiRequestHistorical("2016-2017-regular", "?player=" + newPlayer);
             players2015 = ApiRequestHistorical("2015-2016-regular", "?player=" + newPlayer);
             players2014 = ApiRequestHistorical("2014-2015-regular", "?player=" + newPlayer);
@@ -483,7 +485,7 @@ namespace GC_FinalProject_FFLTool.Controllers
             ViewBag.CurrOpp = sched["fullgameschedule"]["gameentry"];
 
             /* Game log stats */
-            playerlogsCurr = ApiRequestPlayerLogs("current", "?player=" + newPlayer);
+            playerlogsCurr = ApiRequestPlayerLogs(currentSeason, "?player=" + newPlayer);
             playerlogs2016 = ApiRequestPlayerLogs("2016-2017-regular", "?player=" + newPlayer);
             playerlogs2015 = ApiRequestPlayerLogs("2015-2016-regular", "?player=" + newPlayer);
             playerlogs2014 = ApiRequestPlayerLogs("2014-2015-regular", "?player=" + newPlayer);
@@ -531,7 +533,7 @@ namespace GC_FinalProject_FFLTool.Controllers
             ORM.tblWatchlists.Remove(watchlist);
             ORM.SaveChanges();
 
-            JObject delPlayerJSON = ApiRequestHistorical("current", "?player=" + playerId);
+            JObject delPlayerJSON = ApiRequestHistorical(currentSeason, "?player=" + playerId);
             string delPlayer = (string)delPlayerJSON["cumulativeplayerstats"]["playerstatsentry"][0]["player"]["FirstName"] + " " + (string)delPlayerJSON["cumulativeplayerstats"]["playerstatsentry"][0]["player"]["LastName"];
 
             return RedirectToAction("WatchList", new

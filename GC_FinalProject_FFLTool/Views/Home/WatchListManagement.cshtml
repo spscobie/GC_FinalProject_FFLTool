@@ -27,8 +27,8 @@
                     <td style="display:none">@ViewBag.WatchlistId[i]</td>
                     <td class="col-md-5 text-center">@ViewBag.WatchList[i]</td>
                     <td class="col-md-2 text-center">
-                        <a href="/Home/WatchList?watchlistId=@ViewBag.WatchlistId[i]&watchListName=@ViewBag.WatchList[i]" class="btn btn-primary btn-sm">Inspect  <span class="glyphicon glyphicon-search"></span></a>
-                        <a href="/Home/DeleteWatchList?watchlistId=@ViewBag.WatchlistId[i]&watchListName=@ViewBag.WatchList[i]" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete List  <span class="glyphicon glyphicon-minus"></span></a>
+                        <a href="/Home/WatchList?watchlistId=@ViewBag.WatchlistId[i]&watchListName=@ViewBag.WatchList[i]" class="btn btn-primary btn-sm"> VIEW </a>
+                        <a href="/Home/DeleteWatchList?watchlistId=@ViewBag.WatchlistId[i]&watchListName=@ViewBag.WatchList[i]" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">DELETE </a>
                     </td>
                 </tr>
             }

@@ -143,13 +143,13 @@
                     {
 
                     <td style="background-color: lightpink">
-                        <a id="yourHref" href="/Home/SavePlayerToNewList?PlayerId=@ViewBag.Players[i]["player"]["ID"]&watchListName=" class="btn btn-danger btn-sm" onclick="myFunction()">Add  <span class="glyphicon glyphicon-plus"></span></a>
+                        <a id="yourHref" href="/Home/SavePlayerToNewList?PlayerId=@ViewBag.Players[i]["player"]["ID"]&watchListName=" class="btn btn-danger btn-sm" onclick="myFunction()">Add</a>
                     </td>
                 }
                 else
                 {
                     <td>
-                        <a href="/Home/SavePlayerToExistingList?PlayerId=@ViewBag.Players[i]["player"]["ID"]&watchListName=@ViewBag.UserWatchlists[j]" class="btn btn-primary btn-sm">Add  <span class="glyphicon glyphicon-plus"></span></a>
+                        <a href="/Home/SavePlayerToExistingList?PlayerId=@ViewBag.Players[i]["player"]["ID"]&watchListName=@ViewBag.UserWatchlists[j]" class="btn btn-primary btn-sm">Add</a>
                     </td>
                 }
             }
