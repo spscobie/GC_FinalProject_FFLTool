@@ -66,3 +66,11 @@ body.home_index {
     border-color: white;
     margin: 50px;
 }
+
+#browseHomeIndexImg1 {
+    background-image: url(/Content/Images/tables_tablet_ipad_input_device-512.png);
+    background-repeat: no-repeat;
+    background-size: 150px;
+    width: 150px;
+    height: 150px;
+}
