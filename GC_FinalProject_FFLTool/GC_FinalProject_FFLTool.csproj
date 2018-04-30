@@ -265,9 +265,16 @@
     <Content Include="Content\Images\BootStrapTheme.css" />
     <Content Include="Content\Images\fantasynew.jpg" />
     <Content Include="Content\Images\footballmap.jpeg" />
+    <Content Include="Content\Images\footballOnField1.png" />
     <Content Include="Content\Images\map.jpg" />
     <Content Include="Content\Images\fantasy.jpg" />
+    <Content Include="Content\Images\mgmt1.png" />
+    <Content Include="Content\Images\mgmt2.png" />
+    <Content Include="Content\Images\mgmt3.jpg" />
+    <Content Include="Content\Images\mgmt4.jpg" />
     <Content Include="Content\Images\players.jpg" />
+    <Content Include="Content\Images\stadium1.png" />
+    <Content Include="Content\Images\stadium2.jpg" />
     <Content Include="Content\Images\tables-512.png" />
     <Content Include="Content\Images\tables_tablet_ipad_input_device-512.png" />
     <Content Include="Content\Images\YFL_Banner_1.jpg" />
@@ -282,6 +289,7 @@
     <Content Include="Content\Images\YFL_Banner_9.jpg" />
     <Content Include="Content\Images\YFL_Logo_NoWhite.png" />
     <Content Include="Content\Images\YFL_OnGrass.png" />
+    <Content Include="Content\Images\YFL_White.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

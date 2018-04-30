@@ -28,10 +28,6 @@ th.dt-center, td.dt-center {
 }
 
 /* BEGIN NON-PACKAGED CSS SELECTORS */
-body.home_index {
-    background-color: black;
-}
-
 #bannerHomeIndexContainer1 {
     position: relative;
 }
@@ -59,18 +55,35 @@ body.home_index {
     left: 6vw;
 }
 
+body.home_index {
+    background-color: black;
+}
+
+#home-index-cropped-circular150_1 {
+    content: url(/Content/Images/tables_tablet_ipad_input_device-512.png);
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+#home-index-cropped-circular150_2 {
+    content: url(/Content/Images/mgmt1.png);
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+#home-index-cropped-circular150_3 {
+    content: url(/Content/Images/stadium2.jpg);
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
 .home-index-featurette-break {
     border: 0;
     border-top: 1px;
     border-style: solid;
     border-color: white;
     margin: 50px;
-}
-
-#browseHomeIndexImg1 {
-    background-image: url(/Content/Images/tables_tablet_ipad_input_device-512.png);
-    background-repeat: no-repeat;
-    background-size: 150px;
-    width: 150px;
-    height: 150px;
 }
