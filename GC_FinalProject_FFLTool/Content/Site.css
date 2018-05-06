@@ -20,7 +20,7 @@
 input,
 select,
 textarea {
-    max-width: 100px;
+    max-width: 300px;
 }
 
 th.dt-center, td.dt-center {

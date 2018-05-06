@@ -306,3 +306,4 @@ OpenCover/
 
 # VS web.config
 Web.config
+ConnectionStrings.config
