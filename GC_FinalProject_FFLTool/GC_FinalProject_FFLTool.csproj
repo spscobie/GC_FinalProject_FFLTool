@@ -245,6 +245,9 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\tblJsonDump.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblUserWatchlist.cs">
       <DependentUpon>FFLToolModel.tt</DependentUpon>
     </Compile>
@@ -390,6 +393,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Home\TestMe.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

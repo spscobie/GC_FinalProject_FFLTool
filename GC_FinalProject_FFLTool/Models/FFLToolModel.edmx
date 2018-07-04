@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FFLToolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FFLToolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -67,6 +67,20 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar(max)" />
           <Property Name="LastName" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FFLTool.dbo.tblJsonDump' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblJsonDump">
+          <Key>
+            <PropertyRef Name="ImportId" />
+            <PropertyRef Name="CreationDate" />
+            <PropertyRef Name="ImportDate" />
+          </Key>
+          <Property Name="ImportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MySportsFeedsData" Type="varchar(max)" />
+          <Property Name="CreationDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ImportDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ImportMethod" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="tblUserWatchlists">
           <Key>
@@ -165,6 +179,15 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUserWatchlists" EntityType="Self.tblUserWatchlists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblWatchlists" EntityType="Self.tblWatchlists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblJsonDump" EntityType="Self.tblJsonDump" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblJsonDump].[ImportId] AS [ImportId], 
+    [tblJsonDump].[MySportsFeedsData] AS [MySportsFeedsData], 
+    [tblJsonDump].[CreationDate] AS [CreationDate], 
+    [tblJsonDump].[ImportDate] AS [ImportDate], 
+    [tblJsonDump].[ImportMethod] AS [ImportMethod]
+    FROM [dbo].[tblJsonDump] AS [tblJsonDump]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__tblUserWa__UserI__0F624AF8" Association="Self.FK__tblUserWa__UserI__0F624AF8">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="tblUserWatchlists" EntitySet="tblUserWatchlists" />
@@ -186,8 +209,7 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FFLToolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -339,7 +361,20 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="tblJsonDump" EntityType="FFLToolModel.tblJsonDump" />
         </EntityContainer>
+        <EntityType Name="tblJsonDump">
+          <Key>
+            <PropertyRef Name="ImportId" />
+            <PropertyRef Name="CreationDate" />
+            <PropertyRef Name="ImportDate" />
+          </Key>
+          <Property Name="ImportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MySportsFeedsData" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ImportDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ImportMethod" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -428,6 +463,17 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="tblJsonDump">
+            <EntityTypeMapping TypeName="FFLToolModel.tblJsonDump">
+              <MappingFragment StoreEntitySet="tblJsonDump">
+                <ScalarProperty Name="ImportMethod" ColumnName="ImportMethod" />
+                <ScalarProperty Name="ImportDate" ColumnName="ImportDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="MySportsFeedsData" ColumnName="MySportsFeedsData" />
+                <ScalarProperty Name="ImportId" ColumnName="ImportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -442,7 +488,7 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

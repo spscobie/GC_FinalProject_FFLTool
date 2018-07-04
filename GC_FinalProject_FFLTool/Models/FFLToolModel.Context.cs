@@ -32,5 +32,6 @@ namespace GC_FinalProject_FFLTool.Models
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<tblUserWatchlist> tblUserWatchlists { get; set; }
         public virtual DbSet<tblWatchlist> tblWatchlists { get; set; }
+        public virtual DbSet<tblJsonDump> tblJsonDump { get; set; }
     }
 }

@@ -22,6 +22,48 @@ namespace GC_FinalProject_FFLTool.Controllers
 
         private string currentSeason = "2017-regular";
 
+        public ActionResult TestReq ()
+        {
+            FFLToolEntities2 ORM = new FFLToolEntities2();
+
+            tblJsonDump apiData = (from data in ORM.tblJsonDump
+                                   where data.ImportId == 1
+                                   select data).Single();
+
+            JObject apiDataJSON = JObject.Parse(apiData.MySportsFeedsData);
+
+            ViewBag.apiDataJSON = apiDataJSON["cumulativeplayerstats"]["playerstatsentry"];
+            //ViewBag.apiData = apiData.MySportsFeedsData;
+            //return apiDataJSON;
+            return View("TestMe");
+        }
+
+        public ActionResult TestReqPos(string pos, string stat = "PassYards")
+        {
+            pos = "QB";
+
+            FFLToolEntities2 ORM = new FFLToolEntities2();
+
+            tblJsonDump apiData = (from data in ORM.tblJsonDump
+                                   where data.ImportId == 1
+                                   select data).Single();
+
+            JObject apiDataJSON = JObject.Parse(apiData.MySportsFeedsData);
+
+            JArray tempData = new JArray();
+            for (int i = 0; i < apiDataJSON["cumulativeplayerstats"]["playerstatsentry"].Count(); i++)
+            {
+                if (apiDataJSON["cumulativeplayerstats"]["playerstatsentry"][i]["player"]["Position"].ToString() == pos)
+                {
+                    tempData.Add(apiDataJSON["cumulativeplayerstats"]["playerstatsentry"][i]);
+                }
+            }
+
+            JArray outData = new JArray(tempData.OrderByDescending( obj => Int32.Parse(obj["stats"][stat]["#text"].ToString()) ));
+            ViewBag.theData = outData;
+            return View("TestMe");
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -47,24 +89,34 @@ namespace GC_FinalProject_FFLTool.Controllers
             return apiDataJSON;
         }
 
-        public JObject ApiRequest(string pos)
+        public JArray DataRequest(string pos, string stat)
         {
+            FFLToolEntities2 ORM = new FFLToolEntities2();
 
-            /*** Cumulative Game Stats API Call ***/
-            //HttpWebRequest WebReq = WebRequest.CreateHttp("https://api.mysportsfeeds.com/v1.1/pull/nfl/{currentSeason}/cumulative_player_stats.json?position=qb,rb,wr,te,k");
-            HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/{currentSeason}/cumulative_player_stats.json{pos}");
-            WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
-            WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
-            WebReq.Method = "GET";
+            tblJsonDump apiData = (from data in ORM.tblJsonDump
+                                   where data.ImportId == 1
+                                   select data).Single();
 
-            HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
+            JObject apiDataJSON = JObject.Parse(apiData.MySportsFeedsData);
 
-            StreamReader reader = new StreamReader(WebResp.GetResponseStream());
-            string apiData = reader.ReadToEnd();
+            JArray tempData = new JArray();
+            if (pos.ToUpper() == "ALL")
+            {
+                return new JArray(apiDataJSON);
+            }
+            else
+            {
+                for (int i = 0; i < apiDataJSON["cumulativeplayerstats"]["playerstatsentry"].Count(); i++)
+                {
+                    if (apiDataJSON["cumulativeplayerstats"]["playerstatsentry"][i]["player"]["Position"].ToString() == pos)
+                    {
+                        tempData.Add(apiDataJSON["cumulativeplayerstats"]["playerstatsentry"][i]);
+                    }
+                }
 
-            JObject apiDataJSON = JObject.Parse(apiData);
-
-            return apiDataJSON;
+                JArray outData = new JArray(tempData.OrderByDescending( obj => Int32.Parse(obj["stats"][stat]["#text"].ToString()) ));
+                return outData;
+            }
         }
 
         public JObject ApiRequestHistorical(string season, string playerIds)
@@ -142,6 +194,7 @@ namespace GC_FinalProject_FFLTool.Controllers
             FFLToolEntities2 ORM = new FFLToolEntities2();
             tblWatchlist watchlist = new tblWatchlist();
             JObject WatchList = new JObject();
+
             if (watchListName != null)
             {
 
@@ -157,10 +210,10 @@ namespace GC_FinalProject_FFLTool.Controllers
                 ViewBag.WatchListID = watchlist.WatchlistId;
             }
 
+            // Defaults to QB for position
+            JArray players = DataRequest("QB", "PassYards");
 
-            JObject players = ApiRequest("?position=qb");
-
-            ViewBag.Players = players["cumulativeplayerstats"]["playerstatsentry"];
+            ViewBag.Players = players;
             ViewBag.UserWatchlists = DropdownWatchLists();
 
             if (WatchList != null && WatchList.Count != 0)
@@ -182,7 +235,8 @@ namespace GC_FinalProject_FFLTool.Controllers
         {
             FFLToolEntities2 ORM = new FFLToolEntities2();
 
-            JObject players;
+            // used dynamic here until a single type is defined consistently
+            dynamic players;
 
             if (pos == "QB")
             {
@@ -192,7 +246,7 @@ namespace GC_FinalProject_FFLTool.Controllers
                 }
                 else
                 {
-                    players = ApiRequest("?position=qb&sort=stats.Yds.D");
+                    players = DataRequest(pos, "PassYards");
                 }
 
             }
@@ -204,7 +258,7 @@ namespace GC_FinalProject_FFLTool.Controllers
                 }
                 else
                 {
-                    players = ApiRequest("?position=wr&sort=stats.TD.D");
+                    players = DataRequest(pos, "RecYards");
                 }
 
             }
@@ -216,7 +270,7 @@ namespace GC_FinalProject_FFLTool.Controllers
                 }
                 else
                 {
-                    players = ApiRequest("?position=rb&sort=stats.Yds.D");
+                    players = DataRequest(pos, "RushYards");
                 }
 
             }
@@ -228,7 +282,7 @@ namespace GC_FinalProject_FFLTool.Controllers
                 }
                 else
                 {
-                    players = ApiRequest("?position=te&sort=stats.Yds.D");
+                    players = DataRequest(pos, "RecYards");
                 }
 
             }
@@ -240,7 +294,7 @@ namespace GC_FinalProject_FFLTool.Controllers
                 }
                 else
                 {
-                    players = ApiRequest("?position=k&sort=stats.Made.D");
+                    players = DataRequest(pos, "FgMade");
                 }
             }
             else
@@ -251,11 +305,11 @@ namespace GC_FinalProject_FFLTool.Controllers
                 }
                 else
                 {
-                    players = ApiRequest("?position=qb,rb,wr,te,k");
+                    players = DataRequest("ALL", "PassYards");
                 }
             }
 
-            ViewBag.Players = players["cumulativeplayerstats"]["playerstatsentry"];
+            ViewBag.Players = players;
             ViewBag.Pos = pos;
 
             JObject WatchList = new JObject();
@@ -266,7 +320,7 @@ namespace GC_FinalProject_FFLTool.Controllers
 
             }
 
-            ViewBag.Players = players["cumulativeplayerstats"]["playerstatsentry"];
+            ViewBag.Players = players;
             ViewBag.UserWatchlists = DropdownWatchLists();
 
             if (WatchList != null && WatchList.Count != 0)
