@@ -81,6 +81,12 @@ warning 6002: The table/view 'FFLTool.dbo.tblJsonDump' does not have a primary k
           <Property Name="CreationDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ImportDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ImportMethod" Type="varchar" MaxLength="100" />
+          <Property Name="MySportsFeedsData2017" Type="varchar(max)" />
+          <Property Name="MySportsFeedsData2016" Type="varchar(max)" />
+          <Property Name="MySportsFeedsData2015" Type="varchar(max)" />
+          <Property Name="MySportsFeedsData2014" Type="varchar(max)" />
+          <Property Name="MySportsFeedsDataPlayerLogs" Type="varchar(max)" />
+          <Property Name="MySportsFeedsDataSchedules" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="tblUserWatchlists">
           <Key>
@@ -185,7 +191,13 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
     [tblJsonDump].[MySportsFeedsData] AS [MySportsFeedsData], 
     [tblJsonDump].[CreationDate] AS [CreationDate], 
     [tblJsonDump].[ImportDate] AS [ImportDate], 
-    [tblJsonDump].[ImportMethod] AS [ImportMethod]
+    [tblJsonDump].[ImportMethod] AS [ImportMethod], 
+    [tblJsonDump].[MySportsFeedsData2017] AS [MySportsFeedsData2017], 
+    [tblJsonDump].[MySportsFeedsData2016] AS [MySportsFeedsData2016], 
+    [tblJsonDump].[MySportsFeedsData2015] AS [MySportsFeedsData2015], 
+    [tblJsonDump].[MySportsFeedsData2014] AS [MySportsFeedsData2014], 
+    [tblJsonDump].[MySportsFeedsDataPlayerLogs] AS [MySportsFeedsDataPlayerLogs], 
+    [tblJsonDump].[MySportsFeedsDataSchedules] AS [MySportsFeedsDataSchedules]
     FROM [dbo].[tblJsonDump] AS [tblJsonDump]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__tblUserWa__UserI__0F624AF8" Association="Self.FK__tblUserWa__UserI__0F624AF8">
@@ -374,6 +386,12 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
           <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ImportDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ImportMethod" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MySportsFeedsData2017" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MySportsFeedsData2016" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MySportsFeedsData2015" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MySportsFeedsData2014" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MySportsFeedsDataPlayerLogs" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MySportsFeedsDataSchedules" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -466,6 +484,12 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
           <EntitySetMapping Name="tblJsonDump">
             <EntityTypeMapping TypeName="FFLToolModel.tblJsonDump">
               <MappingFragment StoreEntitySet="tblJsonDump">
+                <ScalarProperty Name="MySportsFeedsDataSchedules" ColumnName="MySportsFeedsDataSchedules" />
+                <ScalarProperty Name="MySportsFeedsDataPlayerLogs" ColumnName="MySportsFeedsDataPlayerLogs" />
+                <ScalarProperty Name="MySportsFeedsData2014" ColumnName="MySportsFeedsData2014" />
+                <ScalarProperty Name="MySportsFeedsData2015" ColumnName="MySportsFeedsData2015" />
+                <ScalarProperty Name="MySportsFeedsData2016" ColumnName="MySportsFeedsData2016" />
+                <ScalarProperty Name="MySportsFeedsData2017" ColumnName="MySportsFeedsData2017" />
                 <ScalarProperty Name="ImportMethod" ColumnName="ImportMethod" />
                 <ScalarProperty Name="ImportDate" ColumnName="ImportDate" />
                 <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />

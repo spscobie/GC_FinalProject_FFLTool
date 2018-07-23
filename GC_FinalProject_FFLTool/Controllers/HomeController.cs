@@ -33,8 +33,7 @@ namespace GC_FinalProject_FFLTool.Controllers
             JObject apiDataJSON = JObject.Parse(apiData.MySportsFeedsData);
 
             ViewBag.apiDataJSON = apiDataJSON["cumulativeplayerstats"]["playerstatsentry"];
-            //ViewBag.apiData = apiData.MySportsFeedsData;
-            //return apiDataJSON;
+
             return View("TestMe");
         }
 

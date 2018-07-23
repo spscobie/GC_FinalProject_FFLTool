@@ -1,3 +1,10 @@
+/* Dummy fail safe if you F5 from the top of the file */
+USE JunkDBJunkDB
+
+/**************************/
+/* AZURE FFLTool DB!!!!!! */
+/**************************/
+
 DROP TABLE tblUsers;
 
 USE FFLTool;
@@ -118,3 +125,89 @@ UPDATE a
 SET a.WatchlistName = 'Scobie WR List1'
 FROM tblWatchlists a
 WHERE a.WatchlistId = 1000353
+
+-- 6/7/2018
+CREATE TABLE tblJsonDump (
+	ImportId INT IDENTITY(1, 1) NOT NULL,
+	MySportsFeedsData VARCHAR(max),
+	ImportDate TIMESTAMP
+)
+
+-- 6/15/2018
+DROP TABLE [tblJsonDump]
+
+/****** Object:  Table [dbo].[tblJsonDump]    Script Date: 6/13/2018 6:28:55 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[tblJsonDump](
+	[ImportId] [int] IDENTITY(1,1) NOT NULL,
+	[MySportsFeedsData] [varchar](max) NULL,
+	[CreationDate] [datetime2] NOT NULL,
+	[ImportDate] [datetime2] NOT NULL,
+	ImportMethod varchar(100) NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+-- 6/17/2018
+SELECT *
+FROM tblJsonDump
+
+ALTER TABLE tblJsonDump
+ADD ImportMethod varchar(100)
+
+UPDATE tblJsonDump
+SET ImportMethod = 'Manual'
+WHERE ImportId = 1
+
+UPDATE tblJsonDump
+SET ImportMethod = 'SQL Server Agent Job'
+WHERE ImportId = 2
+
+DELETE FROM tblJsonDump
+WHERE ImportId = 3
+
+ALTER TABLE tblJsonDump
+ADD MySportsFeedsData2017 [varchar](max) NULL,
+	MySportsFeedsData2016 [varchar](max) NULL,
+	MySportsFeedsData2015 [varchar](max) NULL,
+	MySportsFeedsData2014 [varchar](max) NULL,
+	MySportsFeedsDataPlayerLogs [varchar](max) NULL,
+	MySportsFeedsDataSchedules [varchar](max) NULL
+
+ALTER TABLE tblJsonDump
+ADD MySportsFeedsDataPlayerLogs2017 [varchar](max) NULL,
+	MySportsFeedsDataPlayerLogs2016 [varchar](max) NULL,
+	MySportsFeedsDataPlayerLogs2015 [varchar](max) NULL,
+	MySportsFeedsDataPlayerLogs2014 [varchar](max) NULL
+
+USE FFLTool
+
+DELETE FROM tblJsonDump
+
+DROP TABLE tblJsonDump
+
+SELECT *
+FROM tblJsonDump
+
+CREATE TABLE tblJsonDump (
+	ImportId int IDENTITY(1,1) NOT NULL,
+	MySportsFeedsData2018 varchar(max) NULL,
+	MySportsFeedsData2017 varchar(max) NULL,
+	MySportsFeedsData2016 varchar(max) NULL,
+	MySportsFeedsData2015 varchar(max) NULL,
+	MySportsFeedsData2014 varchar(max) NULL,
+	MySportsFeedsDataPlayerLogs2018 varchar(max) NULL,
+	MySportsFeedsDataPlayerLogs2017 varchar(max) NULL,
+	MySportsFeedsDataPlayerLogs2016 varchar(max) NULL,
+	MySportsFeedsDataPlayerLogs2015 varchar(max) NULL,
+	MySportsFeedsDataPlayerLogs2014 varchar(max) NULL,
+	MySportsFeedsDataSchedules varchar(max) NULL,
+	CreationDate datetime2 NOT NULL,
+	ImportDate datetime2 NOT NULL,
+	ImportMethod varchar(100),
+	CONSTRAINT PK_ImportId PRIMARY KEY (ImportId)
+)

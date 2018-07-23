@@ -387,7 +387,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\AllPlayersView.cshtml" />
     <Content Include="Views\Home\WatchList.cshtml" />
-    <Content Include="Views\Home\WatchlistView.cshtml" />
     <Content Include="Views\Home\WatchListManagement.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

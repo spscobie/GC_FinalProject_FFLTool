@@ -19,5 +19,11 @@ namespace GC_FinalProject_FFLTool.Models
         public System.DateTime CreationDate { get; set; }
         public System.DateTime ImportDate { get; set; }
         public string ImportMethod { get; set; }
+        public string MySportsFeedsData2017 { get; set; }
+        public string MySportsFeedsData2016 { get; set; }
+        public string MySportsFeedsData2015 { get; set; }
+        public string MySportsFeedsData2014 { get; set; }
+        public string MySportsFeedsDataPlayerLogs { get; set; }
+        public string MySportsFeedsDataSchedules { get; set; }
     }
 }
