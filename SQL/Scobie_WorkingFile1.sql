@@ -344,6 +344,8 @@ FROM (
 
 PRINT @Teams
 
+USE FFLTool
+
 ALTER ASSEMBLY MySportsFeedsAPI_SPs
 FROM 'C:\Users\sscobie\Documents\Visual Studio 2017\Projects\GC_FinalProject_FFLTool\SQL\CLR\MySportsFeedsAPI_SPs\bin\Release\MySportsFeedsAPI_SPs.dll'
 GO
@@ -358,13 +360,16 @@ AS
 	EXTERNAL NAME MySportsFeedsAPI_SPs.StoredProcedures.MySF_ApiRequest_PlayerLogs
 GO
 
-CREATE PROCEDURE dbo.CombinePlayerLogs @teams NVARCHAR(1000) WITH EXECUTE AS CALLER 
+CREATE PROCEDURE dbo.CombinePlayerLogs @teams NVARCHAR(1000), @season NVARCHAR(100) WITH EXECUTE AS CALLER 
 AS
 	EXTERNAL NAME MySportsFeedsAPI_SPs.StoredProcedures.MySF_CombinePlayerLogs
 GO
 
 DECLARE @teams NVARCHAR(1000)
+DECLARE @season NVARCHAR(100)
 
+--SET @teams = 'ARI,BAL'
+SET @season = '2018'
 SELECT @teams = LEFT(a.Teams, LEN(a.Teams) - 1)
 FROM (
 		SELECT MIN(TeamId) AS Id,
@@ -372,7 +377,8 @@ FROM (
 		FROM tblTeams
 	  ) AS a
 
-EXEC dbo.CombinePlayerLogs @teams
+EXEC dbo.CombinePlayerLogs @teams, @season
+
 
 SELECT BulkColumn
 INTO #temp 
@@ -397,7 +403,7 @@ EXEC CallAPI_CumulativeStats @season
 GO
 
 
-/* PREVIOUS SEASONS NOT WORKING!! API access isue???? */
+/* PREVIOUS SEASONS NOT WORKING!! API access isue???? Yep, solved! */
 -- 2016 season
 DECLARE @season NVARCHAR(100)
 SET @season = '2016-2017-regular'
@@ -440,3 +446,19 @@ CREATE TABLE tblJsonDump (
 	ImportMethod varchar(100),
 	CONSTRAINT PK_ImportId PRIMARY KEY (ImportId)
 )
+
+INSERT INTO tblJsonDump (MySportsFeedsData2017, ImportDate, ImportMethod)
+SELECT BulkColumn, CURRENT_TIMESTAMP, 'Manual'
+FROM OPENROWSET (BULK 'C:\Users\sscobie\Documents\Visual Studio 2017\Projects\GC_FinalProject_FFLTool\SQL\cumulativestats_nfl_2017-regular.txt', SINGLE_CLOB) as j
+
+UPDATE t
+SET MySportsFeedsData2016 = json.BulkColumn
+FROM tblJsonDump t
+INNER JOIN (
+	SELECT BulkColumn, 8 AS ImportId
+	FROM OPENROWSET (BULK 'C:\Users\sscobie\Documents\Visual Studio 2017\Projects\GC_FinalProject_FFLTool\SQL\cumulativestats_nfl_2017-regular.txt', SINGLE_CLOB) j
+) json ON t.ImportId = json.ImportId
+
+--TODO: If SQL Agent job is successful then change 'On task failure' setting back to fail for Step 3
+--TODO: Add retry logic to. Possibly handle 429 codes differently?
+--TODO: Figure out the seasons stuff and write a method for it

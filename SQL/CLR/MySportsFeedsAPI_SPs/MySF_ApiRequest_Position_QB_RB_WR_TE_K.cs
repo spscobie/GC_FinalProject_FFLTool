@@ -18,7 +18,7 @@ public partial class StoredProcedures
         /*** Updated credentials from J Snovers to my new account on 4/7/2018                          ***/
 
         HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.2/pull/nfl/{season}/cumulative_player_stats.json?position=qb,rb,wr,te,k");
-        WebReq.Headers.Add("Authorization", "Basic " + "");
+        WebReq.Headers.Add("Authorization", "");
         WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
         WebReq.Method = "GET";
 
@@ -39,14 +39,14 @@ public partial class StoredProcedures
         /*** Updated credentials from J Snovers to my new account on 4/7/2018                          ***/
 
         HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.2/pull/nfl/{season}/player_gamelogs.json?team={team}");
-        WebReq.Headers.Add("Authorization", "Basic " + "");
+        WebReq.Headers.Add("Authorization", "");
         WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
         WebReq.Method = "GET";
 
         HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
         StreamReader reader = new StreamReader(WebResp.GetResponseStream());
         string apiData = reader.ReadToEnd();
-        File.WriteAllText($"C:\\Users\\sscobie\\Documents\\Visual Studio 2017\\Projects\\GC_FinalProject_FFLTool\\SQL\\response_nfl_2017reg_playerlogs_{team}.txt", apiData);
+        File.WriteAllText($"C:\\Users\\sscobie\\Documents\\Visual Studio 2017\\Projects\\GC_FinalProject_FFLTool\\SQL\\response_nfl_{season}_playerlogs_{team}.txt", apiData);
 
         WebResp.Close();
         reader.Close();
@@ -60,7 +60,7 @@ public partial class StoredProcedures
         /*** Updated credentials from J Snovers to my new account on 4/7/2018                          ***/
 
         HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.2/pull/nfl/{season}/full_game_schedule.json?date=from-20171226-to-20180101");
-        WebReq.Headers.Add("Authorization", "Basic " + "");
+        WebReq.Headers.Add("Authorization", "");
         WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
         WebReq.Method = "GET";
 
@@ -75,45 +75,42 @@ public partial class StoredProcedures
 
     /* Combine playerlogs files into a singel file */
     [Microsoft.SqlServer.Server.SqlProcedure]
-    public static void MySF_CombinePlayerLogs (string teams = "DET,CHI")
+    public static void MySF_CombinePlayerLogs (string teams, string season)
     {
         string dirName = "C:\\Users\\sscobie\\Documents\\Visual Studio 2017\\Projects\\GC_FinalProject_FFLTool\\SQL\\";
         string sourceFileName;
         string targetFileName;
         string playerLogsText;
+        string[] teamsArr;
         string team;
 
-        targetFileName = dirName + "combined_nfl_2017reg_playerlogs.txt";
+        targetFileName = dirName + $"combined_nfl_{season}-regular_playerlogs.txt";
         if (File.Exists(targetFileName))
         {
-
-            //start by clearing out the old file
             File.Delete(targetFileName);
+        }
 
-            string[] teamsArr = teams.Split(new char[] { ',' });
+        teamsArr = teams.Split(new char[] { ',' });
+        for (int i = 0; i < teamsArr.Length; i++)
+        {
 
-            for (int i = 0; i < teamsArr.Length; i++)
+            team = teamsArr[i];
+            sourceFileName = dirName + $"response_nfl_{season}-regular_playerlogs_{team}.txt";
+
+            if (File.Exists(sourceFileName))
             {
-
-                team = teamsArr[i];
-                sourceFileName = dirName + $"response_nfl_2017reg_playerlogs_{team}.txt";
-
-                if (File.Exists(sourceFileName))
+                if (i != teamsArr.Length - 1)
                 {
-                    if (i != teamsArr.Length - 1)
-                    {
-                        playerLogsText = File.ReadAllText(sourceFileName) + "|";
-                    }
-                    else
-                    {
-                        //if it's the last element of the array, don't append the delimiter
-                        playerLogsText = File.ReadAllText(sourceFileName);
-                    }
-
                     playerLogsText = File.ReadAllText(sourceFileName) + "|";
-                    File.AppendAllText(targetFileName, playerLogsText); //this method will re-create text file
-                    File.Delete(sourceFileName);
                 }
+                else
+                {
+                    //if it's the last element of the array, don't append the delimiter
+                    playerLogsText = File.ReadAllText(sourceFileName);
+                }
+
+                File.AppendAllText(targetFileName, playerLogsText);
+                //File.Delete(sourceFileName);
             }
         }
     }
