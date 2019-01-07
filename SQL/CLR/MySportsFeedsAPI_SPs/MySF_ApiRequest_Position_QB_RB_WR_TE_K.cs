@@ -18,7 +18,7 @@ public partial class StoredProcedures
         /*** Updated credentials from J Snovers to my new account on 4/7/2018                          ***/
 
         HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.2/pull/nfl/{season}/cumulative_player_stats.json?position=qb,rb,wr,te,k");
-        WebReq.Headers.Add("Authorization", "");
+        WebReq.Headers.Add("Authorization", "Basic " + "");
         WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
         WebReq.Method = "GET";
 
@@ -39,7 +39,7 @@ public partial class StoredProcedures
         /*** Updated credentials from J Snovers to my new account on 4/7/2018                          ***/
 
         HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.2/pull/nfl/{season}/player_gamelogs.json?team={team}");
-        WebReq.Headers.Add("Authorization", "");
+        WebReq.Headers.Add("Authorization", "Basic " + "");
         WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
         WebReq.Method = "GET";
 
@@ -54,20 +54,20 @@ public partial class StoredProcedures
 
     /* API call for current week's schedule */
     [Microsoft.SqlServer.Server.SqlProcedure]
-    public static void MySF_ApiRequest_Schedules (string season)
+    public static void MySF_ApiRequest_Schedules (string season, string week)
     {
         /*** You must set permissions so that 'Everyone' user has access to the directory cited below. ***/
         /*** Updated credentials from J Snovers to my new account on 4/7/2018                          ***/
 
-        HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.2/pull/nfl/{season}/full_game_schedule.json?date=from-20171226-to-20180101");
-        WebReq.Headers.Add("Authorization", "");
+        HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.2/pull/nfl/{season}/full_game_schedule.json?week={week}");
+        WebReq.Headers.Add("Authorization", "Basic " + "");
         WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
         WebReq.Method = "GET";
 
         HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
         StreamReader reader = new StreamReader(WebResp.GetResponseStream());
         string apiData = reader.ReadToEnd();
-        File.WriteAllText("C:\\Users\\sscobie\\Documents\\Visual Studio 2017\\Projects\\GC_FinalProject_FFLTool\\SQL\\response_nfl_2017reg_schedule.txt", apiData);
+        File.WriteAllText($"C:\\Users\\sscobie\\Documents\\Visual Studio 2017\\Projects\\GC_FinalProject_FFLTool\\SQL\\response_nfl_{season}_schedule.txt", apiData);
 
         WebResp.Close();
         reader.Close();
@@ -110,7 +110,7 @@ public partial class StoredProcedures
                 }
 
                 File.AppendAllText(targetFileName, playerLogsText);
-                //File.Delete(sourceFileName);
+                File.Delete(sourceFileName);
             }
         }
     }

@@ -344,7 +344,14 @@ FROM (
 
 PRINT @Teams
 
+/****************************************************************************************************/
+/*                                    Assembly Stuff                                                */
+/****************************************************************************************************/
+
 USE FFLTool
+
+-- Manually create an assembly if the signature of any method changed, otherwise run the ALTER ASSEMBLY styatement below.
+-- Before maually recreating the assembly you must delete all of the existing SPs first!
 
 ALTER ASSEMBLY MySportsFeedsAPI_SPs
 FROM 'C:\Users\sscobie\Documents\Visual Studio 2017\Projects\GC_FinalProject_FFLTool\SQL\CLR\MySportsFeedsAPI_SPs\bin\Release\MySportsFeedsAPI_SPs.dll'
@@ -364,6 +371,13 @@ CREATE PROCEDURE dbo.CombinePlayerLogs @teams NVARCHAR(1000), @season NVARCHAR(1
 AS
 	EXTERNAL NAME MySportsFeedsAPI_SPs.StoredProcedures.MySF_CombinePlayerLogs
 GO
+
+CREATE PROCEDURE dbo.MySF_ApiRequest_Schedules @season NVARCHAR(100), @week NVARCHAR(2) WITH EXECUTE AS CALLER 
+AS
+	EXTERNAL NAME MySportsFeedsAPI_SPs.StoredProcedures.MySF_ApiRequest_Schedules
+GO
+
+/****************************************************************************************************/
 
 DECLARE @teams NVARCHAR(1000)
 DECLARE @season NVARCHAR(100)
@@ -452,13 +466,290 @@ SELECT BulkColumn, CURRENT_TIMESTAMP, 'Manual'
 FROM OPENROWSET (BULK 'C:\Users\sscobie\Documents\Visual Studio 2017\Projects\GC_FinalProject_FFLTool\SQL\cumulativestats_nfl_2017-regular.txt', SINGLE_CLOB) as j
 
 UPDATE t
-SET MySportsFeedsData2016 = json.BulkColumn
+SET MySportsFeedsData2018 = json.BulkColumn
 FROM tblJsonDump t
 INNER JOIN (
 	SELECT BulkColumn, 8 AS ImportId
-	FROM OPENROWSET (BULK 'C:\Users\sscobie\Documents\Visual Studio 2017\Projects\GC_FinalProject_FFLTool\SQL\cumulativestats_nfl_2017-regular.txt', SINGLE_CLOB) j
+	FROM OPENROWSET (BULK 'C:\Users\sscobie\Documents\Visual Studio 2017\Projects\GC_FinalProject_FFLTool\SQL\cumulativestats_nfl_2018-regular.txt', SINGLE_CLOB) j
 ) json ON t.ImportId = json.ImportId
 
---TODO: If SQL Agent job is successful then change 'On task failure' setting back to fail for Step 3
+DECLARE @importid INT
+
+SELECT TOP 1 @importid= ImportId
+FROM tblJsonDump
+ORDER BY ImportId DESC
+
+PRINT @importid
+
+UPDATE t
+SET MySportsFeedsDataPlayerLogs2018= json.BulkColumn
+FROM tblJsonDump t
+INNER JOIN (
+	SELECT BulkColumn, @importid AS ImportId
+	FROM OPENROWSET (BULK 'C:\Users\sscobie\Documents\Visual Studio 2017\Projects\GC_FinalProject_FFLTool\SQL\combined_nfl_2018-regular_playerlogs.txt', SINGLE_CLOB) j
+) json ON t.ImportId = json.ImportId
+GO
+
+SELECT *
+FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump
+
+SELECT *
+FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblWatchlists
+
+USE FFLTool
+
+-- executes in approx. 37m:05s
+INSERT INTO [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump (MySportsFeedsData2018, MySportsFeedsData2017, MySportsFeedsData2016, MySportsFeedsData2015, MySportsFeedsData2014, MySportsFeedsDataSchedules, CreationDate, ImportDate, ImportMethod)
+SELECT TOP 1
+	MySportsFeedsData2018,
+	MySportsFeedsData2017,
+	MySportsFeedsData2016,
+	MySportsFeedsData2015,
+	MySportsFeedsData2014,
+	MySportsFeedsDataSchedules,
+	ImportDate,
+	CURRENT_TIMESTAMP,
+	ImportMethod
+FROM tblJsonDump
+ORDER BY ImportDate DESC
+GO
+
+UPDATE t
+SET t.MySportsFeedsDataPlayerLogs2018 = s.MySportsFeedsDataPlayerLogs2018
+FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump t
+CROSS JOIN
+(
+	SELECT TOP 1
+		ImportId,
+		MySportsFeedsDataPlayerLogs2018
+	FROM tblJsonDump
+	ORDER BY ImportDate DESC
+) s
+WHERE t.ImportId = (SELECT MAX(ImportId) FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump)
+GO
+
+UPDATE t
+SET t.MySportsFeedsDataPlayerLogs2017 = s.MySportsFeedsDataPlayerLogs2017
+FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump t
+CROSS JOIN
+(
+	SELECT TOP 1
+		ImportId,
+		MySportsFeedsDataPlayerLogs2017
+	FROM tblJsonDump
+	ORDER BY ImportDate DESC
+) s
+WHERE t.ImportId = (SELECT MAX(ImportId) FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump)
+GO
+
+UPDATE t
+SET t.MySportsFeedsDataPlayerLogs2016 = s.MySportsFeedsDataPlayerLogs2016
+FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump t
+CROSS JOIN
+(
+	SELECT TOP 1
+		ImportId,
+		MySportsFeedsDataPlayerLogs2016
+	FROM tblJsonDump
+	ORDER BY ImportDate DESC
+) s
+WHERE t.ImportId = (SELECT MAX(ImportId) FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump)
+GO
+
+UPDATE t
+SET t.MySportsFeedsDataPlayerLogs2015 = s.MySportsFeedsDataPlayerLogs2015
+FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump t
+CROSS JOIN
+(
+	SELECT TOP 1
+		ImportId,
+		MySportsFeedsDataPlayerLogs2015
+	FROM tblJsonDump
+	ORDER BY ImportDate DESC
+) s
+WHERE t.ImportId = (SELECT MAX(ImportId) FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump)
+GO
+
+UPDATE t
+SET t.MySportsFeedsDataPlayerLogs2014 = s.MySportsFeedsDataPlayerLogs2014
+FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump t
+CROSS JOIN
+(
+	SELECT TOP 1
+		ImportId,
+		MySportsFeedsDataPlayerLogs2014
+	FROM tblJsonDump
+	ORDER BY ImportDate DESC
+) s
+WHERE t.ImportId = (SELECT MAX(ImportId) FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump)
+GO
+
+SELECT t.MySportsFeedsDataPlayerLogs2017
+FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump t
+WHERE t.ImportId = (SELECT MAX(ImportId) FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump)
+
+SELECT t.MySportsFeedsDataPlayerLogs2017
+FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump t
+WHERE t.ImportId = 7
+
+SELECT t.MySportsFeedsDataPlayerLogs2017
+FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump t
+
+SELECT *
+FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump t
+
+DELETE FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump
+WHERE ImportId IN (3, 5, 7)
+
+SELECT a.*
+FROM (
+	SELECT *, ROW_NUMBER() OVER(ORDER BY ImportId DESC) AS 'N_Rank'
+	FROM tblJsonDump
+) a
+WHERE N_Rank > 1
+
+SELECT * FROM tblJsonDump
+WHERE ImportId IN 
+(
+	SELECT a.ImportId
+	FROM (
+		SELECT ImportId, ROW_NUMBER() OVER(ORDER BY ImportId DESC) AS 'N_Rank'
+		FROM tblJsonDump
+	) a
+	WHERE a.N_Rank > 5
+)
+
+DELETE FROM tblJsonDump
+WHERE ImportId IN 
+(
+	SELECT a.ImportId
+	FROM (
+		SELECT ImportId, ROW_NUMBER() OVER(ORDER BY ImportId DESC) AS 'N_Rank'
+		FROM tblJsonDump
+	) a
+	WHERE a.N_Rank > 5
+)
+
+DELETE FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump
+WHERE ImportId IN 
+(
+	SELECT a.ImportId
+	FROM (
+		SELECT ImportId, ROW_NUMBER() OVER(ORDER BY ImportId DESC) AS 'N_Rank'
+		FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump
+	) a
+	WHERE a.N_Rank > 1
+)
+
+SELECT * FROM [FFLTOOL_AZUREDB].FFLTool.sys.database_permissions   
+    WHERE major_id = OBJECT_ID('tblJsonDump');  
+GO
+
+DELETE FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump
+WHERE ImportId = 8
+
+DROP TABLE [FFLTOOL_AZUREDB].[FFLTool].[dbo].[tblJsonDump]
+
+EXEC [FFLTOOL_AZUREDB].[FFLTool].sys.sp_executesql N'TRUNCATE TABLE dbo.tblJsonDump'
+
+DBCC SHRINKDATABASE (FFLTool, 10);  
+GO
+
+DECLARE @season nvarchar(100)
+DECLARE @week nvarchar(2)
+
+SET @season = '2018-regular'
+SET @week   = '17'
+
+EXEC MySF_ApiRequest_Schedules @season, @week
+GO
+
+SELECT *
+FROM tblJsonDump
+
+USE FFLTool;
+
+DECLARE @importid INT
+
+SELECT TOP 1 @importid= ImportId
+FROM tblJsonDump
+ORDER BY ImportId DESC
+
+UPDATE t
+SET MySportsFeedsDataSchedules= json.BulkColumn
+FROM tblJsonDump t
+INNER JOIN (
+	SELECT BulkColumn, @importid AS ImportId
+	FROM OPENROWSET (BULK 'C:\Users\sscobie\Documents\Visual Studio 2017\Projects\GC_FinalProject_FFLTool\SQL\response_nfl_2018-regular_schedule.txt', SINGLE_CLOB) j
+) json ON t.ImportId = json.ImportId
+GO
+
+SELECT *
+FROM tblJsonDump
+WHERE ImportId IN 
+(
+	SELECT a.ImportId
+	FROM (
+		SELECT ImportId, ROW_NUMBER() OVER(ORDER BY ImportId DESC) AS 'N_Rank'
+		FROM tblJsonDump
+	) a
+	WHERE a.N_Rank > 5
+)
+
+CREATE TABLE tblWeeks (
+	WeekId INT IDENTITY(1, 1) NOT NULL,
+	Season VARCHAR(100) NOT NULL,
+	WeekNumber VARCHAR(2) NOT NULL,
+	WeekStart DATE NOT NULL,
+	WeekEnd DATE NOT NULL,
+	CONSTRAINT PK_WeekId PRIMARY KEY (WeekId))
+
+SELECT *
+FROM tblWeeks
+
+SELECT MIN(WeekStart)
+FROM tblWeeks
+WHERE Season = (SELECT MAX(Season) FROM tblWeeks)
+
+DECLARE @season nvarchar(100)
+DECLARE @week nvarchar(2)
+DECLARE @now date
+
+--SET @season = '2018-regular'
+SET @now = GETDATE()
+--SET @week = '17'
+
+SELECT
+	@season = 
+		CASE
+			WHEN @now BETWEEN WeekStart AND WeekEnd THEN Season
+			WHEN @now < (SELECT MIN(WeekStart)
+						 FROM tblWeeks
+						 WHERE Season = CAST((SELECT MAX(CAST(Season AS INT)) FROM tblWeeks) AS VARCHAR(4))) THEN CAST((SELECT MAX(CAST(Season AS INT) - 1) FROM tblWeeks) AS VARCHAR(4))
+			ELSE CAST((SELECT MAX(CAST(Season AS INT)) FROM tblWeeks) AS VARCHAR(4))
+		END,
+	@week =
+		CASE
+			WHEN @now BETWEEN WeekStart AND WeekEnd THEN WeekNumber
+			ELSE '17'
+		END     		
+FROM tblWeeks
+
+PRINT @season
+PRINT @now
+PRINT @week
+
+EXEC MySF_ApiRequest_Schedules @season, @week
+GO
+
+ALTER TABLE tblWeeks
+ADD WeekSuffix VARCHAR(20)
+
+UPDATE tblWeeks
+SET WeekSuffix = '-regular'
+
+SELECT *
+FROM tblWeeks
+
+--TODO: add SQL Agent job SQL syntax to GitHub
 --TODO: Add retry logic to. Possibly handle 429 codes differently?
---TODO: Figure out the seasons stuff and write a method for it
