@@ -722,11 +722,11 @@ SET @now = GETDATE()
 SELECT
 	@season = 
 		CASE
-			WHEN @now BETWEEN WeekStart AND WeekEnd THEN Season
+			WHEN @now BETWEEN WeekStart AND WeekEnd THEN Season + WeekSuffix
 			WHEN @now < (SELECT MIN(WeekStart)
 						 FROM tblWeeks
-						 WHERE Season = CAST((SELECT MAX(CAST(Season AS INT)) FROM tblWeeks) AS VARCHAR(4))) THEN CAST((SELECT MAX(CAST(Season AS INT) - 1) FROM tblWeeks) AS VARCHAR(4))
-			ELSE CAST((SELECT MAX(CAST(Season AS INT)) FROM tblWeeks) AS VARCHAR(4))
+						 WHERE Season = CAST((SELECT MAX(CAST(Season AS INT)) FROM tblWeeks) AS VARCHAR(4))) THEN CAST((SELECT MAX(CAST(Season AS INT) - 1) FROM tblWeeks) AS VARCHAR(4)) + WeekSuffix
+			ELSE CAST((SELECT MAX(CAST(Season AS INT)) FROM tblWeeks) AS VARCHAR(4)) + WeekSuffix
 		END,
 	@week =
 		CASE
