@@ -68,25 +68,25 @@
           <Property Name="FirstName" Type="nvarchar(max)" />
           <Property Name="LastName" Type="nvarchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'FFLTool.dbo.tblJsonDump' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblJsonDump">
           <Key>
             <PropertyRef Name="ImportId" />
-            <PropertyRef Name="CreationDate" />
-            <PropertyRef Name="ImportDate" />
           </Key>
           <Property Name="ImportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MySportsFeedsData" Type="varchar(max)" />
-          <Property Name="CreationDate" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ImportDate" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ImportMethod" Type="varchar" MaxLength="100" />
+          <Property Name="MySportsFeedsData2018" Type="varchar(max)" />
           <Property Name="MySportsFeedsData2017" Type="varchar(max)" />
           <Property Name="MySportsFeedsData2016" Type="varchar(max)" />
           <Property Name="MySportsFeedsData2015" Type="varchar(max)" />
           <Property Name="MySportsFeedsData2014" Type="varchar(max)" />
-          <Property Name="MySportsFeedsDataPlayerLogs" Type="varchar(max)" />
+          <Property Name="MySportsFeedsDataPlayerLogs2018" Type="varchar(max)" />
+          <Property Name="MySportsFeedsDataPlayerLogs2017" Type="varchar(max)" />
+          <Property Name="MySportsFeedsDataPlayerLogs2016" Type="varchar(max)" />
+          <Property Name="MySportsFeedsDataPlayerLogs2015" Type="varchar(max)" />
+          <Property Name="MySportsFeedsDataPlayerLogs2014" Type="varchar(max)" />
           <Property Name="MySportsFeedsDataSchedules" Type="varchar(max)" />
+          <Property Name="CreationDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ImportDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ImportMethod" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="tblUserWatchlists">
           <Key>
@@ -104,6 +104,17 @@ warning 6002: The table/view 'FFLTool.dbo.tblJsonDump' does not have a primary k
           <Property Name="WatchlistId" Type="bigint" Nullable="false" />
           <Property Name="WatchlistName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="PlayerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblWeeks">
+          <Key>
+            <PropertyRef Name="WeekId" />
+          </Key>
+          <Property Name="WeekId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Season" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="WeekNumber" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="WeekStart" Type="date" Nullable="false" />
+          <Property Name="WeekEnd" Type="date" Nullable="false" />
+          <Property Name="WeekSuffix" Type="varchar" MaxLength="20" />
         </EntityType>
         <Association Name="FK__tblUserWa__UserI__0F624AF8">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
@@ -183,23 +194,10 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblJsonDump" EntityType="Self.tblJsonDump" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUserWatchlists" EntityType="Self.tblUserWatchlists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblWatchlists" EntityType="Self.tblWatchlists" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblJsonDump" EntityType="Self.tblJsonDump" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tblJsonDump].[ImportId] AS [ImportId], 
-    [tblJsonDump].[MySportsFeedsData] AS [MySportsFeedsData], 
-    [tblJsonDump].[CreationDate] AS [CreationDate], 
-    [tblJsonDump].[ImportDate] AS [ImportDate], 
-    [tblJsonDump].[ImportMethod] AS [ImportMethod], 
-    [tblJsonDump].[MySportsFeedsData2017] AS [MySportsFeedsData2017], 
-    [tblJsonDump].[MySportsFeedsData2016] AS [MySportsFeedsData2016], 
-    [tblJsonDump].[MySportsFeedsData2015] AS [MySportsFeedsData2015], 
-    [tblJsonDump].[MySportsFeedsData2014] AS [MySportsFeedsData2014], 
-    [tblJsonDump].[MySportsFeedsDataPlayerLogs] AS [MySportsFeedsDataPlayerLogs], 
-    [tblJsonDump].[MySportsFeedsDataSchedules] AS [MySportsFeedsDataSchedules]
-    FROM [dbo].[tblJsonDump] AS [tblJsonDump]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="tblWeeks" EntityType="Self.tblWeeks" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__tblUserWa__UserI__0F624AF8" Association="Self.FK__tblUserWa__UserI__0F624AF8">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="tblUserWatchlists" EntitySet="tblUserWatchlists" />
@@ -225,50 +223,77 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FFLToolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FFLToolEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="FFLToolModel.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="FFLToolModel.AspNetRoles" />
+          <EntitySet Name="AspNetUserClaims" EntityType="FFLToolModel.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="FFLToolModel.AspNetUserLogins" />
+          <EntitySet Name="AspNetUsers" EntityType="FFLToolModel.AspNetUsers" />
+          <EntitySet Name="tblJsonDump" EntityType="FFLToolModel.tblJsonDump" />
+          <EntitySet Name="tblUserWatchlists" EntityType="FFLToolModel.tblUserWatchlists" />
+          <EntitySet Name="tblWatchlists" EntityType="FFLToolModel.tblWatchlists" />
+          <EntitySet Name="tblWeeks" EntityType="FFLToolModel.tblWeeks" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="FFLToolModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="FFLToolModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblUserWa__UserI__0F624AF8" Association="FFLToolModel.FK__tblUserWa__UserI__0F624AF8">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="tblUserWatchlists" EntitySet="tblUserWatchlists" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="FFLToolModel.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
             <PropertyRef Name="ContextKey" />
           </Key>
-          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="AspNetRole">
+        <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="FFLToolModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
         </EntityType>
-        <EntityType Name="AspNetUserClaim">
+        <EntityType Name="AspNetUserClaims">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers" Relationship="FFLToolModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
         </EntityType>
-        <EntityType Name="AspNetUserLogin">
+        <EntityType Name="AspNetUserLogins">
           <Key>
             <PropertyRef Name="LoginProvider" />
             <PropertyRef Name="ProviderKey" />
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="FFLToolModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
         </EntityType>
-        <EntityType Name="AspNetUser">
+        <EntityType Name="AspNetUsers">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -279,37 +304,68 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
           <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
-          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="tblUserWatchlists" Relationship="Self.FK__tblUserWa__UserI__0F624AF8" FromRole="AspNetUsers" ToRole="tblUserWatchlists" />
-          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="FFLToolModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="FFLToolModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="tblUserWatchlists" Relationship="FFLToolModel.FK__tblUserWa__UserI__0F624AF8" FromRole="AspNetUsers" ToRole="tblUserWatchlists" />
+          <NavigationProperty Name="AspNetRoles" Relationship="FFLToolModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
-        <EntityType Name="tblUserWatchlist">
+        <EntityType Name="tblJsonDump">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MySportsFeedsData2018" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MySportsFeedsData2017" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MySportsFeedsData2016" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MySportsFeedsData2015" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MySportsFeedsData2014" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MySportsFeedsDataPlayerLogs2018" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MySportsFeedsDataPlayerLogs2017" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MySportsFeedsDataPlayerLogs2016" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MySportsFeedsDataPlayerLogs2015" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MySportsFeedsDataPlayerLogs2014" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MySportsFeedsDataSchedules" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ImportDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ImportMethod" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblUserWatchlists">
           <Key>
             <PropertyRef Name="WatchlistId" />
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="WatchlistId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__tblUserWa__UserI__0F624AF8" FromRole="tblUserWatchlists" ToRole="AspNetUsers" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="FFLToolModel.FK__tblUserWa__UserI__0F624AF8" FromRole="tblUserWatchlists" ToRole="AspNetUsers" />
         </EntityType>
-        <EntityType Name="tblWatchlist">
+        <EntityType Name="tblWatchlists">
           <Key>
             <PropertyRef Name="WatchlistId" />
             <PropertyRef Name="PlayerId" />
           </Key>
           <Property Name="WatchlistId" Type="Int64" Nullable="false" />
-          <Property Name="WatchlistName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WatchlistName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="PlayerId" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblWeeks">
+          <Key>
+            <PropertyRef Name="WeekId" />
+          </Key>
+          <Property Name="WeekId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Season" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="WeekNumber" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="WeekStart" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="WeekEnd" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="WeekSuffix" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+          <End Type="FFLToolModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <End Type="FFLToolModel.AspNetUserClaims" Role="AspNetUserClaims" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
@@ -320,10 +376,10 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+          <End Type="FFLToolModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <End Type="FFLToolModel.AspNetUserLogins" Role="AspNetUserLogins" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
@@ -334,8 +390,8 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__tblUserWa__UserI__0F624AF8">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-          <End Role="tblUserWatchlists" Type="Self.tblUserWatchlist" Multiplicity="*" />
+          <End Type="FFLToolModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="FFLToolModel.tblUserWatchlists" Role="tblUserWatchlists" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
@@ -346,54 +402,10 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
           </ReferentialConstraint>
         </Association>
         <Association Name="AspNetUserRoles">
-          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+          <End Type="FFLToolModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+          <End Type="FFLToolModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="FFLToolEntities2" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
-          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
-          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
-          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <EntitySet Name="tblUserWatchlists" EntityType="Self.tblUserWatchlist" />
-          <EntitySet Name="tblWatchlists" EntityType="Self.tblWatchlist" />
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblUserWa__UserI__0F624AF8" Association="Self.FK__tblUserWa__UserI__0F624AF8">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="tblUserWatchlists" EntitySet="tblUserWatchlists" />
-          </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-          </AssociationSet>
-          <EntitySet Name="tblJsonDump" EntityType="FFLToolModel.tblJsonDump" />
-        </EntityContainer>
-        <EntityType Name="tblJsonDump">
-          <Key>
-            <PropertyRef Name="ImportId" />
-            <PropertyRef Name="CreationDate" />
-            <PropertyRef Name="ImportDate" />
-          </Key>
-          <Property Name="ImportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MySportsFeedsData" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="ImportDate" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="ImportMethod" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="MySportsFeedsData2017" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="MySportsFeedsData2016" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="MySportsFeedsData2015" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="MySportsFeedsData2014" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="MySportsFeedsDataPlayerLogs" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="MySportsFeedsDataSchedules" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -402,102 +414,118 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
           <EntitySetMapping Name="C__MigrationHistory">
             <EntityTypeMapping TypeName="FFLToolModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="FFLToolModel.AspNetRole">
+            <EntityTypeMapping TypeName="FFLToolModel.AspNetRoles">
               <MappingFragment StoreEntitySet="AspNetRoles">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="FFLToolModel.AspNetUserClaim">
+            <EntityTypeMapping TypeName="FFLToolModel.AspNetUserClaims">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
                 <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="FFLToolModel.AspNetUserLogin">
+            <EntityTypeMapping TypeName="FFLToolModel.AspNetUserLogins">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
-                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="FFLToolModel.AspNetUser">
+            <EntityTypeMapping TypeName="FFLToolModel.AspNetUsers">
               <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblUserWatchlists">
-            <EntityTypeMapping TypeName="FFLToolModel.tblUserWatchlist">
-              <MappingFragment StoreEntitySet="tblUserWatchlists">
-                <ScalarProperty Name="WatchlistId" ColumnName="WatchlistId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblWatchlists">
-            <EntityTypeMapping TypeName="FFLToolModel.tblWatchlist">
-              <MappingFragment StoreEntitySet="tblWatchlists">
-                <ScalarProperty Name="WatchlistId" ColumnName="WatchlistId" />
-                <ScalarProperty Name="WatchlistName" ColumnName="WatchlistName" />
-                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="FFLToolModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetRoles">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-            <EndProperty Name="AspNetUsers">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="tblJsonDump">
             <EntityTypeMapping TypeName="FFLToolModel.tblJsonDump">
               <MappingFragment StoreEntitySet="tblJsonDump">
+                <ScalarProperty Name="ImportMethod" ColumnName="ImportMethod" />
+                <ScalarProperty Name="ImportDate" ColumnName="ImportDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
                 <ScalarProperty Name="MySportsFeedsDataSchedules" ColumnName="MySportsFeedsDataSchedules" />
-                <ScalarProperty Name="MySportsFeedsDataPlayerLogs" ColumnName="MySportsFeedsDataPlayerLogs" />
+                <ScalarProperty Name="MySportsFeedsDataPlayerLogs2014" ColumnName="MySportsFeedsDataPlayerLogs2014" />
+                <ScalarProperty Name="MySportsFeedsDataPlayerLogs2015" ColumnName="MySportsFeedsDataPlayerLogs2015" />
+                <ScalarProperty Name="MySportsFeedsDataPlayerLogs2016" ColumnName="MySportsFeedsDataPlayerLogs2016" />
+                <ScalarProperty Name="MySportsFeedsDataPlayerLogs2017" ColumnName="MySportsFeedsDataPlayerLogs2017" />
+                <ScalarProperty Name="MySportsFeedsDataPlayerLogs2018" ColumnName="MySportsFeedsDataPlayerLogs2018" />
                 <ScalarProperty Name="MySportsFeedsData2014" ColumnName="MySportsFeedsData2014" />
                 <ScalarProperty Name="MySportsFeedsData2015" ColumnName="MySportsFeedsData2015" />
                 <ScalarProperty Name="MySportsFeedsData2016" ColumnName="MySportsFeedsData2016" />
                 <ScalarProperty Name="MySportsFeedsData2017" ColumnName="MySportsFeedsData2017" />
-                <ScalarProperty Name="ImportMethod" ColumnName="ImportMethod" />
-                <ScalarProperty Name="ImportDate" ColumnName="ImportDate" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="MySportsFeedsData" ColumnName="MySportsFeedsData" />
+                <ScalarProperty Name="MySportsFeedsData2018" ColumnName="MySportsFeedsData2018" />
                 <ScalarProperty Name="ImportId" ColumnName="ImportId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblUserWatchlists">
+            <EntityTypeMapping TypeName="FFLToolModel.tblUserWatchlists">
+              <MappingFragment StoreEntitySet="tblUserWatchlists">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="WatchlistId" ColumnName="WatchlistId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblWatchlists">
+            <EntityTypeMapping TypeName="FFLToolModel.tblWatchlists">
+              <MappingFragment StoreEntitySet="tblWatchlists">
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="WatchlistName" ColumnName="WatchlistName" />
+                <ScalarProperty Name="WatchlistId" ColumnName="WatchlistId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblWeeks">
+            <EntityTypeMapping TypeName="FFLToolModel.tblWeeks">
+              <MappingFragment StoreEntitySet="tblWeeks">
+                <ScalarProperty Name="WeekSuffix" ColumnName="WeekSuffix" />
+                <ScalarProperty Name="WeekEnd" ColumnName="WeekEnd" />
+                <ScalarProperty Name="WeekStart" ColumnName="WeekStart" />
+                <ScalarProperty Name="WeekNumber" ColumnName="WeekNumber" />
+                <ScalarProperty Name="Season" ColumnName="Season" />
+                <ScalarProperty Name="WeekId" ColumnName="WeekId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="FFLToolModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -169,11 +169,16 @@
 
 <script>
     function myFunction() {
+
         var txt;
         var watchListName = prompt("Please enter the name for your new watchlist:");
-        if (watchListName == null || watchListName == "") {
+
+        if (watchListName == null || watchListName == "")
+        {
             txt = "User cancelled the prompt.";
-        } else {
+        }
+        else
+        {
             txt = watchListName;
         }
 

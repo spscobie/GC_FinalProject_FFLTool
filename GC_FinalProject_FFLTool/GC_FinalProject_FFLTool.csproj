@@ -213,16 +213,16 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AspNetRole.cs">
+    <Compile Include="Models\AspNetRoles.cs">
       <DependentUpon>FFLToolModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AspNetUser.cs">
+    <Compile Include="Models\AspNetUserClaims.cs">
       <DependentUpon>FFLToolModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AspNetUserClaim.cs">
+    <Compile Include="Models\AspNetUserLogins.cs">
       <DependentUpon>FFLToolModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AspNetUserLogin.cs">
+    <Compile Include="Models\AspNetUsers.cs">
       <DependentUpon>FFLToolModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C__MigrationHistory.cs">
@@ -248,10 +248,13 @@
     <Compile Include="Models\tblJsonDump.cs">
       <DependentUpon>FFLToolModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tblUserWatchlist.cs">
+    <Compile Include="Models\tblUserWatchlists.cs">
       <DependentUpon>FFLToolModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tblWatchlist.cs">
+    <Compile Include="Models\tblWatchlists.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblWeeks.cs">
       <DependentUpon>FFLToolModel.tt</DependentUpon>
     </Compile>
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />

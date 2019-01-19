@@ -15,15 +15,19 @@ namespace GC_FinalProject_FFLTool.Models
     public partial class tblJsonDump
     {
         public int ImportId { get; set; }
-        public string MySportsFeedsData { get; set; }
-        public System.DateTime CreationDate { get; set; }
-        public System.DateTime ImportDate { get; set; }
-        public string ImportMethod { get; set; }
+        public string MySportsFeedsData2018 { get; set; }
         public string MySportsFeedsData2017 { get; set; }
         public string MySportsFeedsData2016 { get; set; }
         public string MySportsFeedsData2015 { get; set; }
         public string MySportsFeedsData2014 { get; set; }
-        public string MySportsFeedsDataPlayerLogs { get; set; }
+        public string MySportsFeedsDataPlayerLogs2018 { get; set; }
+        public string MySportsFeedsDataPlayerLogs2017 { get; set; }
+        public string MySportsFeedsDataPlayerLogs2016 { get; set; }
+        public string MySportsFeedsDataPlayerLogs2015 { get; set; }
+        public string MySportsFeedsDataPlayerLogs2014 { get; set; }
         public string MySportsFeedsDataSchedules { get; set; }
+        public System.DateTime CreationDate { get; set; }
+        public System.DateTime ImportDate { get; set; }
+        public string ImportMethod { get; set; }
     }
 }

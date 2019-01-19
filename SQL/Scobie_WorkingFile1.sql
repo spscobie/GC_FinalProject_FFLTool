@@ -751,5 +751,18 @@ SET WeekSuffix = '-regular'
 SELECT *
 FROM tblWeeks
 
+SELECT t.MySportsFeedsDataPlayerLogs2018
+FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump t
+WHERE t.ImportId = (SELECT MAX(ImportId) FROM [FFLTOOL_AZUREDB].FFLTool.dbo.tblJsonDump)
+
+INSERT INTO [FFLTool_AZUREDB].[FFLTool].[dbo].[tblWeeks] (Season, WeekNumber, WeekStart, WeekEnd, WeekSuffix)
+SELECT
+	Season,
+	WeekNumber,
+	WeekStart,
+	WeekEnd,
+	WeekSuffix
+FROM tblWeeks
+
 --TODO: add SQL Agent job SQL syntax to GitHub
 --TODO: Add retry logic to. Possibly handle 429 codes differently?

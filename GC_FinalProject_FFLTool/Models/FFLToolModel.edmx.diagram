@@ -5,18 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0f32f8057a344dd7b17e768ad359c568" Name="Diagram1">
-        <EntityTypeShape EntityType="FFLToolModel.C__MigrationHistory" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FFLToolModel.AspNetRole" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FFLToolModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="FFLToolModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FFLToolModel.AspNetUser" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="FFLToolModel.tblUserWatchlist" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="FFLToolModel.tblWatchlist" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
-        <AssociationConnector Association="FFLToolModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="FFLToolModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="FFLToolModel.FK__tblUserWa__UserI__0F624AF8" ManuallyRouted="false" />
-        <AssociationConnector Association="FFLToolModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="FFLToolModel.tblJsonDump" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="FFLToolModel.C__MigrationHistory" Width="2.375" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="FFLToolModel.AspNetRoles" Width="2.375" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="FFLToolModel.AspNetUserClaims" Width="2.375" PointX="5.25" PointY="3.75" />
+        <EntityTypeShape EntityType="FFLToolModel.AspNetUserLogins" Width="2.375" PointX="5.25" PointY="1.125" />
+        <EntityTypeShape EntityType="FFLToolModel.AspNetUsers" Width="2.375" PointX="3" PointY="2.375" />
+        <EntityTypeShape EntityType="FFLToolModel.tblJsonDump" Width="2.375" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="FFLToolModel.tblUserWatchlists" Width="2.375" PointX="5.25" PointY="6.375" />
+        <EntityTypeShape EntityType="FFLToolModel.tblWatchlists" Width="2.375" PointX="7.75" PointY="3.75" />
+        <EntityTypeShape EntityType="FFLToolModel.tblWeeks" Width="2.375" PointX="7.75" PointY="6.75" />
+        <AssociationConnector Association="FFLToolModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="FFLToolModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="FFLToolModel.FK__tblUserWa__UserI__0F624AF8" />
+        <AssociationConnector Association="FFLToolModel.AspNetUserRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
