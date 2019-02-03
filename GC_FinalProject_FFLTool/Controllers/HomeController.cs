@@ -14,6 +14,7 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using GC_FinalProject_FFLTool.Models;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 
 namespace GC_FinalProject_FFLTool.Controllers
 {
@@ -100,11 +101,14 @@ namespace GC_FinalProject_FFLTool.Controllers
         {
             players = new List<string>();
             players.Add("6825");
-            season = "2018";
+            season = "2017";
 
             FFLToolEntities2 ORM = new FFLToolEntities2();
 
             tblJsonDump apiData = ORM.tblJsonDump.Where(data => data.ImportId == 1).Single();
+
+            //JArray tempJSON = JsonConvert.SerializeObject(apiData.MySportsFeedsDataPlayerLogs2017.Split(new char[] { '|' }), );
+            //JArray temp = new JArray()
 
             JObject apiDataJSON = new JObject();
             switch (season)
@@ -138,6 +142,142 @@ namespace GC_FinalProject_FFLTool.Controllers
                         outData.Add(apiDataJSON["cumulativeplayerstats"]["playerstatsentry"][j]);
                     }
                 }
+            }
+
+            ViewBag.theData = outData;
+            return View("TestMe");
+        }
+
+        public ActionResult TestReqPlayerLogs(string season, List<string> players)
+        {
+            players = new List<string>();
+            players.Add("6825");
+            players.Add("13349");
+            season = "2018";
+
+            FFLToolEntities2 ORM = new FFLToolEntities2();
+
+            tblJsonDump apiData = ORM.tblJsonDump.Where(data => data.ImportId == 1).Single();
+
+            JObject apiDataJSON = new JObject();
+            JArray outData = new JArray();
+            string[] tempJSON;
+
+            //TODO: Create a helper method to consolidate all of these for loops
+            switch (season)
+            {
+                case "2014":
+
+                    tempJSON = apiData.MySportsFeedsDataPlayerLogs2014.Split(new char[] { '|' });
+
+                    foreach (string team in tempJSON)
+                    {
+
+                        apiDataJSON = JObject.Parse(team);
+
+                        for (int i = 0; i < players.Count; i++)
+                        {
+                            for (int j = 0; j < apiDataJSON["playergamelogs"]["gamelogs"].Count(); j++)
+                            {
+                                if (apiDataJSON["playergamelogs"]["gamelogs"][j]["player"]["ID"].ToString() == players[i])
+                                {
+                                    outData.Add(apiDataJSON["playergamelogs"]["gamelogs"][j]);
+                                }
+                            }
+                        }
+                    }
+
+                    break;
+                case "2015":
+
+                    tempJSON = apiData.MySportsFeedsDataPlayerLogs2015.Split(new char[] { '|' });
+
+                    foreach (string team in tempJSON)
+                    {
+
+                        apiDataJSON = JObject.Parse(team);
+
+                        for (int i = 0; i < players.Count; i++)
+                        {
+                            for (int j = 0; j < apiDataJSON["playergamelogs"]["gamelogs"].Count(); j++)
+                            {
+                                if (apiDataJSON["playergamelogs"]["gamelogs"][j]["player"]["ID"].ToString() == players[i])
+                                {
+                                    outData.Add(apiDataJSON["playergamelogs"]["gamelogs"][j]);
+                                }
+                            }
+                        }
+                    }
+
+                    break;
+                case "2016":
+
+                    tempJSON = apiData.MySportsFeedsDataPlayerLogs2016.Split(new char[] { '|' });
+
+                    foreach (string team in tempJSON)
+                    {
+
+                        apiDataJSON = JObject.Parse(team);
+
+                        for (int i = 0; i < players.Count; i++)
+                        {
+                            for (int j = 0; j < apiDataJSON["playergamelogs"]["gamelogs"].Count(); j++)
+                            {
+                                if (apiDataJSON["playergamelogs"]["gamelogs"][j]["player"]["ID"].ToString() == players[i])
+                                {
+                                    outData.Add(apiDataJSON["playergamelogs"]["gamelogs"][j]);
+                                }
+                            }
+                        }
+                    }
+
+                    break;
+                case "2017":
+
+                    tempJSON = apiData.MySportsFeedsDataPlayerLogs2017.Split(new char[] { '|' });
+
+                    foreach (string team in tempJSON)
+                    {
+
+                        apiDataJSON = JObject.Parse(team);
+
+                        for (int i = 0; i < players.Count; i++)
+                        {
+                            for (int j = 0; j < apiDataJSON["playergamelogs"]["gamelogs"].Count(); j++)
+                            {
+                                if (apiDataJSON["playergamelogs"]["gamelogs"][j]["player"]["ID"].ToString() == players[i])
+                                {
+                                    outData.Add(apiDataJSON["playergamelogs"]["gamelogs"][j]);
+                                }
+                            }
+                        }
+                    }
+
+                    break;
+                case "2018":
+
+                    tempJSON = apiData.MySportsFeedsDataPlayerLogs2018.Split(new char[] { '|' });
+
+                    foreach (string team in tempJSON)
+                    {
+
+                        apiDataJSON = JObject.Parse(team);
+
+                        for (int i = 0; i < players.Count; i++)
+                        {
+                            for (int j = 0; j < apiDataJSON["playergamelogs"]["gamelogs"].Count(); j++)
+                            {
+                                if (apiDataJSON["playergamelogs"]["gamelogs"][j]["player"]["ID"].ToString() == players[i])
+                                {
+                                    outData.Add(apiDataJSON["playergamelogs"]["gamelogs"][j]);
+                                }
+                            }
+                        }
+                    }
+
+                    break;
+                default:
+                    break;
             }
 
             ViewBag.theData = outData;
@@ -207,6 +347,136 @@ namespace GC_FinalProject_FFLTool.Controllers
                         outData.Add(apiDataJSON["cumulativeplayerstats"]["playerstatsentry"][j]);
                     }
                 }
+            }
+
+            return outData;
+        }
+
+        public JArray DataRequestPlayerLogs(string season, List<string> players)
+        {
+            FFLToolEntities2 ORM = new FFLToolEntities2();
+
+            tblJsonDump apiData = ORM.tblJsonDump.Where(data => data.ImportId == 1).Single();
+
+            JObject apiDataJSON = new JObject();
+            JArray outData = new JArray();
+            string[] tempJSON;
+
+            //TODO: Create a helper method to consolidate all of these for loops
+            switch (season)
+            {
+                case "2014":
+
+                    tempJSON = apiData.MySportsFeedsDataPlayerLogs2014.Split(new char[] { '|' });
+
+                    foreach (string team in tempJSON)
+                    {
+
+                        apiDataJSON = JObject.Parse(team);
+
+                        for (int i = 0; i < players.Count; i++)
+                        {
+                            for (int j = 0; j < apiDataJSON["playergamelogs"]["gamelogs"].Count(); j++)
+                            {
+                                if (apiDataJSON["playergamelogs"]["gamelogs"][j]["player"]["ID"].ToString() == players[i])
+                                {
+                                    outData.Add(apiDataJSON["playergamelogs"]["gamelogs"][j]);
+                                }
+                            }
+                        }
+                    }
+
+                    break;
+                case "2015":
+
+                    tempJSON = apiData.MySportsFeedsDataPlayerLogs2015.Split(new char[] { '|' });
+
+                    foreach (string team in tempJSON)
+                    {
+
+                        apiDataJSON = JObject.Parse(team);
+
+                        for (int i = 0; i < players.Count; i++)
+                        {
+                            for (int j = 0; j < apiDataJSON["playergamelogs"]["gamelogs"].Count(); j++)
+                            {
+                                if (apiDataJSON["playergamelogs"]["gamelogs"][j]["player"]["ID"].ToString() == players[i])
+                                {
+                                    outData.Add(apiDataJSON["playergamelogs"]["gamelogs"][j]);
+                                }
+                            }
+                        }
+                    }
+
+                    break;
+                case "2016":
+
+                    tempJSON = apiData.MySportsFeedsDataPlayerLogs2016.Split(new char[] { '|' });
+
+                    foreach (string team in tempJSON)
+                    {
+
+                        apiDataJSON = JObject.Parse(team);
+
+                        for (int i = 0; i < players.Count; i++)
+                        {
+                            for (int j = 0; j < apiDataJSON["playergamelogs"]["gamelogs"].Count(); j++)
+                            {
+                                if (apiDataJSON["playergamelogs"]["gamelogs"][j]["player"]["ID"].ToString() == players[i])
+                                {
+                                    outData.Add(apiDataJSON["playergamelogs"]["gamelogs"][j]);
+                                }
+                            }
+                        }
+                    }
+
+                    break;
+                case "2017":
+
+                    tempJSON = apiData.MySportsFeedsDataPlayerLogs2017.Split(new char[] { '|' });
+
+                    foreach (string team in tempJSON)
+                    {
+
+                        apiDataJSON = JObject.Parse(team);
+
+                        for (int i = 0; i < players.Count; i++)
+                        {
+                            for (int j = 0; j < apiDataJSON["playergamelogs"]["gamelogs"].Count(); j++)
+                            {
+                                if (apiDataJSON["playergamelogs"]["gamelogs"][j]["player"]["ID"].ToString() == players[i])
+                                {
+                                    outData.Add(apiDataJSON["playergamelogs"]["gamelogs"][j]);
+                                }
+                            }
+                        }
+                    }
+
+                    break;
+                case "2018":
+
+                    tempJSON = apiData.MySportsFeedsDataPlayerLogs2018.Split(new char[] { '|' });
+
+                    foreach (string team in tempJSON)
+                    {
+
+                        apiDataJSON = JObject.Parse(team);
+
+                        for (int i = 0; i < players.Count; i++)
+                        {
+                            for (int j = 0; j < apiDataJSON["playergamelogs"]["gamelogs"].Count(); j++)
+                            {
+                                if (apiDataJSON["playergamelogs"]["gamelogs"][j]["player"]["ID"].ToString() == players[i])
+                                {
+                                    outData.Add(apiDataJSON["playergamelogs"]["gamelogs"][j]);
+                                }
+                            }
+                        }
+                    }
+
+                    break;
+                default:
+                    break;
             }
 
             return outData;
@@ -641,26 +911,25 @@ namespace GC_FinalProject_FFLTool.Controllers
                                             where u.WatchlistId == int_watchlistId
                                             select u).ToList();
 
-            string newPlayer = "";
-            for (int i = 0; i < watchlist.Count; i++)
+            List<string> newPlayer = new List<string>();
+            foreach (var player in watchlist)
             {
-                newPlayer += watchlist[i].PlayerId.ToString();
-
-                if (i < watchlist.Count - 1)
-                {
-                    newPlayer = newPlayer + ",";
-                }
+                newPlayer.Add(player.PlayerId.ToString());
             }
 
-            JObject playersCurr, players2016, players2015, players2014, sched, playerlogsCurr, playerlogs2016, playerlogs2015, playerlogs2014;
+            JArray playersCurr, players2017, players2016, players2015, players2014, playerlogsCurr, playerlogs2017, playerlogs2016, playerlogs2015, playerlogs2014;
+            JObject sched;
 
             /* Summary stats */
-            playersCurr = ApiRequestHistorical(currentSeason, "?player=" + newPlayer);
-            players2016 = ApiRequestHistorical("2016-2017-regular", "?player=" + newPlayer);
-            players2015 = ApiRequestHistorical("2015-2016-regular", "?player=" + newPlayer);
-            players2014 = ApiRequestHistorical("2014-2015-regular", "?player=" + newPlayer);
+            playersCurr = DataRequestHistorical("2018", newPlayer);
+            players2017 = DataRequestHistorical("2017", newPlayer);
+            players2016 = DataRequestHistorical("2016", newPlayer);
+            players2015 = DataRequestHistorical("2015", newPlayer);
+            players2014 = DataRequestHistorical("2014", newPlayer);
+
 
             ViewBag.PlayersCurr = playersCurr["cumulativeplayerstats"]["playerstatsentry"];
+            ViewBag.Players2017 = players2017["cumulativeplayerstats"]["playerstatsentry"];
             ViewBag.Players2016 = players2016["cumulativeplayerstats"]["playerstatsentry"];
             ViewBag.Players2015 = players2015["cumulativeplayerstats"]["playerstatsentry"];
             ViewBag.Players2014 = players2014["cumulativeplayerstats"]["playerstatsentry"];
@@ -670,12 +939,14 @@ namespace GC_FinalProject_FFLTool.Controllers
             ViewBag.CurrOpp = sched["fullgameschedule"]["gameentry"];
 
             /* Game log stats */
-            playerlogsCurr = ApiRequestPlayerLogs(currentSeason, "?player=" + newPlayer);
-            playerlogs2016 = ApiRequestPlayerLogs("2016-2017-regular", "?player=" + newPlayer);
-            playerlogs2015 = ApiRequestPlayerLogs("2015-2016-regular", "?player=" + newPlayer);
-            playerlogs2014 = ApiRequestPlayerLogs("2014-2015-regular", "?player=" + newPlayer);
+            playerlogsCurr = DataRequestPlayerLogs("2018", newPlayer);
+            playerlogs2017 = DataRequestPlayerLogs("2017", newPlayer);
+            playerlogs2016 = DataRequestPlayerLogs("2016", newPlayer);
+            playerlogs2015 = DataRequestPlayerLogs("2015", newPlayer);
+            playerlogs2014 = DataRequestPlayerLogs("2014", newPlayer);
 
             ViewBag.PlayersLogsCurr = playerlogsCurr["playergamelogs"]["gamelogs"];
+            ViewBag.PlayersLogs2017 = playerlogs2017["playergamelogs"]["gamelogs"];
             ViewBag.PlayersLogs2016 = playerlogs2016["playergamelogs"]["gamelogs"];
             ViewBag.PlayersLogs2015 = playerlogs2015["playergamelogs"]["gamelogs"];
             ViewBag.PlayersLogs2014 = playerlogs2014["playergamelogs"]["gamelogs"];
@@ -741,7 +1012,7 @@ namespace GC_FinalProject_FFLTool.Controllers
             string name = watchListName;
 
             return RedirectToAction("WatchListManagement", new { watchListName = name });
-        }
+        } 
 
     }
 }
