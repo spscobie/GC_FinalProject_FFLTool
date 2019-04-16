@@ -116,6 +116,105 @@
           <Property Name="WeekEnd" Type="date" Nullable="false" />
           <Property Name="WeekSuffix" Type="varchar" MaxLength="20" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FFLTool.dbo.vwJson_MySportsFeedsData2018' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwJson_MySportsFeedsData2018">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MySportsFeedsData2018" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FFLTool.dbo.vwMySportsFeedsData2014' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwMySportsFeedsData2014">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MySportsFeedsData2014" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FFLTool.dbo.vwMySportsFeedsData2015' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwMySportsFeedsData2015">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MySportsFeedsData2015" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FFLTool.dbo.vwMySportsFeedsData2016' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwMySportsFeedsData2016">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MySportsFeedsData2016" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FFLTool.dbo.vwMySportsFeedsData2017' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwMySportsFeedsData2017">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MySportsFeedsData2017" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FFLTool.dbo.vwMySportsFeedsData2018' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwMySportsFeedsData2018">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MySportsFeedsData2018" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FFLTool.dbo.vwMySportsFeedsDataPlayerLogs2014' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwMySportsFeedsDataPlayerLogs2014">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MySportsFeedsDataPlayerLogs2014" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FFLTool.dbo.vwMySportsFeedsDataPlayerLogs2015' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwMySportsFeedsDataPlayerLogs2015">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MySportsFeedsDataPlayerLogs2015" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FFLTool.dbo.vwMySportsFeedsDataPlayerLogs2016' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwMySportsFeedsDataPlayerLogs2016">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MySportsFeedsDataPlayerLogs2016" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FFLTool.dbo.vwMySportsFeedsDataPlayerLogs2017' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwMySportsFeedsDataPlayerLogs2017">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MySportsFeedsDataPlayerLogs2017" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FFLTool.dbo.vwMySportsFeedsDataPlayerLogs2018' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwMySportsFeedsDataPlayerLogs2018">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MySportsFeedsDataPlayerLogs2018" Type="varchar(max)" />
+        </EntityType>
         <Association Name="FK__tblUserWa__UserI__0F624AF8">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="tblUserWatchlists" Type="Self.tblUserWatchlists" Multiplicity="*" />
@@ -198,6 +297,72 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
           <EntitySet Name="tblUserWatchlists" EntityType="Self.tblUserWatchlists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblWatchlists" EntityType="Self.tblWatchlists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblWeeks" EntityType="Self.tblWeeks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vwJson_MySportsFeedsData2018" EntityType="Self.vwJson_MySportsFeedsData2018" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwJson_MySportsFeedsData2018].[ImportId] AS [ImportId], 
+    [vwJson_MySportsFeedsData2018].[MySportsFeedsData2018] AS [MySportsFeedsData2018]
+    FROM [dbo].[vwJson_MySportsFeedsData2018] AS [vwJson_MySportsFeedsData2018]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwMySportsFeedsData2014" EntityType="Self.vwMySportsFeedsData2014" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwMySportsFeedsData2014].[ImportId] AS [ImportId], 
+    [vwMySportsFeedsData2014].[MySportsFeedsData2014] AS [MySportsFeedsData2014]
+    FROM [dbo].[vwMySportsFeedsData2014] AS [vwMySportsFeedsData2014]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwMySportsFeedsData2015" EntityType="Self.vwMySportsFeedsData2015" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwMySportsFeedsData2015].[ImportId] AS [ImportId], 
+    [vwMySportsFeedsData2015].[MySportsFeedsData2015] AS [MySportsFeedsData2015]
+    FROM [dbo].[vwMySportsFeedsData2015] AS [vwMySportsFeedsData2015]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwMySportsFeedsData2016" EntityType="Self.vwMySportsFeedsData2016" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwMySportsFeedsData2016].[ImportId] AS [ImportId], 
+    [vwMySportsFeedsData2016].[MySportsFeedsData2016] AS [MySportsFeedsData2016]
+    FROM [dbo].[vwMySportsFeedsData2016] AS [vwMySportsFeedsData2016]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwMySportsFeedsData2017" EntityType="Self.vwMySportsFeedsData2017" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwMySportsFeedsData2017].[ImportId] AS [ImportId], 
+    [vwMySportsFeedsData2017].[MySportsFeedsData2017] AS [MySportsFeedsData2017]
+    FROM [dbo].[vwMySportsFeedsData2017] AS [vwMySportsFeedsData2017]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwMySportsFeedsData2018" EntityType="Self.vwMySportsFeedsData2018" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwMySportsFeedsData2018].[ImportId] AS [ImportId], 
+    [vwMySportsFeedsData2018].[MySportsFeedsData2018] AS [MySportsFeedsData2018]
+    FROM [dbo].[vwMySportsFeedsData2018] AS [vwMySportsFeedsData2018]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwMySportsFeedsDataPlayerLogs2014" EntityType="Self.vwMySportsFeedsDataPlayerLogs2014" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwMySportsFeedsDataPlayerLogs2014].[ImportId] AS [ImportId], 
+    [vwMySportsFeedsDataPlayerLogs2014].[MySportsFeedsDataPlayerLogs2014] AS [MySportsFeedsDataPlayerLogs2014]
+    FROM [dbo].[vwMySportsFeedsDataPlayerLogs2014] AS [vwMySportsFeedsDataPlayerLogs2014]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwMySportsFeedsDataPlayerLogs2015" EntityType="Self.vwMySportsFeedsDataPlayerLogs2015" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwMySportsFeedsDataPlayerLogs2015].[ImportId] AS [ImportId], 
+    [vwMySportsFeedsDataPlayerLogs2015].[MySportsFeedsDataPlayerLogs2015] AS [MySportsFeedsDataPlayerLogs2015]
+    FROM [dbo].[vwMySportsFeedsDataPlayerLogs2015] AS [vwMySportsFeedsDataPlayerLogs2015]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwMySportsFeedsDataPlayerLogs2016" EntityType="Self.vwMySportsFeedsDataPlayerLogs2016" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwMySportsFeedsDataPlayerLogs2016].[ImportId] AS [ImportId], 
+    [vwMySportsFeedsDataPlayerLogs2016].[MySportsFeedsDataPlayerLogs2016] AS [MySportsFeedsDataPlayerLogs2016]
+    FROM [dbo].[vwMySportsFeedsDataPlayerLogs2016] AS [vwMySportsFeedsDataPlayerLogs2016]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwMySportsFeedsDataPlayerLogs2017" EntityType="Self.vwMySportsFeedsDataPlayerLogs2017" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwMySportsFeedsDataPlayerLogs2017].[ImportId] AS [ImportId], 
+    [vwMySportsFeedsDataPlayerLogs2017].[MySportsFeedsDataPlayerLogs2017] AS [MySportsFeedsDataPlayerLogs2017]
+    FROM [dbo].[vwMySportsFeedsDataPlayerLogs2017] AS [vwMySportsFeedsDataPlayerLogs2017]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwMySportsFeedsDataPlayerLogs2018" EntityType="Self.vwMySportsFeedsDataPlayerLogs2018" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwMySportsFeedsDataPlayerLogs2018].[ImportId] AS [ImportId], 
+    [vwMySportsFeedsDataPlayerLogs2018].[MySportsFeedsDataPlayerLogs2018] AS [MySportsFeedsDataPlayerLogs2018]
+    FROM [dbo].[vwMySportsFeedsDataPlayerLogs2018] AS [vwMySportsFeedsDataPlayerLogs2018]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__tblUserWa__UserI__0F624AF8" Association="Self.FK__tblUserWa__UserI__0F624AF8">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="tblUserWatchlists" EntitySet="tblUserWatchlists" />
@@ -249,6 +414,17 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="vwJson_MySportsFeedsData2018" EntityType="FFLToolModel.vwJson_MySportsFeedsData2018" />
+          <EntitySet Name="vwMySportsFeedsData2014" EntityType="FFLToolModel.vwMySportsFeedsData2014" />
+          <EntitySet Name="vwMySportsFeedsData2015" EntityType="FFLToolModel.vwMySportsFeedsData2015" />
+          <EntitySet Name="vwMySportsFeedsData2016" EntityType="FFLToolModel.vwMySportsFeedsData2016" />
+          <EntitySet Name="vwMySportsFeedsData2017" EntityType="FFLToolModel.vwMySportsFeedsData2017" />
+          <EntitySet Name="vwMySportsFeedsData2018" EntityType="FFLToolModel.vwMySportsFeedsData2018" />
+          <EntitySet Name="vwMySportsFeedsDataPlayerLogs2014" EntityType="FFLToolModel.vwMySportsFeedsDataPlayerLogs2014" />
+          <EntitySet Name="vwMySportsFeedsDataPlayerLogs2015" EntityType="FFLToolModel.vwMySportsFeedsDataPlayerLogs2015" />
+          <EntitySet Name="vwMySportsFeedsDataPlayerLogs2016" EntityType="FFLToolModel.vwMySportsFeedsDataPlayerLogs2016" />
+          <EntitySet Name="vwMySportsFeedsDataPlayerLogs2017" EntityType="FFLToolModel.vwMySportsFeedsDataPlayerLogs2017" />
+          <EntitySet Name="vwMySportsFeedsDataPlayerLogs2018" EntityType="FFLToolModel.vwMySportsFeedsDataPlayerLogs2018" />
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -405,6 +581,83 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
           <End Type="FFLToolModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="FFLToolModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
+        <EntityType Name="vwJson_MySportsFeedsData2018">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MySportsFeedsData2018" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vwMySportsFeedsData2014">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MySportsFeedsData2014" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vwMySportsFeedsData2015">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MySportsFeedsData2015" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vwMySportsFeedsData2016">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MySportsFeedsData2016" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vwMySportsFeedsData2017">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MySportsFeedsData2017" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vwMySportsFeedsData2018">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MySportsFeedsData2018" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vwMySportsFeedsDataPlayerLogs2014">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MySportsFeedsDataPlayerLogs2014" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vwMySportsFeedsDataPlayerLogs2015">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MySportsFeedsDataPlayerLogs2015" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vwMySportsFeedsDataPlayerLogs2016">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MySportsFeedsDataPlayerLogs2016" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vwMySportsFeedsDataPlayerLogs2017">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MySportsFeedsDataPlayerLogs2017" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vwMySportsFeedsDataPlayerLogs2018">
+          <Key>
+            <PropertyRef Name="ImportId" />
+          </Key>
+          <Property Name="ImportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MySportsFeedsDataPlayerLogs2018" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -526,6 +779,94 @@ warning 6035: The relationship 'FK__tblWatchl__Watch__2BFE89A6' has columns that
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="vwJson_MySportsFeedsData2018">
+            <EntityTypeMapping TypeName="FFLToolModel.vwJson_MySportsFeedsData2018">
+              <MappingFragment StoreEntitySet="vwJson_MySportsFeedsData2018">
+                <ScalarProperty Name="MySportsFeedsData2018" ColumnName="MySportsFeedsData2018" />
+                <ScalarProperty Name="ImportId" ColumnName="ImportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwMySportsFeedsData2014">
+            <EntityTypeMapping TypeName="FFLToolModel.vwMySportsFeedsData2014">
+              <MappingFragment StoreEntitySet="vwMySportsFeedsData2014">
+                <ScalarProperty Name="MySportsFeedsData2014" ColumnName="MySportsFeedsData2014" />
+                <ScalarProperty Name="ImportId" ColumnName="ImportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwMySportsFeedsData2015">
+            <EntityTypeMapping TypeName="FFLToolModel.vwMySportsFeedsData2015">
+              <MappingFragment StoreEntitySet="vwMySportsFeedsData2015">
+                <ScalarProperty Name="MySportsFeedsData2015" ColumnName="MySportsFeedsData2015" />
+                <ScalarProperty Name="ImportId" ColumnName="ImportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwMySportsFeedsData2016">
+            <EntityTypeMapping TypeName="FFLToolModel.vwMySportsFeedsData2016">
+              <MappingFragment StoreEntitySet="vwMySportsFeedsData2016">
+                <ScalarProperty Name="MySportsFeedsData2016" ColumnName="MySportsFeedsData2016" />
+                <ScalarProperty Name="ImportId" ColumnName="ImportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwMySportsFeedsData2017">
+            <EntityTypeMapping TypeName="FFLToolModel.vwMySportsFeedsData2017">
+              <MappingFragment StoreEntitySet="vwMySportsFeedsData2017">
+                <ScalarProperty Name="MySportsFeedsData2017" ColumnName="MySportsFeedsData2017" />
+                <ScalarProperty Name="ImportId" ColumnName="ImportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwMySportsFeedsData2018">
+            <EntityTypeMapping TypeName="FFLToolModel.vwMySportsFeedsData2018">
+              <MappingFragment StoreEntitySet="vwMySportsFeedsData2018">
+                <ScalarProperty Name="MySportsFeedsData2018" ColumnName="MySportsFeedsData2018" />
+                <ScalarProperty Name="ImportId" ColumnName="ImportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwMySportsFeedsDataPlayerLogs2014">
+            <EntityTypeMapping TypeName="FFLToolModel.vwMySportsFeedsDataPlayerLogs2014">
+              <MappingFragment StoreEntitySet="vwMySportsFeedsDataPlayerLogs2014">
+                <ScalarProperty Name="MySportsFeedsDataPlayerLogs2014" ColumnName="MySportsFeedsDataPlayerLogs2014" />
+                <ScalarProperty Name="ImportId" ColumnName="ImportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwMySportsFeedsDataPlayerLogs2015">
+            <EntityTypeMapping TypeName="FFLToolModel.vwMySportsFeedsDataPlayerLogs2015">
+              <MappingFragment StoreEntitySet="vwMySportsFeedsDataPlayerLogs2015">
+                <ScalarProperty Name="MySportsFeedsDataPlayerLogs2015" ColumnName="MySportsFeedsDataPlayerLogs2015" />
+                <ScalarProperty Name="ImportId" ColumnName="ImportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwMySportsFeedsDataPlayerLogs2016">
+            <EntityTypeMapping TypeName="FFLToolModel.vwMySportsFeedsDataPlayerLogs2016">
+              <MappingFragment StoreEntitySet="vwMySportsFeedsDataPlayerLogs2016">
+                <ScalarProperty Name="MySportsFeedsDataPlayerLogs2016" ColumnName="MySportsFeedsDataPlayerLogs2016" />
+                <ScalarProperty Name="ImportId" ColumnName="ImportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwMySportsFeedsDataPlayerLogs2017">
+            <EntityTypeMapping TypeName="FFLToolModel.vwMySportsFeedsDataPlayerLogs2017">
+              <MappingFragment StoreEntitySet="vwMySportsFeedsDataPlayerLogs2017">
+                <ScalarProperty Name="MySportsFeedsDataPlayerLogs2017" ColumnName="MySportsFeedsDataPlayerLogs2017" />
+                <ScalarProperty Name="ImportId" ColumnName="ImportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwMySportsFeedsDataPlayerLogs2018">
+            <EntityTypeMapping TypeName="FFLToolModel.vwMySportsFeedsDataPlayerLogs2018">
+              <MappingFragment StoreEntitySet="vwMySportsFeedsDataPlayerLogs2018">
+                <ScalarProperty Name="MySportsFeedsDataPlayerLogs2018" ColumnName="MySportsFeedsDataPlayerLogs2018" />
+                <ScalarProperty Name="ImportId" ColumnName="ImportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -18,6 +18,17 @@
         <AssociationConnector Association="FFLToolModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="FFLToolModel.FK__tblUserWa__UserI__0F624AF8" />
         <AssociationConnector Association="FFLToolModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="FFLToolModel.vwJson_MySportsFeedsData2018" Width="1.5" PointX="4.375" PointY="8.75" />
+        <EntityTypeShape EntityType="FFLToolModel.vwMySportsFeedsData2014" Width="1.5" PointX="6.75" PointY="9.75" />
+        <EntityTypeShape EntityType="FFLToolModel.vwMySportsFeedsData2015" Width="1.5" PointX="8.75" PointY="9.75" />
+        <EntityTypeShape EntityType="FFLToolModel.vwMySportsFeedsData2016" Width="1.5" PointX="10.75" PointY="9.75" />
+        <EntityTypeShape EntityType="FFLToolModel.vwMySportsFeedsData2017" Width="1.5" PointX="11.75" PointY="0.75" />
+        <EntityTypeShape EntityType="FFLToolModel.vwMySportsFeedsData2018" Width="1.5" PointX="11.75" PointY="3.75" />
+        <EntityTypeShape EntityType="FFLToolModel.vwMySportsFeedsDataPlayerLogs2014" Width="1.5" PointX="11.75" PointY="6.75" />
+        <EntityTypeShape EntityType="FFLToolModel.vwMySportsFeedsDataPlayerLogs2015" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="FFLToolModel.vwMySportsFeedsDataPlayerLogs2016" Width="1.5" PointX="2.75" PointY="12.75" />
+        <EntityTypeShape EntityType="FFLToolModel.vwMySportsFeedsDataPlayerLogs2017" Width="1.5" PointX="4.75" PointY="12.75" />
+        <EntityTypeShape EntityType="FFLToolModel.vwMySportsFeedsDataPlayerLogs2018" Width="1.5" PointX="6.75" PointY="12.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

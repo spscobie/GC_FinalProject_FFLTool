@@ -211,3 +211,106 @@ CREATE TABLE tblJsonDump (
 	ImportMethod varchar(100),
 	CONSTRAINT PK_ImportId PRIMARY KEY (ImportId)
 )
+
+SELECT [ImportId]
+      ,[MySportsFeedsData2018]
+      ,[MySportsFeedsData2017]
+      ,[MySportsFeedsData2016]
+      ,[MySportsFeedsData2015]
+      ,[MySportsFeedsData2014]
+      ,[MySportsFeedsDataPlayerLogs2018]
+      ,[MySportsFeedsDataPlayerLogs2017]
+      ,[MySportsFeedsDataPlayerLogs2016]
+      ,[MySportsFeedsDataPlayerLogs2015]
+      ,[MySportsFeedsDataPlayerLogs2014]
+      ,[MySportsFeedsDataSchedules]
+      ,[CreationDate]
+      ,[ImportDate]
+      ,[ImportMethod]
+  FROM [FFLTOOL_AZUREDB].[FFLTool].[dbo].[tblJsonDump]
+GO
+
+
+USE FFLTool
+
+CREATE VIEW vwJson_MySportsFeedsData2018 AS 
+SELECT 
+	ImportId,
+	MySportsFeedsData2018
+FROM tblJsonDump;
+
+SELECT *
+FROM vwJson_MySportsFeedsData2018
+
+CREATE VIEW vwMySportsFeedsData2018 AS 
+SELECT 
+	ImportId,
+	MySportsFeedsData2018
+FROM tblJsonDump
+GO
+
+CREATE VIEW vwMySportsFeedsData2017 AS 
+SELECT 
+	ImportId,
+	MySportsFeedsData2017
+FROM tblJsonDump
+GO
+
+CREATE VIEW vwMySportsFeedsData2016 AS 
+SELECT 
+	ImportId,
+	MySportsFeedsData2016
+FROM tblJsonDump
+GO
+
+CREATE VIEW vwMySportsFeedsData2015 AS 
+SELECT 
+	ImportId,
+	MySportsFeedsData2015
+FROM tblJsonDump
+GO
+
+CREATE VIEW vwMySportsFeedsData2014 AS 
+SELECT 
+	ImportId,
+	MySportsFeedsData2014
+FROM tblJsonDump
+GO
+
+CREATE VIEW vwMySportsFeedsDataPlayerLogs2018 AS 
+SELECT 
+	ImportId,
+	MySportsFeedsDataPlayerLogs2018
+FROM tblJsonDump
+GO
+
+CREATE VIEW vwMySportsFeedsDataPlayerLogs2017 AS 
+SELECT 
+	ImportId,
+	MySportsFeedsDataPlayerLogs2017
+FROM tblJsonDump
+GO
+
+CREATE VIEW vwMySportsFeedsDataPlayerLogs2016 AS 
+SELECT 
+	ImportId,
+	MySportsFeedsDataPlayerLogs2016
+FROM tblJsonDump
+GO
+
+CREATE VIEW vwMySportsFeedsDataPlayerLogs2015 AS 
+SELECT 
+	ImportId,
+	MySportsFeedsDataPlayerLogs2015
+FROM tblJsonDump
+GO
+
+CREATE VIEW vwMySportsFeedsDataPlayerLogs2014 AS 
+SELECT 
+	ImportId,
+	MySportsFeedsDataPlayerLogs2014
+FROM tblJsonDump
+GO
+
+SELECT *
+FROM vwMySportsFeedsDataPlayerLogs2014

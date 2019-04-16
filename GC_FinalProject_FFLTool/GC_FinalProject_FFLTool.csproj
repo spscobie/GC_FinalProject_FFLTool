@@ -203,6 +203,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\YflDAL.cs" />
     <Compile Include="Migrations\201712041538477_InitialCreate.cs" />
     <Compile Include="Migrations\201712041538477_InitialCreate.Designer.cs">
       <DependentUpon>201712041538477_InitialCreate.cs</DependentUpon>
@@ -257,9 +258,45 @@
     <Compile Include="Models\tblWeeks.cs">
       <DependentUpon>FFLToolModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\vwJson_MySportsFeedsData2018.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vwMySportsFeedsData2014.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vwMySportsFeedsData2015.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vwMySportsFeedsData2016.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vwMySportsFeedsData2017.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vwMySportsFeedsData2018.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vwMySportsFeedsDataPlayerLogs2014.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vwMySportsFeedsDataPlayerLogs2015.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vwMySportsFeedsDataPlayerLogs2016.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vwMySportsFeedsDataPlayerLogs2017.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vwMySportsFeedsDataPlayerLogs2018.cs">
+      <DependentUpon>FFLToolModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -325,12 +362,10 @@
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.CopyComplete" />
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.CoreCompileInputs.cache" />
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.GenerateResource.Cache" />
-    <Content Include="obj\Debug\GC_FinalProject_FFLTool.csprojResolveAssemblyReference.cache" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.CopyComplete" />
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.CoreCompileInputs.cache" />
     <Content Include="obj\Debug\GC_FinalProject_FFLTool.csproj.GenerateResource.Cache" />
-    <Content Include="obj\Debug\GC_FinalProject_FFLTool.csprojResolveAssemblyReference.cache" />
     <EntityDeploy Include="Models\FFLToolModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>FFLToolModel.Designer.cs</LastGenOutput>

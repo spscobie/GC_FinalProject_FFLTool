@@ -15,11 +15,13 @@ namespace GC_FinalProject_FFLTool.Models
     
     public partial class FFLToolEntities2 : DbContext
     {
-        public FFLToolEntities2()
-            : base("name=FFLToolEntities2")
+        public FFLToolEntities2() : base("name=FFLToolEntities2")
         {
-            var objContext = (this as IObjectContextAdapter).ObjectContext;
-            objContext.CommandTimeout = 60 * 5; //measured in seconds
+            // Get the ObjectContext related to this DbContext
+            var objectContext = (this as IObjectContextAdapter).ObjectContext;
+
+            // Sets the command timeout for all the commands
+            objectContext.CommandTimeout = 3 * 60;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -36,5 +38,16 @@ namespace GC_FinalProject_FFLTool.Models
         public virtual DbSet<tblUserWatchlists> tblUserWatchlists { get; set; }
         public virtual DbSet<tblWatchlists> tblWatchlists { get; set; }
         public virtual DbSet<tblWeeks> tblWeeks { get; set; }
+        public virtual DbSet<vwJson_MySportsFeedsData2018> vwJson_MySportsFeedsData2018 { get; set; }
+        public virtual DbSet<vwMySportsFeedsData2014> vwMySportsFeedsData2014 { get; set; }
+        public virtual DbSet<vwMySportsFeedsData2015> vwMySportsFeedsData2015 { get; set; }
+        public virtual DbSet<vwMySportsFeedsData2016> vwMySportsFeedsData2016 { get; set; }
+        public virtual DbSet<vwMySportsFeedsData2017> vwMySportsFeedsData2017 { get; set; }
+        public virtual DbSet<vwMySportsFeedsData2018> vwMySportsFeedsData2018 { get; set; }
+        public virtual DbSet<vwMySportsFeedsDataPlayerLogs2014> vwMySportsFeedsDataPlayerLogs2014 { get; set; }
+        public virtual DbSet<vwMySportsFeedsDataPlayerLogs2015> vwMySportsFeedsDataPlayerLogs2015 { get; set; }
+        public virtual DbSet<vwMySportsFeedsDataPlayerLogs2016> vwMySportsFeedsDataPlayerLogs2016 { get; set; }
+        public virtual DbSet<vwMySportsFeedsDataPlayerLogs2017> vwMySportsFeedsDataPlayerLogs2017 { get; set; }
+        public virtual DbSet<vwMySportsFeedsDataPlayerLogs2018> vwMySportsFeedsDataPlayerLogs2018 { get; set; }
     }
 }

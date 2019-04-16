@@ -764,5 +764,13 @@ SELECT
 	WeekSuffix
 FROM tblWeeks
 
---TODO: add SQL Agent job SQL syntax to GitHub
+CREATE VIEW vwJson_MySportsFeedsData2018 AS 
+SELECT 
+	ImportId,
+	MySportsFeedsData2018
+FROM tblJsonDump;
+
+SELECT *
+FROM vwJson_MySportsFeedsData2018
+
 --TODO: Add retry logic to. Possibly handle 429 codes differently?

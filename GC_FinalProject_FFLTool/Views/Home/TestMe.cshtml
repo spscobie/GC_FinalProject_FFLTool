@@ -4,6 +4,32 @@
 }
 
 <h2>TestMe</h2>
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Linq
+@{
+//int i = 0;
+    @*@ViewBag.theData[1]["player"];
+    <br /><br />
+    @ViewBag.theData[1]["team"];
+    <br /><br />
+    @ViewBag.theData[1]["stats"];*@
+    for (int i = 0; i < @ViewBag.theData.Count; i++)
+    {
 
-<p>@ViewBag.theData</ p >
-<p>@ViewBag.Poop</p>
+        <tr>
+            <td>@ViewBag.theData[i]["player"]["LastName"]</td>
+            @*<td>@(ViewBag.theData[i]["team"].HasValues == null || ViewBag.theData[i]["team"].HasValues == false ? "-" : ViewBag.theData[i]["team"]["Abbreviation"])</td>*@
+            <td>@(ViewBag.theData[i]["team"].ToString().Length > 0 ? JsonConvert.DeserializeObject<Dictionary<string, string>>( ViewBag.theData[i]["team"].ToString() )["Abbreviation"] : "-")</td>
+            @*<td>@(ViewBag.theData[i]["team"].ToString().Length > 0 ? ViewBag.theData[i]["team"]["Abbreviation"] : "-")</td>*@
+            @*<td>@(ViewBag.theData[i]["team"].ToString().Substring(ViewBag.theData[i]["team"].ToString().LastIndexOf(":") + 2))</td>*@
+            @*<td>@(ViewBag.theData[i]["team"].ToString().Length > 0 ? ViewBag.theData[i]["team"].ToString().Substring(3) : "-")</td>*@
+            @*<td>@(ViewBag.theData[i]["team"].ToString().Length)</td>*@
+            @*<td>@(ViewBag.theData[i]["team"])</td>*@
+            <td>@ViewBag.theData[i]["stats"]["PassYards"]["#text"]</td>
+        </tr>
+    }
+}
+@*<br /><br />*@
+@*<p>@ViewBag.theData.Count</p>
+    <p>@ViewBag.theData</ p >
+    <p>@ViewBag.Poop</p>*@

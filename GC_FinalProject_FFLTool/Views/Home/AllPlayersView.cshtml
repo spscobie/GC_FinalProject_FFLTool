@@ -104,7 +104,7 @@
             <td>@ViewBag.Players[i]["player"]["Position"]</td>
             <td>@ViewBag.Players[i]["player"]["FirstName"]</td>
             <td>@ViewBag.Players[i]["player"]["LastName"]</td>
-            <td>@ViewBag.Players[i]["team"]["Abbreviation"]</td>
+            <td>@(ViewBag.Players[i]["team"].ToString().Length > 0 ? ViewBag.Players[i]["team"]["Abbreviation"] : "-")</td>
             <td>@(ViewBag.Players[i]["stats"]["PassAttempts"] == null || ViewBag.Players[i]["stats"]["PassAttempts"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["PassAttempts"]["#text"])</td>
             <td>@(ViewBag.Players[i]["stats"]["PassCompletions"] == null || ViewBag.Players[i]["stats"]["PassCompletions"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["PassCompletions"]["#text"])</td>
             <td>@(ViewBag.Players[i]["stats"]["PassYards"] == null || ViewBag.Players[i]["stats"]["PassYards"]["#text"] == "0" ? "-" : ViewBag.Players[i]["stats"]["PassYards"]["#text"])</td>

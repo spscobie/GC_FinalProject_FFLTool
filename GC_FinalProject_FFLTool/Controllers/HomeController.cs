@@ -59,6 +59,7 @@ namespace GC_FinalProject_FFLTool.Controllers
             }
 
             JArray outData = new JArray(tempData.OrderByDescending( obj => Int32.Parse(obj["stats"][stat]["#text"].ToString())));
+
             ViewBag.theData = outData;
             return View("TestMe");
         }
@@ -240,15 +241,10 @@ namespace GC_FinalProject_FFLTool.Controllers
             return outData;
         }
 
-        public JArray DataRequestPos(string pos, string stat)
+        public JArray DataRequestPos(string pos, string stat, string season = "2018")
         {
-            FFLToolEntities2 ORM = new FFLToolEntities2();
 
-            tblJsonDump apiData = (from data in ORM.tblJsonDump
-                                   where data.ImportId == 1
-                                   select data).Single();
-
-            JObject apiDataJSON = JObject.Parse(apiData.MySportsFeedsData2018);
+            JObject apiDataJSON = DAL.GetCumulativeData(season);
 
             JArray tempData = new JArray();
             if (pos.ToUpper() == "ALL")
@@ -384,12 +380,13 @@ namespace GC_FinalProject_FFLTool.Controllers
 
         public ActionResult SearchPlayers(string pos, string player, string watchlistId)
         {
-            FFLToolEntities2 ORM = new FFLToolEntities2();
 
             // used dynamic here until a single type is defined consistently
             dynamic players;
-            List<string> playerList = player.Split(',').ToList();
+            List<string> playerList = new List<string> { };
 
+            if (player != null) { playerList = player.Split(',').ToList(); }
+            
             if (pos == "QB")
             {
                 if (player != null)
@@ -472,7 +469,6 @@ namespace GC_FinalProject_FFLTool.Controllers
 
             }
 
-            ViewBag.Players = players;
             ViewBag.UserWatchlists = DropdownWatchLists();
 
             if (WatchList != null && WatchList.Count != 0)
@@ -724,7 +720,7 @@ namespace GC_FinalProject_FFLTool.Controllers
             ORM.tblWatchlists.Remove(watchlist);
             ORM.SaveChanges();
 
-            JObject delPlayerJSON = ApiRequestHistorical(currentSeason, "?player=" + playerId);
+            JArray delPlayerJSON = DataRequestHistorical(currentSeason, new List<string> () { playerId });
             string delPlayer = (string)delPlayerJSON["cumulativeplayerstats"]["playerstatsentry"][0]["player"]["FirstName"] + " " + (string)delPlayerJSON["cumulativeplayerstats"]["playerstatsentry"][0]["player"]["LastName"];
 
             return RedirectToAction("WatchList", new
