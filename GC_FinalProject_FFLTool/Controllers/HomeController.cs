@@ -283,9 +283,12 @@ namespace GC_FinalProject_FFLTool.Controllers
             return apiDataJSON;
         }
 
-        public JObject ApiRequestPlayerLogs(string season, string playerIds)
+        public JObject ApiRequestPlayerLogs(string season, List<string> playerIds)
         {
-            HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/{season}/player_gamelogs.json{playerIds}");
+
+            string playerIdsStr = string.Join(",", playerIds);
+
+            HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.2/pull/nfl/{season}/player_gamelogs.json?player={playerIdsStr}");
             WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
             WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
             WebReq.Method = "GET";
@@ -302,7 +305,7 @@ namespace GC_FinalProject_FFLTool.Controllers
 
         public JObject ApiRequestSchedule()
         {
-            HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.1/pull/nfl/{currentSeason}/full_game_schedule.json?date=from-20171226-to-20180101");
+            HttpWebRequest WebReq = WebRequest.CreateHttp($"https://api.mysportsfeeds.com/v1.2/pull/nfl/{currentSeason}/full_game_schedule.json?date=from-20181225-to-20181231");
             WebReq.Headers.Add("Authorization", "Basic " + ConfigurationManager.AppSettings["AccessKey"]);
             WebReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0";
             WebReq.Method = "GET";
@@ -648,8 +651,8 @@ namespace GC_FinalProject_FFLTool.Controllers
                 newPlayer.Add(player.PlayerId.ToString());
             }
 
-            JArray playersCurr, players2017, players2016, players2015, players2014, playerlogsCurr, playerlogs2017, playerlogs2016, playerlogs2015, playerlogs2014;
-            JObject sched;
+            JArray playersCurr, players2017, players2016, players2015, players2014;
+            JObject sched, playerlogsCurr, playerlogs2017, playerlogs2016, playerlogs2015, playerlogs2014;
 
             /* Summary stats */
             playersCurr = DataRequestHistorical("2018", newPlayer);
@@ -658,23 +661,28 @@ namespace GC_FinalProject_FFLTool.Controllers
             players2015 = DataRequestHistorical("2015", newPlayer);
             players2014 = DataRequestHistorical("2014", newPlayer);
 
-
-            ViewBag.PlayersCurr = playersCurr["cumulativeplayerstats"]["playerstatsentry"];
-            ViewBag.Players2017 = players2017["cumulativeplayerstats"]["playerstatsentry"];
-            ViewBag.Players2016 = players2016["cumulativeplayerstats"]["playerstatsentry"];
-            ViewBag.Players2015 = players2015["cumulativeplayerstats"]["playerstatsentry"];
-            ViewBag.Players2014 = players2014["cumulativeplayerstats"]["playerstatsentry"];
+            ViewBag.PlayersCurr = playersCurr;
+            ViewBag.Players2017 = players2017;
+            ViewBag.Players2016 = players2016;
+            ViewBag.Players2015 = players2015;
+            ViewBag.Players2014 = players2014;
 
             /* Upcoming opponent */
             sched = ApiRequestSchedule();
             ViewBag.CurrOpp = sched["fullgameschedule"]["gameentry"];
 
             /* Game log stats */
-            playerlogsCurr = DataRequestPlayerLogs("2018", newPlayer);
-            playerlogs2017 = DataRequestPlayerLogs("2017", newPlayer);
-            playerlogs2016 = DataRequestPlayerLogs("2016", newPlayer);
-            playerlogs2015 = DataRequestPlayerLogs("2015", newPlayer);
-            playerlogs2014 = DataRequestPlayerLogs("2014", newPlayer);
+            playerlogsCurr = ApiRequestPlayerLogs("2018-regular", newPlayer);
+            playerlogs2017 = ApiRequestPlayerLogs("2017-regular", newPlayer);
+            playerlogs2016 = ApiRequestPlayerLogs("2016-2017-regular", newPlayer);
+            playerlogs2015 = ApiRequestPlayerLogs("2015-2016-regular", newPlayer);
+            playerlogs2014 = ApiRequestPlayerLogs("2014-2015-regular", newPlayer);
+
+            //playerlogsCurr = DataRequestPlayerLogs("2018", newPlayer);
+            //playerlogs2017 = DataRequestPlayerLogs("2017", newPlayer);
+            //playerlogs2016 = DataRequestPlayerLogs("2016", newPlayer);
+            //playerlogs2015 = DataRequestPlayerLogs("2015", newPlayer);
+            //playerlogs2014 = DataRequestPlayerLogs("2014", newPlayer);
 
             ViewBag.PlayersLogsCurr = playerlogsCurr["playergamelogs"]["gamelogs"];
             ViewBag.PlayersLogs2017 = playerlogs2017["playergamelogs"]["gamelogs"];

@@ -21,7 +21,7 @@ namespace GC_FinalProject_FFLTool.Models
             var objectContext = (this as IObjectContextAdapter).ObjectContext;
 
             // Sets the command timeout for all the commands
-            objectContext.CommandTimeout = 3 * 60;
+            objectContext.CommandTimeout = 5 * 60;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
